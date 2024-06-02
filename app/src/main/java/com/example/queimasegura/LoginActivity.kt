@@ -1,6 +1,7 @@
 package com.example.queimasegura
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
@@ -25,6 +26,9 @@ class LoginActivity : AppCompatActivity() {
                 Toast.makeText(this, "Please enter both username and password", Toast.LENGTH_SHORT).show()
             } else {
                 Toast.makeText(this, "Logging in...", Toast.LENGTH_SHORT).show()
+
+                val intent = Intent(this, RequestActivity::class.java)
+                startActivity(intent)
             }
         }
     }
