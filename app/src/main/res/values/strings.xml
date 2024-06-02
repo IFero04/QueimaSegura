@@ -74,6 +74,7 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="postcode_example" translatable="false">XXXX-XXX</string>
+    <string name="postcode_example_1" translatable="false">XXXX</string>
     <string name="coords_example" translatable="false">XXX.XXXXXX</string>
+    <string name="postcode_example_2" translatable="false">XXX</string>
 </resources>

@@ -27,13 +27,31 @@
             android:textSize="16sp" />
 
         <EditText
-            android:id="@+id/editTextTextPostalAddress"
+            android:id="@+id/editTextTextPostalAddress1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="130dp"
-            android:hint="@string/postcode_example"
+            android:layout_marginStart="105dp"
+            android:hint="@string/postcode_example_1"
             android:importantForAutofill="no"
-            android:inputType="textPostalAddress"
+            android:inputType="number"
+            android:minHeight="48dp"
+            android:textColorHint="@color/black" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="20dp"
+            android:layout_height="2dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/black" />
+
+        <EditText
+            android:id="@+id/editTextTextPostalAddress2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="@string/postcode_example_2"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            android:minWidth="48dp"
             android:minHeight="48dp"
             android:textColorHint="@color/black" />
     </LinearLayout>
