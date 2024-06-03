@@ -25,7 +25,7 @@
             android:name=".IntroSliderActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".common.login.LoginActivity"
             android:exported="false" />
 
     </application>

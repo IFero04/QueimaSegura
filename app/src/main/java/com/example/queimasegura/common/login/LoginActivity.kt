@@ -1,4 +1,4 @@
-package com.example.queimasegura
+package com.example.queimasegura.common.login
 
 
 import android.annotation.SuppressLint
@@ -9,20 +9,19 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import com.example.queimasegura.retrofit.api.ApiService
+import com.example.queimasegura.R
 import com.example.queimasegura.retrofit.api.RetrofitInstance
-import com.example.queimasegura.retrofit.model.Root
-import kotlinx.coroutines.CoroutineScope
+import com.example.queimasegura.retrofit.repository.Repository
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 
 class LoginActivity : AppCompatActivity() {
+    private  lateinit var viewModel: LoginViewModel
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,19 +45,14 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
-        val request = RetrofitInstance.buildService(ApiService::class.java)
-        val call = request.getApiName()
-
-        call.enqueue(object: Callback<Root>{
-            override fun onResponse(call: Call<Root>, response: Response<Root>) {
-                if (response.isSuccessful){
-                   text.text = response.body()?.Hello.toString()
-                }
-            }
-            override fun onFailure(call: Call<Root>, t: Throwable) {
-                text.text = t.message
-                Toast.makeText(this@LoginActivity, "${t.message}", Toast.LENGTH_SHORT).show()
-            }
+        val repository = Repository()
+        val viewModelFactory = LoginViewModelFactory(repository)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(LoginViewModel::class.java)
+        viewModel.getRoot()
+        viewModel.myResponse.observe(this, Observer { response ->
+            Log.d("Teste: ", response.apiName)
         })
     }
+
+
 }

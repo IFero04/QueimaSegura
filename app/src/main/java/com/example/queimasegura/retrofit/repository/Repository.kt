@@ -5,4 +5,7 @@ import retrofit2.Call
 
 class Repository {
 
+    suspend fun getRoot(): Root {
+        return RetrofitInstance.api.getRoot()
+    }
 }
