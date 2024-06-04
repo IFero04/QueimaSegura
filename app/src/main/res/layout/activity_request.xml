@@ -129,11 +129,12 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textViewMotiveHeader" />
 
-            <ImageView
-                android:id="@+id/imageViewDropDownMotive"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <ImageButton
+                android:id="@+id/imageButtonDropDownMotive"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:layout_marginEnd="16dp"
+                android:background="#00FFFFFF"
                 android:contentDescription="@string/drop_down_vector"
                 app:layout_constraintBottom_toTopOf="@+id/textViewLine"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -175,12 +176,12 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textViewDateHeader" />
 
-            <ImageView
-                android:id="@+id/imageViewDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+            <ImageButton
+                android:id="@+id/imageButtonDate"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:layout_marginEnd="16dp"
+                android:background="#00FFFFFF"
                 android:contentDescription="@string/calendar_vector"
                 app:layout_constraintBottom_toTopOf="@+id/textViewLine2"
                 app:layout_constraintEnd_toEndOf="parent"
