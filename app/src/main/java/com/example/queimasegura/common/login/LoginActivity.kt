@@ -47,7 +47,7 @@ class LoginActivity : AppCompatActivity() {
         viewModel.loginUser(myLogin)
         viewModel.loginResponse.observe(this, Observer { response ->
             if(response.isSuccessful){
-                Log.d("LOGIN", response.body().toString())
+                Log.d("LOGIN", response.body()?.result?.userId.toString())
                 Log.d("LOGIN", response.code().toString())
                 Log.d("LOGIN", response.message().toString())
             } else{
