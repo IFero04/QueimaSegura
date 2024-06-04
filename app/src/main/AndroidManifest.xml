@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.queimasegura">
 
@@ -11,23 +12,33 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.QueimaSegura">
-
         <activity
-            android:name=".SplashActivity"
+            android:name=".RequestActivity"
+            android:exported="false"
+            android:label="@string/title_activity_request"
+            android:theme="@style/Theme.QueimaSegura" />
+        <activity
+            android:name=".common.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
-            android:name=".IntroSliderActivity"
+            android:name=".common.IntroSliderActivity"
             android:exported="false" />
         <activity
-            android:name=".common.login.LoginActivity"
+            android:name=".common.LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".common.RegisterActivity"
             android:exported="false" />
 
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

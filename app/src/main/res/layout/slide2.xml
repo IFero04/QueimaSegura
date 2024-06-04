@@ -22,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="Place new requests, using a postcode or a map."
+        android:text="@string/intro_txt_2"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:gravity="center" />
 

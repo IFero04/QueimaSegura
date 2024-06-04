@@ -22,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="Veja as estatísticas em tempo real e faça a gestão dos pedidos de forma eficiente"
+        android:text="@string/intro_txt_1"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:gravity="center" />
 
