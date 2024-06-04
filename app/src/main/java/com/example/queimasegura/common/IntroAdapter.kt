@@ -1,9 +1,10 @@
-package com.example.queimasegura
+package com.example.queimasegura.common
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.queimasegura.R
 
 class IntroAdapter : RecyclerView.Adapter<IntroAdapter.IntroViewHolder>() {
 

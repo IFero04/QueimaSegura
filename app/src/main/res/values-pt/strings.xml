@@ -38,11 +38,11 @@
     <string name="delete_btn">Eliminar</string>
     <string name="user_perm">Utilizador</string>
     <string name="manager_perm">Gestor</string>
-    <string name="intro_txt_1">Veja estatísticas. O pedido mais recente aprovado. Crie novos pedidos.</string>
+    <string name="intro_txt_1">Veja as estatísticas em tempo real e faça a gestão dos pedidos de forma eficiente</string>
     <string name="intro_txt_2">Faça pedidos, apartir do código postal ou utilizando um mapa.</string>
     <string name="intro_txt_3">Confira informação sobre os seus pedidos.</string>
     <string name="create_acc">Criar Conta</string>
-    <string name="confirm_password">Confirme Password</string>
+    <string name="confirm_password">Confirmar Palavra Passe</string>
     <string name="create_acc_2">Completa o Teu Perfil</string>
     <string name="full_name">Nome Completo</string>
     <string name="finish_btn">Finalizar</string>
@@ -65,4 +65,11 @@
     <string name="calendar_vector">Calendário</string>
     <string name="yes">Sim</string>
     <string name="no">Não</string>
+    <string name="click">Clique Aqui!</string>
+    <string name="sign_up_prompt">"Se não tiver conta. "</string>
+    <string name="username">Nome de Utilizador</string>
+    <string name="password">Palavra Passe</string>
+    <string name="login">Iniciar Sessão</string>
+    <string name="login_desc">Por favor introduza o seu email e palavra passe para iniciar sessão</string>
+    <string name="sign_in_prompt">Se já tiver conta.</string>
 </resources>

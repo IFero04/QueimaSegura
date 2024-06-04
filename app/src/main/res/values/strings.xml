@@ -33,7 +33,7 @@
     <string name="start_date">Starting Date</string>
     <string name="end_date">Ending Date</string>
     <string name="users">Users</string>
-    <string name="username" translatable="false">Username</string>
+    <string name="username">Username</string>
     <string name="email" translatable="false">Email</string>
     <string name="users_header_type">Type</string>
     <string name="users_edit_btn">Edit Permissions</string>
@@ -46,7 +46,7 @@
     <string name="intro_txt_2">Place new requests, using a postcode or a map.</string>
     <string name="intro_txt_3">Check information about your requests.</string>
     <string name="create_acc">Create Account</string>
-    <string name="password" translatable="false">Password</string>
+    <string name="password">Password</string>
     <string name="confirm_password">Confirm Password</string>
     <string name="create_acc_2">Complete your Profile</string>
     <string name="full_name">Full Name</string>
@@ -77,4 +77,9 @@
     <string name="postcode_example_1" translatable="false">XXXX</string>
     <string name="coords_example" translatable="false">XXX.XXXXXX</string>
     <string name="postcode_example_2" translatable="false">XXX</string>
+    <string name="click">Click Here!</string>
+    <string name="sign_up_prompt">"If you don’t have an account. "</string>
+    <string name="login">Login</string>
+    <string name="login_desc">Please introduce your email and password to sign in</string>
+    <string name="sign_in_prompt">If you already have an account.</string>
 </resources>

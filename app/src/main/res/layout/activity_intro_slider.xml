@@ -23,10 +23,11 @@
 
     <ImageView
         android:id="@+id/fogob"
-        android:layout_width="411dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.2"
         android:adjustViewBounds="true"
         android:scaleType="fitEnd"
         android:src="@drawable/fogob" />
+
 </LinearLayout>

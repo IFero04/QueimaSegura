@@ -15,7 +15,7 @@
             android:label="@string/title_activity_request"
             android:theme="@style/Theme.QueimaSegura" />
         <activity
-            android:name=".SplashActivity"
+            android:name=".common.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,10 +24,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".IntroSliderActivity"
+            android:name=".common.IntroSliderActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".common.LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".common.RegisterActivity"
             android:exported="false" />
 
         <meta-data

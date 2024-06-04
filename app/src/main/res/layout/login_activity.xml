@@ -4,15 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:padding="16dp"
-    tools:context=".LoginActivity">
+    tools:context=".common.LoginActivity">
 
     <TextView
         android:id="@+id/textViewTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
-        android:text="Sign In"
+        android:text="@string/login"
         android:textColor="@color/colorPrimary"
         android:textSize="40sp"
         android:textStyle="bold"
@@ -28,19 +29,17 @@
         android:layout_marginTop="32dp"
         android:textSize="24sp"
         android:textAlignment="center"
-        android:text="Please introduce your email and password to sign in."
+        android:text="@string/login_desc"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textViewTitle" />
-
-    <!-- Username Label -->
 
     <TextView
         android:id="@+id/textViewUsernameLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="56dp"
-        android:text="Username"
+        android:text="@string/username"
         android:textColor="@color/colorPrimary"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -51,7 +50,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:hint="Username"
+        android:hint="@string/username"
         android:inputType="text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -63,7 +62,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
-        android:text="Password"
+        android:text="@string/password"
         android:textColor="@color/colorPrimary"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -73,24 +72,49 @@
         android:id="@+id/editTextPassword"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="84dp"
-        android:hint="Password"
+        android:layout_marginTop="12dp"
+        android:hint="@string/password"
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editTextUsername" />
+        app:layout_constraintTop_toBottomOf="@id/textViewPasswordLabel" />
 
-    <!-- Login Button -->
+    <LinearLayout
+        android:id="@+id/signUpPromptLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editTextPassword">
+
+        <TextView
+            android:id="@+id/textViewSignUpPromptPart1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sign_up_prompt"
+            android:textSize="16sp"
+            android:textColor="@android:color/black" />
+
+        <TextView
+            android:id="@+id/textViewSignUpPromptPart2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/click"
+            android:textSize="16sp"
+            android:textColor="@color/colorPrimary" />
+    </LinearLayout>
+
     <Button
         android:id="@+id/buttonLogin"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="272dp"
-        android:text="Login"
+        android:layout_marginTop="32dp"
+        android:text="@string/login"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editTextPassword" />
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
