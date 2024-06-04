@@ -3,18 +3,20 @@ package com.example.queimasegura.common.login
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.queimasegura.retrofit.model.AuthUser
+import com.example.queimasegura.retrofit.model.Login
 import com.example.queimasegura.retrofit.model.Root
 import com.example.queimasegura.retrofit.repository.Repository
 import kotlinx.coroutines.launch
 import retrofit2.Response
 
 class LoginViewModel(private val repository: Repository): ViewModel() {
-    val myResponse: MutableLiveData<Response<Root>> = MutableLiveData()
+    val loginResponse: MutableLiveData<Response<AuthUser>> = MutableLiveData()
 
-    fun getRoot() {
+    fun loginUser(login: Login) {
         viewModelScope.launch {
-            val response = repository.getRoot()
-            myResponse.value = response
+            val response = repository.loginUser(login)
+            loginResponse.value = response
         }
     }
 }
