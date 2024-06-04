@@ -30,7 +30,7 @@
             android:name=".common.IntroSliderActivity"
             android:exported="false" />
         <activity
-            android:name=".common.LoginActivity"
+            android:name=".common.login.LoginActivity"
             android:exported="false" />
         <activity
             android:name=".common.RegisterActivity"
