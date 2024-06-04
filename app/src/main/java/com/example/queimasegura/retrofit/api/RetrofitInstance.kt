@@ -1,6 +1,6 @@
 package com.example.queimasegura.retrofit.api
+
 import com.example.queimasegura.retrofit.util.Constants.Companion.BASE_URL
-import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 

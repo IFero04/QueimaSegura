@@ -47,10 +47,12 @@ class LoginActivity : AppCompatActivity() {
 
         val repository = Repository()
         val viewModelFactory = LoginViewModelFactory(repository)
-        viewModel = ViewModelProvider(this, viewModelFactory).get(LoginViewModel::class.java)
+        viewModel = ViewModelProvider(this, viewModelFactory)[LoginViewModel::class.java]
         viewModel.getRoot()
         viewModel.myResponse.observe(this, Observer { response ->
-            Log.d("Teste: ", response.apiName)
+            if(response.isSuccessful) {
+                Log.d("RESPONSE", response.body()?.apiName!!)
+            }
         })
     }
 

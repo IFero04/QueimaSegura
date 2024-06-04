@@ -1,11 +1,13 @@
 package com.example.queimasegura.retrofit.repository
+
+import com.example.queimasegura.retrofit.model.*
 import com.example.queimasegura.retrofit.api.RetrofitInstance
-import com.example.queimasegura.retrofit.model.Root
-import retrofit2.Call
+import retrofit2.Response
+
 
 class Repository {
 
-    suspend fun getRoot(): Root {
+    suspend fun getRoot(): Response<Root> {
         return RetrofitInstance.api.getRoot()
     }
 }
