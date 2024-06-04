@@ -18,6 +18,9 @@
             android:label="@string/title_activity_request"
             android:theme="@style/Theme.QueimaSegura" />
         <activity
+            android:name=".common.reqPerm.MapActivity"
+            android:exported="false" />
+        <activity
             android:name=".common.SplashActivity"
             android:exported="true">
             <intent-filter>

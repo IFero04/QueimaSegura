@@ -1,6 +1,8 @@
 package com.example.queimasegura.common.reqPerm
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.ImageButton
 import android.widget.RadioGroup
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -8,6 +10,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import com.example.queimasegura.R
+import com.example.queimasegura.common.login.LoginActivity
 import com.example.queimasegura.common.reqPerm.fragment.MapFragment
 import com.example.queimasegura.common.reqPerm.fragment.PostCodeFragment
 import com.example.queimasegura.common.reqPerm.fragment.QueimadaFragment
@@ -25,10 +28,10 @@ class RequestActivity : AppCompatActivity() {
             insets
         }
 
-        init()
+        btnListeners()
     }
 
-    private fun init() {
+    private fun btnListeners() {
         findViewById<RadioGroup>(R.id.radioGroupType).setOnCheckedChangeListener { _, checkedId ->
             handleTypeRadioGroupChange(checkedId)
         }
@@ -39,6 +42,11 @@ class RequestActivity : AppCompatActivity() {
 
         findViewById<RadioGroup>(R.id.radioGroupLocation).setOnCheckedChangeListener { _, checkedId ->
             handleLocationRadioGroupChange(checkedId)
+        }
+
+        findViewById<ImageButton>(R.id.imageButtonBack).setOnClickListener {
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
         }
     }
 
@@ -71,7 +79,11 @@ class RequestActivity : AppCompatActivity() {
     private fun handleLocationRadioGroupChange(checkedId: Int) {
         val fragment = when (checkedId) {
             R.id.radioButtonPostCode -> PostCodeFragment()
-            R.id.radioButtonMap -> MapFragment()
+            R.id.radioButtonMap -> {
+                val intent = Intent(this, MapActivity::class.java)
+                startActivity(intent)
+                null
+            }
             else -> null
         }
 
