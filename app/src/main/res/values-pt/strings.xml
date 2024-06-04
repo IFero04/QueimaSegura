@@ -26,7 +26,7 @@
     <string name="post_code">Código Postal</string>
     <string name="state">Estado</string>
     <string name="fire_tech">Técnico de Fogo</string>
-    <string name="area">Área</string>
+    <string name="area_colon">Área:</string>
     <string name="municipality">Município</string>
     <string name="rules">Regras</string>
     <string name="start_date">Data de Início</string>
@@ -72,4 +72,6 @@
     <string name="login">Iniciar Sessão</string>
     <string name="login_desc">Por favor introduza o seu email e palavra passe para iniciar sessão</string>
     <string name="sign_in_prompt">Se já tiver conta.</string>
+    <string name="area_question">Introduza Área de Queima:</string>
+    <string name="supp_team">Equipas de Apoio</string>
 </resources>
