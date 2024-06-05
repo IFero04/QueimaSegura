@@ -5,7 +5,7 @@
     android:id="@+id/mapFragmentLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".MapFragment">
+    tools:context=".common.reqPerm.fragment.MapFragment">
 
     <LinearLayout
         android:id="@+id/linearLayout"
