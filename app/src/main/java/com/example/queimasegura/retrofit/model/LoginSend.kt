@@ -1,6 +1,6 @@
 package com.example.queimasegura.retrofit.model
 
-data class Login(
+data class LoginSend(
     val email: String,
-    val password: String,
+    var password: String,
 )
