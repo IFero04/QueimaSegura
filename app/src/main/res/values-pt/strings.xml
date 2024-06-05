@@ -74,4 +74,5 @@
     <string name="sign_in_prompt">Se já tiver conta.</string>
     <string name="area_question">Introduza Área de Queima:</string>
     <string name="supp_team">Equipas de Apoio</string>
+    <string name="fire">Fogo</string>
 </resources>

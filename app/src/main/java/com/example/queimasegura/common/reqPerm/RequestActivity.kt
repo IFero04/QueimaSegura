@@ -2,16 +2,19 @@ package com.example.queimasegura.common.reqPerm
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
+import android.view.View
 import android.widget.ImageButton
 import android.widget.RadioGroup
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.PopupMenu
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import com.example.queimasegura.R
 import com.example.queimasegura.common.login.LoginActivity
-import com.example.queimasegura.common.reqPerm.fragment.MapFragment
 import com.example.queimasegura.common.reqPerm.fragment.PostCodeFragment
 import com.example.queimasegura.common.reqPerm.fragment.QueimadaFragment
 import com.example.queimasegura.common.reqPerm.fragment.SuppTeamFragment
@@ -47,6 +50,10 @@ class RequestActivity : AppCompatActivity() {
         findViewById<ImageButton>(R.id.imageButtonBack).setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
+        }
+
+        findViewById<ImageButton>(R.id.imageButtonDropDownMotive).setOnClickListener {
+            handleDropDownMenu(it, R.menu.temp_dropdown_motive)
         }
     }
 
@@ -92,6 +99,22 @@ class RequestActivity : AppCompatActivity() {
         } else {
             removeFragment(R.id.fragmentContainerViewLocation)
         }
+    }
+
+    private fun handleDropDownMenu(view: View, menuId: Int) {
+        val popupMenu = PopupMenu(this, view)
+        popupMenu.menuInflater.inflate(menuId, popupMenu.menu)
+
+        popupMenu.setOnMenuItemClickListener { item: MenuItem ->
+            showToast(item.title.toString())
+            true
+        }
+
+        popupMenu.show()
+    }
+
+    private fun showToast(str: String) {
+        Toast.makeText(this, str, Toast.LENGTH_SHORT).show()
     }
 
     private fun replaceFragment(fragment: Fragment, containerId: Int) {
