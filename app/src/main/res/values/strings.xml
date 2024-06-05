@@ -82,4 +82,7 @@
     <string name="login">Login</string>
     <string name="login_desc">Please introduce your email and password to sign in</string>
     <string name="sign_in_prompt">If you already have an account.</string>
+    <string name="area_question">Introduce Burning Area:</string>
+    <string name="supp_team">Support Teams</string>
+    <string name="fire">Fire</string>
 </resources>

@@ -25,7 +25,7 @@ class UserActivity : AppCompatActivity() {
 
     private fun setUpTabs() {
         val adapter = com.example.queimasegura.user.adapters.ViewPagerAdapter(this)
-        adapter.addFragment(RequestsFragment(), "Requests")
+        //adapter.addFragment(RequestsFragment(), "Requests")
         adapter.addFragment(HomeFragment(), "Home")
         adapter.addFragment(ProfileFragment(), "Profile")
         viewPager.adapter = adapter
