@@ -1,5 +1,6 @@
 package com.example.queimasegura.common.reqPerm
 
+import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
@@ -18,6 +19,7 @@ import com.example.queimasegura.common.login.LoginActivity
 import com.example.queimasegura.common.reqPerm.fragment.PostCodeFragment
 import com.example.queimasegura.common.reqPerm.fragment.QueimadaFragment
 import com.example.queimasegura.common.reqPerm.fragment.SuppTeamFragment
+import java.util.Calendar
 
 class RequestActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,6 +56,10 @@ class RequestActivity : AppCompatActivity() {
 
         findViewById<ImageButton>(R.id.imageButtonDropDownMotive).setOnClickListener {
             handleDropDownMenu(it, R.menu.temp_dropdown_motive)
+        }
+
+        findViewById<ImageButton>(R.id.imageButtonDate).setOnClickListener {
+            showDatePickerDialog()
         }
     }
 
@@ -112,6 +118,25 @@ class RequestActivity : AppCompatActivity() {
 
         popupMenu.show()
     }
+
+    private fun showDatePickerDialog() {
+        val calendar = Calendar.getInstance()
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH)
+        val day = calendar.get(Calendar.DAY_OF_MONTH)
+
+        val datePickerDialog = DatePickerDialog(this, { _, selectedYear, selectedMonth, selectedDay ->
+                // Handle the date selected
+                val selectedDate = "$selectedDay/${selectedMonth + 1}/$selectedYear"
+                showToast(selectedDate)
+            },
+            year, month, day
+        )
+
+        datePickerDialog.datePicker.minDate = System.currentTimeMillis() - 1000
+        datePickerDialog.show()
+    }
+
 
     private fun showToast(str: String) {
         Toast.makeText(this, str, Toast.LENGTH_SHORT).show()
