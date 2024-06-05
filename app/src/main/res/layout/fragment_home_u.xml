@@ -12,12 +12,12 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
-        android:contentDescription="@string/header"
         android:scaleType="fitStart"
         android:src="@drawable/fogoc"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/username_welcome"
@@ -40,5 +40,51 @@
         android:textSize="35sp"
         app:layout_constraintEnd_toStartOf="@+id/username_welcome"
         app:layout_constraintTop_toBottomOf="@+id/fogoc" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/pending_req"
+        android:textSize="20sp"
+        tools:layout_editor_absoluteX="31dp"
+        tools:layout_editor_absoluteY="221dp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/hourglass"
+        tools:layout_editor_absoluteX="74dp"
+        tools:layout_editor_absoluteY="261dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1"
+        android:textSize="20sp"
+        tools:layout_editor_absoluteX="116dp"
+        tools:layout_editor_absoluteY="373dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/fire_prevented"
+        android:textSize="20sp"
+        tools:layout_editor_absoluteX="234dp"
+        tools:layout_editor_absoluteY="221dp" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/fire"
+        tools:layout_editor_absoluteX="261dp"
+        tools:layout_editor_absoluteY="261dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1"
+        android:textSize="20sp"
+        tools:layout_editor_absoluteX="292dp"
+        tools:layout_editor_absoluteY="374dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
