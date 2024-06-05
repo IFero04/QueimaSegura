@@ -2,32 +2,46 @@ package com.example.queimasegura.common.login
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
+import android.text.TextUtils
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.queimasegura.R
 import com.example.queimasegura.common.RegisterActivity
-import com.example.queimasegura.retrofit.model.Login
+import com.example.queimasegura.retrofit.model.ErrorApi
+import com.example.queimasegura.retrofit.model.LoginSend
 import com.example.queimasegura.retrofit.repository.Repository
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var viewModel: LoginViewModel
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(
+        savedInstanceState: Bundle?
+    ) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login_activity)
 
-        val usernameEditText = findViewById<EditText>(R.id.editTextUsername)
-        val passwordEditText = findViewById<EditText>(R.id.editTextPassword)
+        initViewModels()
+
+        val emailTextEdit = findViewById<EditText>(R.id.editTextEmail)
+        val passwordTextEdit = findViewById<EditText>(R.id.editTextPassword)
         val loginButton = findViewById<Button>(R.id.buttonLogin)
 
         loginButton.setOnClickListener {
-            login()
+            val email = emailTextEdit.text.toString()
+            val password = passwordTextEdit.text.toString()
+
+            if(inputCheck(email, password)){
+                val myLoginSend = LoginSend(email, password)
+                viewModel.loginUser(myLoginSend)
+            }
+
         }
 
         val signUpPromptPart2: TextView = findViewById(R.id.textViewSignUpPromptPart2)
@@ -38,21 +52,25 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    fun login() {
+    private fun initViewModels() {
         val repository = Repository()
-        val viewModelFactory = LoginViewModelFactory(repository)
-        viewModel = ViewModelProvider(this, viewModelFactory).get(LoginViewModel::class.java)
+        val viewModelFactory = LoginViewModelFactory(application, repository)
+        viewModel = ViewModelProvider(this, viewModelFactory)[LoginViewModel::class.java]
 
-        val myLogin = Login("afonsofariatech@gmail.com", "e10adc3949ba59abbe56e057f20f883e")
-        viewModel.loginUser(myLogin)
-        viewModel.loginResponse.observe(this, Observer { response ->
-            if(response.isSuccessful){
-                Log.d("LOGIN", response.body()?.result?.userId.toString())
-                Log.d("LOGIN", response.code().toString())
-                Log.d("LOGIN", response.message().toString())
-            } else{
-                Toast.makeText(this, response.code(), Toast.LENGTH_SHORT).show()
+
+        viewModel.loginResponse.observe(this) { response ->
+            if (response.isSuccessful) {
+                Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show()
+            } else {
+                val gson = Gson()
+                val type = object : TypeToken<ErrorApi>() {}.type
+                val errorApiResponse: ErrorApi? = gson.fromJson(response.errorBody()?.charStream(), type)
+                Toast.makeText(this, errorApiResponse?.detail, Toast.LENGTH_SHORT).show()
             }
-        })
+        }
+    }
+
+    private fun inputCheck(email: String, password: String): Boolean {
+        return !(TextUtils.isEmpty(email) && TextUtils.isEmpty(password))
     }
 }

@@ -1,8 +1,8 @@
 package com.example.queimasegura.retrofit.repository
 
-import android.icu.text.StringSearch
 import com.example.queimasegura.retrofit.model.*
 import com.example.queimasegura.retrofit.api.RetrofitInstance
+import com.example.queimasegura.retrofit.util.MD5
 import retrofit2.Response
 
 
@@ -12,8 +12,9 @@ class Repository {
         return RetrofitInstance.api.getRoot()
     }
 
-    suspend fun loginUser(login: Login): Response<AuthUser>{
-        return RetrofitInstance.api.loginUser(login)
+    suspend fun loginUser(loginSend: LoginSend): Response<LoginGet>{
+        loginSend.password = MD5().getMD5Hash(loginSend.password)
+        return RetrofitInstance.api.loginUser(loginSend)
     }
 
     suspend fun getLocation(search: String): Response<Location> {
