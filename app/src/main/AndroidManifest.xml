@@ -13,12 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.QueimaSegura">
         <activity
-            android:name=".common.reqPerm.RequestActivity"
-            android:exported="true"
-            android:label="@string/title_activity_request"
-            android:theme="@style/Theme.QueimaSegura" />
-        <activity
-            android:name=".user.UserActivity"
+            android:name=".common.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,6 +21,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".common.reqPerm.RequestActivity"
+            android:exported="true"
+            android:label="@string/title_activity_request"
+            android:theme="@style/Theme.QueimaSegura" />
         <activity
             android:name=".common.IntroSliderActivity"
             android:exported="false" />

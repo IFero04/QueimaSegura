@@ -61,6 +61,14 @@ class LoginActivity : AppCompatActivity() {
         viewModel.loginResponse.observe(this) { response ->
             if (response.isSuccessful) {
                 Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show()
+                val type = response.body()?.result?.user?.type
+
+                when(type) {
+                    0 -> println("USER")
+                    50 -> println("GESTOR")
+                    100 -> println("ADMIN")
+                }
+
             } else {
                 val gson = Gson()
                 val type = object : TypeToken<ErrorApi>() {}.type
