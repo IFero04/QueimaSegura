@@ -2,46 +2,51 @@ package com.example.queimasegura.admin
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
-import androidx.viewpager2.adapter.FragmentStateAdapter
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.viewpager2.widget.ViewPager2
 import com.example.queimasegura.R
+import com.example.queimasegura.admin.adapters.ViewPagerAdapter
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
 class AdminActivity : AppCompatActivity() {
 
+    private lateinit var viewPager: ViewPager2
+    private lateinit var tabs: TabLayout
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.admin_dash)
+        setContentView(R.layout.admin_activity)
 
-        val viewPager: ViewPager2 = findViewById(R.id.view_pager)
-        val tabLayout: TabLayout = findViewById(R.id.tab_layout)
+        viewPager = findViewById(R.id.viewPager)
+        tabs = findViewById(R.id.tabs)
 
-        viewPager.adapter = ScreenSlidePagerAdapter(this)
-
-        TabLayoutMediator(tabLayout, viewPager,
-            TabLayoutMediator.TabConfigurationStrategy { tab, position ->
-                when (position) {
-                    0 -> tab.text = "Rules"
-                    1 -> tab.text = "Requests"
-                    2 -> tab.text = "Home"
-                    3 -> tab.text = "Users"
-                    4 -> tab.text = "Profile"
-
-                }
-            }).attach()
+        setUpTabs()
     }
 
-    private inner class ScreenSlidePagerAdapter(fa: FragmentActivity) : FragmentStateAdapter(fa) {
-        override fun createFragment(position: Int): Fragment {
-            // Retorne os fragmentos para cada aba
-            return DashboardFragment()
-        }
+    private fun setUpTabs() {
+        val adapter = ViewPagerAdapter(this)
+        adapter.addFragment(RulesFragment(), "Rules")
+        adapter.addFragment(RequestsFragment(), "Requests")
+        adapter.addFragment(HomeFragment(), "Home")
+        adapter.addFragment(UsersFragment(), "Users")
+        adapter.addFragment(ProfileFragment(), "Profile")
+        viewPager.adapter = adapter
 
-        override fun getItemCount(): Int {
-            return 5 // Número de abas
-        }
+        // Use TabLayoutMediator to link the TabLayout and the ViewPager2
+        TabLayoutMediator(tabs, viewPager) { tab, position ->
+            tab.icon = when (position) {
+                0 -> AppCompatResources.getDrawable(this, R.drawable.rules)
+                1 -> AppCompatResources.getDrawable(this, R.drawable.bonfire)
+                2 -> AppCompatResources.getDrawable(this, R.drawable.home)
+                3 -> AppCompatResources.getDrawable(this, R.drawable.users)
+                4 -> AppCompatResources.getDrawable(this, R.drawable.profile)
+                else -> null
+            }
+            tab.text = null // Remove the text label
+        }.attach()
+
+        // Set "Home" tab as the initial tab
+        viewPager.currentItem = 2
     }
 }
