@@ -76,5 +76,6 @@
     <string name="supp_team">Support Teams</string>
     <string name="fire">Fire</string>
     <string name="continue_btn">Continue</string>
+    <string name="type">Type:</string>
 
 </resources>
