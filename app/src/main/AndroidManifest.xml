@@ -16,7 +16,7 @@
             android:name=".common.CompleteInfoActivity"
             android:exported="false" />
         <activity
-            android:name=".common.SplashActivity"
+            android:name=".user.UserActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
