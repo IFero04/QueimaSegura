@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.QueimaSegura">
         <activity
-            android:name=".common.CompleteInfoActivity"
+            android:name=".common.register.CompleteInfoActivity"
             android:exported="false" />
         <activity
             android:name=".common.SplashActivity"
@@ -36,7 +36,7 @@
             android:name=".common.login.LoginActivity"
             android:exported="true" />
         <activity
-            android:name=".common.RegisterActivity"
+            android:name=".common.register.RegisterActivity"
             android:exported="false" />
 
         <meta-data

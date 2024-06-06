@@ -5,13 +5,11 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.widget.Button
 import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.queimasegura.R
-import com.example.queimasegura.common.RegisterActivity
+import com.example.queimasegura.common.register.RegisterActivity
 import com.example.queimasegura.retrofit.model.ErrorApi
 import com.example.queimasegura.retrofit.model.LoginSend
 import com.example.queimasegura.retrofit.repository.Repository
@@ -42,7 +40,6 @@ class LoginActivity : AppCompatActivity() {
                 val myLoginSend = LoginSend(email, password)
                 viewModel.loginUser(myLoginSend)
             }
-
         }
 
         findViewById<Button>(R.id.clickHereButton).setOnClickListener {
@@ -58,8 +55,8 @@ class LoginActivity : AppCompatActivity() {
 
 
         viewModel.loginResponse.observe(this) { response ->
-            if (response.isSuccessful) {
-                Toast.makeText(this, "Login successful", Toast.LENGTH_SHORT).show()
+            if(response.isSuccessful) {
+                Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show()
                 val type = response.body()?.result?.user?.type
 
                 when(type) {
