@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -31,9 +32,7 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
-        val signUpPromptPart2: TextView = findViewById(R.id.textViewSignUpPromptPart2)
-
-        signUpPromptPart2.setOnClickListener {
+        findViewById<Button>(R.id.clickHereButton).setOnClickListener {
             val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
         }

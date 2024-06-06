@@ -75,4 +75,5 @@
     <string name="area_question">Introduza Área de Queima:</string>
     <string name="supp_team">Equipas de Apoio</string>
     <string name="fire">Fogo</string>
+    <string name="continue_btn">Continua</string>
 </resources>

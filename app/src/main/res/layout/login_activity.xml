@@ -98,13 +98,15 @@
             android:textSize="16sp"
             android:textColor="@android:color/black" />
 
-        <TextView
-            android:id="@+id/textViewSignUpPromptPart2"
+        <Button
+            android:id="@+id/clickHereButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="#00FFFFFF"
             android:text="@string/click"
-            android:textSize="16sp"
-            android:textColor="@color/colorPrimary" />
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp" />
+
     </LinearLayout>
 
     <Button
