@@ -16,7 +16,7 @@
             android:name=".common.CompleteInfoActivity"
             android:exported="false" />
         <activity
-            android:name=".user.UserActivity"
+            android:name=".manager.ManagerActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -38,6 +38,9 @@
         <activity
             android:name=".common.RegisterActivity"
             android:exported="false" />
+        <activity android:name=".manager.ProfileActivity"
+            android:exported="false" />
+
 
         <meta-data
             android:name="preloaded_fonts"
