@@ -94,5 +94,8 @@ dependencies {
     // Lifecycle
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.1")
 
+    //Maps
+    implementation("com.google.android.gms:play-services-maps:18.2.0")
+
 
 }
