@@ -19,7 +19,7 @@
             android:name=".common.reqPerm.SearchActivity"
             android:exported="false" />
         <activity
-            android:name=".common.CompleteInfoActivity"
+            android:name=".common.register.CompleteInfoActivity"
             android:exported="false" />
         <activity
             android:name=".manager.ManagerActivity"
@@ -46,7 +46,7 @@
             android:name=".common.login.LoginActivity"
             android:exported="true" />
         <activity
-            android:name=".common.RegisterActivity"
+            android:name=".common.register.RegisterActivity"
             android:exported="false" />
         <activity android:name=".manager.ProfileActivity"
             android:exported="false" />

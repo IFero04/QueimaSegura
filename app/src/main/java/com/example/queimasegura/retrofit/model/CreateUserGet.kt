@@ -1,12 +1,12 @@
 package com.example.queimasegura.retrofit.model
 
-data class LoginData(
+data class CreateUserData(
     val sessionId: String,
-    val user: User
+    val userId: String
 )
 
-data class LoginGet(
+data class CreateUserGet(
     val status: String,
     val message: String,
-    val result: LoginData,
+    val result: CreateUserData,
 )

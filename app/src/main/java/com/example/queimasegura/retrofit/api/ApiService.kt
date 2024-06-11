@@ -10,13 +10,22 @@ interface ApiService {
     suspend fun getRoot(): Response<Root>
 
     // USERS
+    @POST("/users/")
+    suspend fun createUser(
+        @Body createUserSend: CreateUserSend
+    ): Response<CreateUserGet>
+
+    @POST("/users/check_email/")
+    suspend fun checkEmail(
+        @Query("email") email: String
+    ): Response<CheckEmailGet>
+
     @POST("/login/")
     suspend fun loginUser(
         @Body loginSend: LoginSend
     ): Response<LoginGet>
 
-    @POST("/users/")
-    suspend fun createUser(): Response<CreateUser>
+
 
     @GET("/location/")
     suspend fun getLocation(

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:padding="16dp"
-    tools:context=".common.RegisterActivity">
+    tools:context=".common.register.RegisterActivity">
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -60,7 +60,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textViewUsermame" />
+        app:layout_constraintTop_toBottomOf="@id/textViewUsermame"
+        android:autofillHints="" />
 
     <TextView
         android:id="@+id/textViewEmail"
@@ -85,7 +86,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textViewEmail" />
+        app:layout_constraintTop_toBottomOf="@id/textViewEmail"
+        android:autofillHints="" />
 
     <TextView
         android:id="@+id/textViewPass"
@@ -110,7 +112,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewPass" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewPass"
+        android:autofillHints="" />
 
     <TextView
         android:id="@+id/textViewConfirmPass"
@@ -135,7 +138,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewConfirmPass" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewConfirmPass"
+        android:autofillHints="" />
 
     <LinearLayout
         android:id="@+id/signUpPromptLayout"

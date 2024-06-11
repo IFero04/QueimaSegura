@@ -1,12 +1,13 @@
-package com.example.queimasegura.common.login
+package com.example.queimasegura.common.register
 
 import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.queimasegura.retrofit.model.LoginGet
-import com.example.queimasegura.retrofit.model.LoginSend
+import com.example.queimasegura.retrofit.model.CheckEmailGet
+import com.example.queimasegura.retrofit.model.CreateUserGet
+import com.example.queimasegura.retrofit.model.CreateUserSend
 import com.example.queimasegura.retrofit.repository.Repository
 import com.example.queimasegura.room.db.AppDataBase
 import com.example.queimasegura.room.entities.User
@@ -15,12 +16,14 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Response
 
-class LoginViewModel(
+class RegisterViewModel(
     application: Application,
     private val repository: Repository
 ): ViewModel() {
-    private val _loginResponse = MutableLiveData<Response<LoginGet>>()
-    val loginResponse: LiveData<Response<LoginGet>> get() = _loginResponse
+    private val _checkEmailResponse = MutableLiveData<Response<CheckEmailGet>>()
+    val checkEmailResponse: LiveData<Response<CheckEmailGet>> get() = _checkEmailResponse
+    private val _createUserResponse = MutableLiveData<Response<CreateUserGet>>()
+    val createUserResponse: LiveData<Response<CreateUserGet>> get() = _createUserResponse
 
     private val userRepository: UserRepository
 
@@ -29,21 +32,32 @@ class LoginViewModel(
         userRepository = UserRepository(userDao)
     }
 
-    fun loginUser(loginBody: LoginSend) {
+    fun checkEmail(
+        email: String,
+    ) {
         viewModelScope.launch {
-            val response = repository.loginUser(loginBody)
-            _loginResponse.value = response
+            val response = repository.checkEmail(email)
+            _checkEmailResponse.value = response
+        }
+    }
+
+    fun createUser(
+        createUserBody: CreateUserSend
+    ) {
+        viewModelScope.launch {
+            val response = repository.createUser(createUserBody)
+            _createUserResponse.value = response
             if(response.isSuccessful) {
                 val resetJob = resetUserData()
                 resetJob.join()
                 response.body()?.result?.let {
                     val user = User(
-                        id = it.user.id,
+                        id = it.userId,
                         sessionId = it.sessionId,
-                        email = loginBody.email,
-                        fullName = it.user.fullName,
-                        nif = it.user.nif,
-                        type = it.user.type
+                        email = createUserBody.email,
+                        fullName = createUserBody.fullName,
+                        nif = createUserBody.nif.toInt(),
+                        type = 0
                     )
                     saveUser(user)
                 }
