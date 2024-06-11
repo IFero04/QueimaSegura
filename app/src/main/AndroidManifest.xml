@@ -3,6 +3,9 @@
     package="com.example.queimasegura">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -12,6 +15,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.QueimaSegura">
+        <activity
+            android:name=".common.reqPerm.SearchActivity"
+            android:exported="false" />
         <activity
             android:name=".common.CompleteInfoActivity"
             android:exported="false" />
@@ -28,7 +34,11 @@
             android:name=".common.reqPerm.RequestActivity"
             android:exported="true"
             android:label="@string/title_activity_request"
-            android:theme="@style/Theme.QueimaSegura" />
+            android:theme="@style/Theme.QueimaSegura"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".common.reqPerm.MapActivity"
+            android:exported="false" />
         <activity
             android:name=".common.IntroSliderActivity"
             android:exported="false" />
@@ -41,10 +51,12 @@
         <activity android:name=".manager.ProfileActivity"
             android:exported="false" />
 
-
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyC746C5NQx0CL7ojLDomKyxthRmiSw7jW0" />
     </application>
 
 </manifest>

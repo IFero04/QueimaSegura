@@ -50,7 +50,7 @@
     <string name="supp_team_question">Need a support team?*</string>
     <string name="location">Location*</string>
     <string name="map">Map</string>
-    <string name="post_code_txt">Enter your Postcode:</string>
+    <string name="post_code_txt">Postcode/Location:</string>
     <string name="register_btn">Register</string>
     <string name="cancel_btn">Cancel</string>
     <string name="confirm_location_btn">Confirm Location</string>
@@ -77,5 +77,7 @@
     <string name="fire">Fire</string>
     <string name="continue_btn">Continue</string>
     <string name="type">Type:</string>
+    <string name="marker_boundaries_toast">Please place a marker within Portugal boundaries!</string>
+    <string name="coords_not_selected_toast">A location must be selected!</string>
 
 </resources>

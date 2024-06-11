@@ -50,7 +50,7 @@
     <string name="supp_team_question">Necessita de Equipa de Apoio?*</string>
     <string name="location">Localização*</string>
     <string name="map">Mapa</string>
-    <string name="post_code_txt">Introduza o Código Postal:</string>
+    <string name="post_code_txt">Código Postal/Localização:</string>
     <string name="register_btn">Registar</string>
     <string name="cancel_btn">Cancelar</string>
     <string name="confirm_location_btn">Confirmar Localização</string>
@@ -77,4 +77,6 @@
     <string name="fire">Fogo</string>
     <string name="continue_btn">Continua</string>
     <string name="type">Tipo:</string>
+    <string name="marker_boundaries_toast">Por favor coloque o marcador dentro dos limites de Portugal!</string>
+    <string name="coords_not_selected_toast">Uma localização deve ser selecionada!</string>
 </resources>

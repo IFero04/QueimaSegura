@@ -1,5 +1,6 @@
 package com.example.queimasegura.common.reqPerm.fragment
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,6 +13,21 @@ import androidx.appcompat.widget.PopupMenu
 import com.example.queimasegura.R
 
 class SuppTeamFragment : Fragment() {
+
+    interface OnSuppTeamSelectedListener {
+        fun onSuppTeamSelected(suppTeam: String)
+    }
+
+    private var listener: OnSuppTeamSelectedListener? = null
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is OnSuppTeamSelectedListener) {
+            listener = context
+        } else {
+            throw RuntimeException("$context must implement OnSuppTeamSelectedListener")
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,7 +47,7 @@ class SuppTeamFragment : Fragment() {
         popupMenu.menuInflater.inflate(menuId, popupMenu.menu)
 
         popupMenu.setOnMenuItemClickListener { item: MenuItem ->
-            showToast(item.title.toString())
+            listener?.onSuppTeamSelected(item.title.toString())
             true
         }
 
