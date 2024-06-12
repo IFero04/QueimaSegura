@@ -22,7 +22,7 @@
         android:id="@+id/username_welcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="52dp"
         android:text="@string/username"
         android:textSize="35sp"
