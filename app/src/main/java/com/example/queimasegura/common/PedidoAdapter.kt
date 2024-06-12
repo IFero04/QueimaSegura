@@ -7,6 +7,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.queimasegura.R
 import com.example.queimasegura.common.Pedido
+import com.example.queimasegura.common.QueimaDetailsActivity
+import com.example.queimasegura.common.QueimadaDetailsActivity
 
 class PedidoAdapter(
     private val context: Context,
@@ -26,7 +28,12 @@ class PedidoAdapter(
         holder.stateTextView.text = pedido.state
 
         holder.itemView.setOnClickListener {
-            val intent = Intent(context, DetailActivity::class.java).apply {
+            val intent = when (pedido.type) {
+                "Queima" -> Intent(context, QueimaDetailsActivity::class.java)
+                "Queimada" -> Intent(context, QueimadaDetailsActivity::class.java)
+                else -> return@setOnClickListener
+            }
+            intent.apply {
                 putExtra("type", pedido.type)
                 putExtra("date", pedido.date)
                 putExtra("state", pedido.state)

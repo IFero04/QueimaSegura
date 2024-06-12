@@ -39,6 +39,6 @@ class ManagerActivity : AppCompatActivity() {
 
         ).sortedByDescending { it.date }
 
-        recyclerView.adapter = PedidoAdapter(pedidos)
+        recyclerView.adapter = PedidoAdapter(this, pedidos)
     }
 }

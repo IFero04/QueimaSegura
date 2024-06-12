@@ -50,6 +50,10 @@
             android:exported="false" />
         <activity android:name=".manager.ProfileActivity"
             android:exported="false" />
+        <activity android:name=".common.QueimaDetailsActivity"
+            android:exported="false" />
+        <activity android:name=".common.QueimadaDetailsActivity"
+            android:exported="false" />
 
         <meta-data
             android:name="preloaded_fonts"
