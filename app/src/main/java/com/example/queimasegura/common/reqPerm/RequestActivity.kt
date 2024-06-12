@@ -2,9 +2,11 @@ package com.example.queimasegura.common.reqPerm
 
 import android.app.DatePickerDialog
 import android.content.Intent
+import android.icu.text.SimpleDateFormat
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import android.widget.Button
 import android.widget.ImageButton
 import android.widget.RadioGroup
 import android.widget.Toast
@@ -16,12 +18,22 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import com.example.queimasegura.R
 import com.example.queimasegura.common.login.LoginActivity
-import com.example.queimasegura.common.reqPerm.fragment.PostCodeFragment
 import com.example.queimasegura.common.reqPerm.fragment.QueimadaFragment
 import com.example.queimasegura.common.reqPerm.fragment.SuppTeamFragment
 import java.util.Calendar
+import java.util.Date
+import java.util.Locale
 
-class RequestActivity : AppCompatActivity() {
+class RequestActivity : AppCompatActivity(), SuppTeamFragment.OnSuppTeamSelectedListener {
+    private lateinit var type: String
+    private lateinit var motive: String
+    private lateinit var date: Date
+    private lateinit var suppTeam: String
+    private lateinit var postCode: String
+    private var latitude: Double? = null
+    private var longitude: Double? = null
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -34,6 +46,12 @@ class RequestActivity : AppCompatActivity() {
         }
 
         btnListeners()
+        getCoords()
+    }
+
+    private fun getCoords() {
+        latitude = intent.getDoubleExtra("latitude", Double.NaN)
+        longitude = intent.getDoubleExtra("longitude", Double.NaN)
     }
 
     private fun btnListeners() {
@@ -45,8 +63,14 @@ class RequestActivity : AppCompatActivity() {
             handleSuppTeamRadioGroupChange(checkedId)
         }
 
-        findViewById<RadioGroup>(R.id.radioGroupLocation).setOnCheckedChangeListener { _, checkedId ->
-            handleLocationRadioGroupChange(checkedId)
+        findViewById<Button>(R.id.buttonMap).setOnClickListener {
+            val intent = Intent(this, MapActivity::class.java)
+            startActivity(intent)
+        }
+
+        findViewById<Button>(R.id.buttonPostCode).setOnClickListener {
+            val intent = Intent(this, SearchActivity::class.java)
+            startActivity(intent)
         }
 
         findViewById<ImageButton>(R.id.imageButtonBack).setOnClickListener {
@@ -55,7 +79,7 @@ class RequestActivity : AppCompatActivity() {
         }
 
         findViewById<ImageButton>(R.id.imageButtonDropDownMotive).setOnClickListener {
-            handleDropDownMenu(it, R.menu.temp_dropdown_motive)
+            handleDropDownMotiveMenu(it, R.menu.temp_dropdown_motive)
         }
 
         findViewById<ImageButton>(R.id.imageButtonDate).setOnClickListener {
@@ -74,6 +98,11 @@ class RequestActivity : AppCompatActivity() {
         } else {
             removeFragment(R.id.fragmentContainerViewType)
         }
+
+        when (checkedId) {
+            R.id.radioButtonQueima -> type = R.id.radioButtonQueima.toString()
+            R.id.radioButtonQueimada -> type = R.id.radioButtonQueimada.toString()
+        }
     }
 
     private fun handleSuppTeamRadioGroupChange(checkedId: Int) {
@@ -89,30 +118,16 @@ class RequestActivity : AppCompatActivity() {
         }
     }
 
-    private fun handleLocationRadioGroupChange(checkedId: Int) {
-        val fragment = when (checkedId) {
-            R.id.radioButtonPostCode -> PostCodeFragment()
-            R.id.radioButtonMap -> {
-                val intent = Intent(this, MapActivity::class.java)
-                startActivity(intent)
-                null
-            }
-            else -> null
-        }
-
-        if (fragment != null) {
-            replaceFragment(fragment, R.id.fragmentContainerViewLocation)
-        } else {
-            removeFragment(R.id.fragmentContainerViewLocation)
-        }
+    override fun onSuppTeamSelected(suppTeam: String) {
+        this.suppTeam = suppTeam
     }
 
-    private fun handleDropDownMenu(view: View, menuId: Int) {
+    private fun handleDropDownMotiveMenu(view: View, menuId: Int) {
         val popupMenu = PopupMenu(this, view)
         popupMenu.menuInflater.inflate(menuId, popupMenu.menu)
 
         popupMenu.setOnMenuItemClickListener { item: MenuItem ->
-            showToast(item.title.toString())
+            motive = item.title.toString()
             true
         }
 
@@ -126,8 +141,9 @@ class RequestActivity : AppCompatActivity() {
         val day = calendar.get(Calendar.DAY_OF_MONTH)
 
         val datePickerDialog = DatePickerDialog(this, { _, selectedYear, selectedMonth, selectedDay ->
-                // Handle the date selected
                 val selectedDate = "$selectedDay/${selectedMonth + 1}/$selectedYear"
+                val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+                date = dateFormat.parse(selectedDate) ?: Date()
                 showToast(selectedDate)
             },
             year, month, day
