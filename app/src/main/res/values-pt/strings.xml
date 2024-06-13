@@ -79,4 +79,5 @@
     <string name="type">Tipo:</string>
     <string name="marker_boundaries_toast">Por favor coloque o marcador dentro dos limites de Portugal!</string>
     <string name="coords_not_selected_toast">Uma localização deve ser selecionada!</string>
+    <string name="Requests">Pedidos</string>
 </resources>
