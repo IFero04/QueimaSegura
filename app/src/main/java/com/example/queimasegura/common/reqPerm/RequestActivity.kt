@@ -17,7 +17,6 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import com.example.queimasegura.R
-import com.example.queimasegura.common.login.LoginActivity
 import com.example.queimasegura.common.reqPerm.fragment.QueimadaFragment
 import com.example.queimasegura.common.reqPerm.fragment.SuppTeamFragment
 import java.util.Calendar
@@ -74,8 +73,7 @@ class RequestActivity : AppCompatActivity(), SuppTeamFragment.OnSuppTeamSelected
         }
 
         findViewById<ImageButton>(R.id.imageButtonBack).setOnClickListener {
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
+            finish()
         }
 
         findViewById<ImageButton>(R.id.imageButtonDropDownMotive).setOnClickListener {
