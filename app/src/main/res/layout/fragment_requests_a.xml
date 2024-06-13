@@ -10,11 +10,11 @@
         android:id="@+id/profileText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/Requests"
-        android:textSize="50sp"
-        android:textColor="@color/colorPrimary"
+        android:layout_margin="16dp"
         android:gravity="center"
-        android:layout_margin="16dp" />
+        android:text="@string/Requests"
+        android:textColor="@color/colorPrimary"
+        android:textSize="50sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -54,6 +54,6 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:padding="16dp"
-        android:clipToPadding="false" />
+        android:clipToPadding="false"
+        android:padding="16dp" />
 </LinearLayout>

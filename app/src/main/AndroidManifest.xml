@@ -22,7 +22,7 @@
             android:name=".common.register.CompleteInfoActivity"
             android:exported="false" />
         <activity
-            android:name=".admin.AdminActivity"
+            android:name=".user.UserActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
