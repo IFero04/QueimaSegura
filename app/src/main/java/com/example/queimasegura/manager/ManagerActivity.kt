@@ -1,6 +1,5 @@
 package com.example.queimasegura.manager
 
-import PedidoAdapter
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageView
@@ -9,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.queimasegura.R
 import com.example.queimasegura.common.Pedido
+import com.example.queimasegura.common.PedidoAdapter
 
 class ManagerActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

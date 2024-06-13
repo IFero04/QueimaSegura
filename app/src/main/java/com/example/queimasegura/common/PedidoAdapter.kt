@@ -1,3 +1,5 @@
+package com.example.queimasegura.common
+
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -6,9 +8,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.queimasegura.R
-import com.example.queimasegura.common.Pedido
-import com.example.queimasegura.common.QueimaDetailsActivity
-import com.example.queimasegura.common.QueimadaDetailsActivity
 
 class PedidoAdapter(
     private val context: Context,
