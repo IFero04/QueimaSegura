@@ -6,7 +6,7 @@
     android:padding="16dp">
 
     <TextView
-        android:id="@+id/username"
+        android:id="@+id/district"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -14,14 +14,14 @@
         android:gravity="center" />
 
     <TextView
-        android:id="@+id/email"
+        android:id="@+id/startDate"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center" />
 
     <TextView
-        android:id="@+id/type"
+        android:id="@+id/endDate"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"

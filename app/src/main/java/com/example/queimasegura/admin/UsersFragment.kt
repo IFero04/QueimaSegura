@@ -8,8 +8,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.queimasegura.R
-import com.example.queimasegura.common.user.User
-import com.example.queimasegura.common.user.UserAdapter
+import com.example.queimasegura.admin.model.User
+import com.example.queimasegura.admin.adapters.UserAdapter
 
 class UsersFragment : Fragment() {
 
@@ -26,7 +26,7 @@ class UsersFragment : Fragment() {
         recyclerView = view.findViewById(R.id.recyclerViewUserTable)
         recyclerView.layoutManager = LinearLayoutManager(activity)
 
-        userList = List(10) { index ->
+        userList = List(15) { index ->
             User("Username$index", "email$index@example.com", "Manager")
         }
 

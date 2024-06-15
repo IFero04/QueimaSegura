@@ -1,4 +1,4 @@
-package com.example.queimasegura.common.user
+package com.example.queimasegura.admin.model
 
 data class User(
     val username: String,

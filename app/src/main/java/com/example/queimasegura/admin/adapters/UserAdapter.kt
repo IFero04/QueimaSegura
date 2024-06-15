@@ -1,4 +1,4 @@
-package com.example.queimasegura.common.user
+package com.example.queimasegura.admin.adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.queimasegura.R
+import com.example.queimasegura.admin.model.User
 
 class UserAdapter(private val userList: List<User>) : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
 
@@ -25,6 +26,13 @@ class UserAdapter(private val userList: List<User>) : RecyclerView.Adapter<UserA
         holder.username.text = user.username
         holder.email.text = user.email
         holder.type.text = user.type
+
+        val backgroundColor = if (position % 2 == 0) {
+            holder.itemView.context.getColor(R.color.white)
+        } else {
+            holder.itemView.context.getColor(R.color.colorAccent)
+        }
+        holder.itemView.setBackgroundColor(backgroundColor)
     }
 
     override fun getItemCount() = userList.size

@@ -86,7 +86,7 @@
     <string name="supp_team">Support Teams</string>
     <string name="fire">Fire</string>
     <string name="continue_btn">Continue</string>
-    <string name="type">Type:</string>
+    <string name="type">Type</string>
     <string name="marker_boundaries_toast">Please place a marker within Portugal boundaries!</string>
     <string name="coords_not_selected_toast">A location must be selected!</string>
     <string name="Requests">Requests</string>
