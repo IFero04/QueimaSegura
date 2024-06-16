@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.queimasegura.R
 import com.example.queimasegura.admin.model.User
 
-class UserAdapter(private val userList: List<User>, private val itemClickListener: (Int) -> Unit) : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
+class UserAdapter(private val userList: MutableList<User>, private val itemClickListener: (Int) -> Unit) : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
 
     class UserViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val username: TextView = view.findViewById(R.id.username)
@@ -45,7 +45,7 @@ class UserAdapter(private val userList: List<User>, private val itemClickListene
     override fun getItemCount() = userList.size
 
     fun updateUserPermission(position: Int, newPermission: String) {
-        (userList as MutableList)[position].type = newPermission
+        userList[position].type = newPermission
         notifyItemChanged(position)
     }
 

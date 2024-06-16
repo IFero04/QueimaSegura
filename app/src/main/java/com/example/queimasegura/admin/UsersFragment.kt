@@ -19,7 +19,7 @@ class UsersFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: UserAdapter
-    private lateinit var userList: List<User>
+    private lateinit var userList: MutableList<User>
     private var isPermissionMode: Boolean = false
 
     override fun onCreateView(
