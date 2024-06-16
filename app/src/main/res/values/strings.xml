@@ -90,4 +90,7 @@
     <string name="marker_boundaries_toast">Please place a marker within Portugal boundaries!</string>
     <string name="coords_not_selected_toast">A location must be selected!</string>
     <string name="Requests">Requests</string>
+    <string name="confirm_btn">Confirm</string>
+    <string name="leave_edit_mode">Leave edit mode</string>
+    <!-- TODO: Remove or change this placeholder text -->
 </resources>
