@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.queimasegura.R
 import com.example.queimasegura.admin.model.Rule
 
-class RuleAdapter(private val rulesList: List<Rule>) : RecyclerView.Adapter<RuleAdapter.RuleViewHolder>() {
+class RuleAdapter(private val rulesList: MutableList<Rule>, private val itemClickListener: (Int) -> Unit) : RecyclerView.Adapter<RuleAdapter.RuleViewHolder>() {
 
     class RuleViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val district: TextView = view.findViewById(R.id.district)
@@ -33,7 +33,17 @@ class RuleAdapter(private val rulesList: List<Rule>) : RecyclerView.Adapter<Rule
             holder.itemView.context.getColor(R.color.colorAccent)
         }
         holder.itemView.setBackgroundColor(backgroundColor)
+
+        holder.itemView.setOnClickListener {
+            itemClickListener(position)
+        }
     }
 
     override fun getItemCount() = rulesList.size
+
+    fun deleteRule(position: Int) {
+        rulesList.removeAt(position)
+        notifyItemRemoved(position)
+        notifyItemRangeChanged(position, rulesList.size)
+    }
 }

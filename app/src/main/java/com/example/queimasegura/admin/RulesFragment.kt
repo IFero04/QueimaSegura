@@ -30,6 +30,7 @@ class RulesFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: RuleAdapter
     private lateinit var rulesList: MutableList<Rule>
+    private var isDeleteMode = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,12 +47,24 @@ class RulesFragment : Fragment() {
             Rule("District$index", sampleDate, sampleDate)
         }
 
-        adapter = RuleAdapter(rulesList)
+        adapter = RuleAdapter(rulesList) { position ->
+            if (isDeleteMode) {
+                adapter.deleteRule(position)
+                isDeleteMode = false
+                Toast.makeText(requireContext(), "Item deleted", Toast.LENGTH_SHORT).show()
+            }
+        }
         recyclerView.adapter = adapter
 
         val buttonAdd: Button = view.findViewById(R.id.buttonAdd)
         buttonAdd.setOnClickListener {
             showAddRuleFragment()
+        }
+
+        val buttonDelete: Button = view.findViewById(R.id.buttonDelete)
+        buttonDelete.setOnClickListener {
+            isDeleteMode = true
+            Toast.makeText(requireContext(), "Select an item to delete", Toast.LENGTH_SHORT).show()
         }
 
         return view
