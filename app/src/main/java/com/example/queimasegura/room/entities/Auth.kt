@@ -3,8 +3,8 @@ package com.example.queimasegura.room.entities
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "user_table")
-data class User(
+@Entity(tableName = "auth_table")
+data class Auth(
     @PrimaryKey
     val id: String,
     var sessionId: String?,
