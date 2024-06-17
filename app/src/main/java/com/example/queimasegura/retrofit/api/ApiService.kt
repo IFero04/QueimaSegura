@@ -26,6 +26,12 @@ interface ApiService {
         @Body loginSend: LoginSend
     ): Response<LoginGet>
 
+    @DELETE("/logout/")
+    suspend fun logoutUSer(
+        @Query("user_id") userId: String,
+        @Query("session_id") sessionId: String
+    ): Response<LogoutGet>
+
     // USERS
     @POST("/users/")
     suspend fun createUser(

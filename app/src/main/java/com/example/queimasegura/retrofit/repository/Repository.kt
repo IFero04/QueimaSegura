@@ -25,11 +25,19 @@ class Repository {
         return RetrofitInstance.api.checkSession(userId, sessionId)
     }
 
-    suspend fun loginUser(loginSend: LoginSend): Response<LoginGet>{
+    suspend fun loginUser(
+        loginSend: LoginSend
+    ): Response<LoginGet>{
         loginSend.password = MD5().getMD5Hash(loginSend.password)
         return RetrofitInstance.api.loginUser(loginSend)
     }
 
+    suspend fun logoutUser(
+        userId: String,
+        sessionId: String
+    ): Response<LogoutGet> {
+        return RetrofitInstance.api.logoutUSer(userId, sessionId)
+    }
     // Users
 
     suspend fun createUser(

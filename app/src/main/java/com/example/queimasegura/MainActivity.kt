@@ -19,18 +19,12 @@ class MainActivity : AppCompatActivity() {
 
         initViewModels()
 
-
-        startActivity(Intent(this, IntroSliderActivity::class.java))
-        finish()
+        viewModel.startApp()
     }
-
 
     private fun initViewModels() {
         val repository = Repository()
         val viewModelFactory = MainViewModelFactory(application, repository)
         viewModel = ViewModelProvider(this, viewModelFactory)[MainViewModel::class.java]
-
-        viewModel.checkIfUserIsLoggedIn()
-
     }
 }
