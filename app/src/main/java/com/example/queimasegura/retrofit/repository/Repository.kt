@@ -7,27 +7,36 @@ import retrofit2.Response
 
 
 class Repository {
-
     suspend fun getRoot(): Response<Root> {
         return RetrofitInstance.api.getRoot()
     }
 
-    suspend fun createUser(
-        createUserSend: CreateUserSend
-    ): Response<CreateUserGet> {
-        createUserSend.password = MD5().getMD5Hash(createUserSend.password)
-        return RetrofitInstance.api.createUser(createUserSend)
-    }
-
+    // Auth
     suspend fun checkEmail(
         email: String
     ): Response<CheckEmailGet> {
         return RetrofitInstance.api.checkEmail(email)
     }
 
+    suspend fun checkSession(
+        userId: String,
+        sessionId: String
+    ): Response<CheckSessionGet> {
+        return RetrofitInstance.api.checkSession(userId, sessionId)
+    }
+
     suspend fun loginUser(loginSend: LoginSend): Response<LoginGet>{
         loginSend.password = MD5().getMD5Hash(loginSend.password)
         return RetrofitInstance.api.loginUser(loginSend)
+    }
+
+    // Users
+
+    suspend fun createUser(
+        createUserSend: CreateUserSend
+    ): Response<CreateUserGet> {
+        createUserSend.password = MD5().getMD5Hash(createUserSend.password)
+        return RetrofitInstance.api.createUser(createUserSend)
     }
 
     suspend fun getLocation(search: String): Response<Location> {
