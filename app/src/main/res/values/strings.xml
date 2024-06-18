@@ -36,7 +36,7 @@
     <string name="username">Username</string>
     <string name="email" translatable="false">Email</string>
     <string name="users_header_type">Type</string>
-    <string name="users_edit_btn">Edit Permissions</string>
+    <string name="users_edit_btn">Edit</string>
     <string name="add_btn">Add</string>
     <string name="delete_btn">Delete</string>
     <string name="user_perm">User</string>
@@ -91,8 +91,7 @@
     <string name="coords_not_selected_toast">A location must be selected!</string>
     <string name="Requests">Requests</string>
     <string name="confirm_btn">Confirm</string>
-    <string name="leave_edit_mode">Leave edit mode</string>
+    <string name="leave_edit_mode">Leave</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

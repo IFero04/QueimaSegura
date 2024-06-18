@@ -4,16 +4,23 @@ import android.app.AlertDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.RadioButton
 import android.widget.RadioGroup
+import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.widget.PopupMenu
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.queimasegura.R
 import com.example.queimasegura.admin.model.User
 import com.example.queimasegura.admin.adapters.UserAdapter
+import com.example.queimasegura.admin.model.Rule
 
 class UsersFragment : Fragment() {
 
@@ -41,6 +48,11 @@ class UsersFragment : Fragment() {
             }
         }
         recyclerView.adapter = adapter
+
+        val buttonAdd: Button = view.findViewById(R.id.buttonAdd)
+        buttonAdd.setOnClickListener {
+            showAddRuleFragment()
+        }
 
         val buttonPermissions: Button = view.findViewById(R.id.buttonPermissions)
         buttonPermissions.text = getString(R.string.users_edit_btn)
@@ -88,5 +100,62 @@ class UsersFragment : Fragment() {
             adapter.updateUserPermission(position, selectedPermission)
             dialog.dismiss()
         }
+    }
+
+    private fun showAddRuleFragment() {
+        val dialogView = LayoutInflater.from(context).inflate(R.layout.fragment_add_user, null)
+        val dialogBuilder = AlertDialog.Builder(context)
+            .setView(dialogView)
+            .setTitle("Add Rule")
+
+        val dialog = dialogBuilder.create()
+        dialog.show()
+
+        dialogView.findViewById<ImageButton>(R.id.imageButtonDropDownType).setOnClickListener {
+            handleDropDownMenu(it, R.menu.temp_dropdown_type, dialogView.findViewById(R.id.textViewType))
+        }
+
+        dialogView.findViewById<Button>(R.id.buttonConfirm).setOnClickListener {
+            val username: String = dialogView.findViewById<EditText>(R.id.editTextUsername).text.toString()
+            val email: String = dialogView.findViewById<EditText>(R.id.editTextEmail).text.toString()
+            val type: String = dialogView.findViewById<TextView>(R.id.textViewType).text.toString()
+
+            val isValid = handleConfirmation(username, email, type)
+
+            if (isValid) {
+                val newUser = User(username, email, type)
+                userList.add(newUser)
+                adapter.notifyItemInserted(userList.size -1)
+                dialog.dismiss()
+            }
+        }
+    }
+
+    private fun handleDropDownMenu(view: View, menuId: Int, textView: TextView) {
+        val popupMenu = PopupMenu(requireContext(), view)
+        popupMenu.menuInflater.inflate(menuId, popupMenu.menu)
+
+        popupMenu.setOnMenuItemClickListener { item: MenuItem ->
+            textView.text = item.title
+            true
+        }
+
+        popupMenu.show()
+    }
+
+    private fun handleConfirmation(username: String, email: String, type: String): Boolean {
+        if (username.isEmpty() || email.isEmpty() || type.isEmpty()) {
+            Toast.makeText(requireContext(), "Please fill in all fields1", Toast.LENGTH_SHORT).show()
+            return false
+        }
+
+        val emailExists = userList.any { user -> user.email == email }
+
+        if (emailExists) {
+            Toast.makeText(requireContext(), "Email already exists!", Toast.LENGTH_SHORT).show()
+            return false
+        }
+
+        return true
     }
 }

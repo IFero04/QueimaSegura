@@ -33,7 +33,7 @@
     <string name="end_date">Data de Fim</string>
     <string name="users">Utilizadores</string>
     <string name="users_header_type">Tipo</string>
-    <string name="users_edit_btn">Editar Permissões</string>
+    <string name="users_edit_btn">Editar</string>
     <string name="add_btn">Adicionar</string>
     <string name="delete_btn">Eliminar</string>
     <string name="user_perm">Utilizador</string>
@@ -81,5 +81,5 @@
     <string name="coords_not_selected_toast">Uma localização deve ser selecionada!</string>
     <string name="Requests">Pedidos</string>
     <string name="confirm_btn">Confirmar</string>
-    <string name="leave_edit_mode">Sair do mode de edição</string>
+    <string name="leave_edit_mode">Sair</string>
 </resources>
