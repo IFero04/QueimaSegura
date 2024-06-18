@@ -49,4 +49,10 @@ class UserAdapter(private val userList: MutableList<User>, private val itemClick
         notifyItemChanged(position)
     }
 
+    fun deleteRule(position: Int) {
+        userList.removeAt(position)
+        notifyItemRemoved(position)
+        notifyItemRangeChanged(position, userList.size)
+    }
+
 }

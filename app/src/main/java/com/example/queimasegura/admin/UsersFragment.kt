@@ -28,6 +28,7 @@ class UsersFragment : Fragment() {
     private lateinit var adapter: UserAdapter
     private lateinit var userList: MutableList<User>
     private var isPermissionMode: Boolean = false
+    private var isDeleteMode = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,12 +47,23 @@ class UsersFragment : Fragment() {
             if (isPermissionMode) {
                 showPermissionDialog(position)
             }
+            if (isDeleteMode) {
+                adapter.deleteRule(position)
+                isDeleteMode = false
+                Toast.makeText(requireContext(), "Item deleted", Toast.LENGTH_SHORT).show()
+            }
         }
         recyclerView.adapter = adapter
 
         val buttonAdd: Button = view.findViewById(R.id.buttonAdd)
         buttonAdd.setOnClickListener {
             showAddRuleFragment()
+        }
+
+        val buttonDelete: Button = view.findViewById(R.id.buttonDelete)
+        buttonDelete.setOnClickListener {
+            isDeleteMode = true
+            Toast.makeText(requireContext(), "Select an item to delete", Toast.LENGTH_SHORT).show()
         }
 
         val buttonPermissions: Button = view.findViewById(R.id.buttonPermissions)
@@ -64,6 +76,8 @@ class UsersFragment : Fragment() {
                 getString(R.string.users_edit_btn)
             }
         }
+
+        if (isPermissionMode) Toast.makeText(requireContext(), "Select an item to edit", Toast.LENGTH_SHORT).show()
 
         return view
     }
