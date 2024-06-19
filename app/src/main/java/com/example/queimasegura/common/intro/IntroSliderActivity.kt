@@ -1,7 +1,8 @@
-package com.example.queimasegura.common
+package com.example.queimasegura.common.intro
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.example.queimasegura.R
@@ -28,12 +29,16 @@ class IntroSliderActivity : AppCompatActivity() {
         TabLayoutMediator(tabLayout, viewPager) { _, _ -> }.attach()
 
         viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            private var currentPosition = 0
+
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
-                // Verifica se está na última página
+                currentPosition = position
                 if (position == introAdapter.itemCount - 1) {
-                    startActivity(Intent(this@IntroSliderActivity, LoginActivity::class.java))
-                    finish()
+                    findViewById<View>(R.id.lastSlide).setOnClickListener {
+                        startActivity(Intent(this@IntroSliderActivity, LoginActivity::class.java))
+                        finish()
+                    }
                 }
             }
         })
