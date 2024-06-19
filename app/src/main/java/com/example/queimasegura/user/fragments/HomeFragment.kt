@@ -1,4 +1,4 @@
-package com.example.queimasegura.user
+package com.example.queimasegura.user.fragments
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,8 +10,8 @@ import androidx.fragment.app.Fragment
 import com.example.queimasegura.R
 import com.example.queimasegura.common.reqPerm.RequestActivity
 
-class HomeFragment : Fragment() {
 
+class HomeFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

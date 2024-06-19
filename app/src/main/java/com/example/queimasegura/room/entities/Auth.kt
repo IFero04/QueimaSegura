@@ -3,6 +3,7 @@ package com.example.queimasegura.room.entities
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
+
 @Entity(tableName = "auth_table")
 data class Auth(
     @PrimaryKey

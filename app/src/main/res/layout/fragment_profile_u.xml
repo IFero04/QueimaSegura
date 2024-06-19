@@ -12,7 +12,7 @@
         android:background="@color/white"
         android:orientation="vertical"
         android:baselineAligned="false"
-        tools:context=".user.ProfileFragment">
+        tools:context=".user.fragments.ProfileFragment">
 
         <ImageView
             android:id="@+id/fogoc"

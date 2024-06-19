@@ -5,11 +5,20 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.queimasegura.room.dao.AuthDao
+import com.example.queimasegura.room.dao.ControllerDao
+import com.example.queimasegura.room.dao.ReasonDao
+import com.example.queimasegura.room.dao.TypeDao
 import com.example.queimasegura.room.entities.Auth
+import com.example.queimasegura.room.entities.Controller
+import com.example.queimasegura.room.entities.Reason
+import com.example.queimasegura.room.entities.Type
 
-@Database(entities = [Auth::class], version = 1, exportSchema = false)
+@Database(entities = [Auth::class, Controller::class, Reason::class, Type::class], version = 1, exportSchema = false)
 abstract class AppDataBase: RoomDatabase() {
-    abstract fun userDao(): AuthDao
+    abstract fun authDao(): AuthDao
+    abstract fun controllerDao(): ControllerDao
+    abstract fun reasonDao(): ReasonDao
+    abstract fun typeDao(): TypeDao
 
     companion object{
         @Volatile

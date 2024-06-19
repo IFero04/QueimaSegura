@@ -1,4 +1,4 @@
-package com.example.queimasegura.user
+package com.example.queimasegura.user.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

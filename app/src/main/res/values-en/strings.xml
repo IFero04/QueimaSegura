@@ -81,4 +81,9 @@
     <string name="coords_not_selected_toast">A location must be selected!</string>
     <string name="Requests">Requests</string>
 
+    <!-- Main Activity -->
+    <string name="main_error_controller">Properties not found, turn on internet access</string>
+    <string name="main_error_auth">No session found, turn on internet access</string>
+    <string name="main_error_login">Account accessed from other device, please login again</string>
+
 </resources>

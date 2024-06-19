@@ -80,4 +80,10 @@
     <string name="marker_boundaries_toast">Por favor coloque o marcador dentro dos limites de Portugal!</string>
     <string name="coords_not_selected_toast">Uma localização deve ser selecionada!</string>
     <string name="Requests">Pedidos</string>
+
+    <!-- Main Activity -->
+    <string name="main_error_controller">Propriedades não encontradas, ligar acesso a internet</string>
+    <string name="main_error_auth">Sessão não encontrada, ligar acesso a internet</string>
+    <string name="main_error_login">Conta acedidade por outro despositivo, por favor logar novamente</string>
+
 </resources>

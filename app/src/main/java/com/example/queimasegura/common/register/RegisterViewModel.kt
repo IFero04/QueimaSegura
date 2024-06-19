@@ -28,8 +28,8 @@ class RegisterViewModel(
     private val authRepository: AuthRepository
 
     init {
-        val userDao = AppDataBase.getDatabase(application).userDao()
-        authRepository = AuthRepository(userDao)
+        val authDao = AppDataBase.getDatabase(application).authDao()
+        authRepository = AuthRepository(authDao)
     }
 
     fun checkEmail(
