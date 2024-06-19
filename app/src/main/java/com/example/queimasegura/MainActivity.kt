@@ -10,6 +10,7 @@ import com.example.queimasegura.common.intro.IntroSliderActivity
 import com.example.queimasegura.common.login.LoginActivity
 import com.example.queimasegura.retrofit.repository.Repository
 import com.example.queimasegura.user.HomeFragment
+import com.example.queimasegura.user.UserActivity
 
 class MainActivity : AppCompatActivity() {
     private lateinit var viewModel: MainViewModel
@@ -47,7 +48,7 @@ class MainActivity : AppCompatActivity() {
             when (state) {
                 MainViewModel.UserState.INTERNET_AUTH -> {
                     Log.d("UserState", "Have internet and auth")
-                    startActivity(Intent(this, HomeFragment::class.java))
+                    startActivity(Intent(this, UserActivity::class.java))
                     finish()
                 }
                 MainViewModel.UserState.INTERNET_NO_AUTH -> {
