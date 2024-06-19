@@ -1,4 +1,4 @@
-package com.example.queimasegura.common
+package com.example.queimasegura.common.intro
 
 import android.view.LayoutInflater
 import android.view.View
