@@ -5,9 +5,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.queimasegura.retrofit.model.CheckEmailGet
 import com.example.queimasegura.retrofit.model.CreateUserGet
 import com.example.queimasegura.retrofit.model.CreateUserSend
+import com.example.queimasegura.retrofit.model.SimpleResponseGet
 import com.example.queimasegura.retrofit.repository.Repository
 import com.example.queimasegura.room.db.AppDataBase
 import com.example.queimasegura.room.entities.Auth
@@ -20,8 +20,8 @@ class RegisterViewModel(
     application: Application,
     private val repository: Repository
 ): ViewModel() {
-    private val _checkEmailResponse = MutableLiveData<Response<CheckEmailGet>>()
-    val checkEmailResponse: LiveData<Response<CheckEmailGet>> get() = _checkEmailResponse
+    private val _checkEmailResponse = MutableLiveData<Response<SimpleResponseGet>>()
+    val checkEmailResponse: LiveData<Response<SimpleResponseGet>> get() = _checkEmailResponse
     private val _createUserResponse = MutableLiveData<Response<CreateUserGet>>()
     val createUserResponse: LiveData<Response<CreateUserGet>> get() = _createUserResponse
 
