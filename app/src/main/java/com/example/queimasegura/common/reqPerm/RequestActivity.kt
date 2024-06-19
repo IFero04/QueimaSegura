@@ -83,8 +83,14 @@ class RequestActivity : AppCompatActivity(), SuppTeamFragment.OnSuppTeamSelected
         findViewById<ImageButton>(R.id.imageButtonDate).setOnClickListener {
             showDatePickerDialog()
         }
-    }
 
+        findViewById<Button>(R.id.buttonCancel).setOnClickListener {
+            cancelRequest()
+        }
+    }
+    private fun cancelRequest() {
+        finish()
+    }
     private fun handleTypeRadioGroupChange(checkedId: Int) {
         val fragment = when (checkedId) {
             R.id.radioButtonQueimada -> QueimadaFragment()

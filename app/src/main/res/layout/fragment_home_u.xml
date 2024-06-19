@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    tools:context=".admin.HomeFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".user.HomeFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:baselineAligned="false">
 
@@ -160,7 +159,7 @@
                     android:id="@+id/current_request"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Current Request"
+                    android:text="@string/curr_req"
                     android:textSize="20sp"
                     android:textColor="@color/black"
                     android:layout_gravity="center_vertical" />
@@ -175,15 +174,16 @@
         </LinearLayout>
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
             app:cardBackgroundColor="@color/secondary"
-            app:cardElevation="4dp"
-            app:cardCornerRadius="8dp">
+            app:cardCornerRadius="8dp"
+            app:cardElevation="4dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -191,35 +191,96 @@
                 android:orientation="vertical"
                 android:padding="16dp">
 
-                <TextView
-                    android:id="@+id/type"
-                    android:layout_width="wrap_content"
+                <!-- Linha para o tipo -->
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/type"
-                    android:textSize="18sp"
-                    android:textColor="@color/black" />
+                    android:orientation="horizontal">
 
-                <TextView
-                    android:id="@+id/date"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/date"
-                    android:textSize="18sp"
-                    android:textColor="@color/black"
-                    android:layout_marginTop="8dp" />
+                    <TextView
+                        android:id="@+id/typeLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/type"
+                        android:textSize="18sp"
+                        android:textColor="@color/black" />
 
-                <TextView
-                    android:id="@+id/state"
-                    android:layout_width="wrap_content"
+                    <TextView
+                        android:id="@+id/type"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp"
+                        android:textColor="@color/black"
+                        android:layout_marginLeft="4dp"/>
+                </LinearLayout>
+
+                <!-- Linha para a data -->
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/state"
-                    android:textSize="18sp"
-                    android:textColor="@color/black"
-                    android:layout_marginTop="8dp" />
+                    android:orientation="horizontal"
+                    android:layout_marginTop="8dp">
+
+                    <TextView
+                        android:id="@+id/dateLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp"
+                        android:text="@string/date"
+                        android:textColor="@color/black" />
+
+                    <TextView
+                        android:id="@+id/stateSeparator"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp"
+                        android:text=":"
+                        android:textColor="@color/black"/>
+
+                    <TextView
+                        android:id="@+id/date"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp"
+                        android:textColor="@color/black"
+                        android:layout_marginLeft="8dp"/>
+                </LinearLayout>
+
+                <!-- Linha para o estado -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="8dp">
+
+                    <TextView
+                        android:id="@+id/stateLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp"
+                        android:text="@string/state"
+                        android:textColor="@color/black" />
+
+                    <TextView
+                        android:id="@+id/stateSeparator"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp"
+                        android:text=":"
+                        android:textColor="@color/black"/>
+
+                    <TextView
+                        android:id="@+id/state"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp"
+                        android:textColor="@color/black"
+                        android:layout_marginLeft="8dp"/>
+                </LinearLayout>
 
             </LinearLayout>
-
         </androidx.cardview.widget.CardView>
+
 
     </LinearLayout>
 
@@ -229,10 +290,9 @@
         android:layout_height="72dp"
         android:layout_gravity="end|bottom"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="30dp"
         android:src="@drawable/add"
         android:background="?attr/selectableItemBackgroundBorderless"
         />
 
 </FrameLayout>
-
