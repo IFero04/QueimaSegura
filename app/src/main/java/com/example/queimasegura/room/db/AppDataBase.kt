@@ -4,12 +4,12 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.queimasegura.room.dao.UserDao
-import com.example.queimasegura.room.entities.User
+import com.example.queimasegura.room.dao.AuthDao
+import com.example.queimasegura.room.entities.Auth
 
-@Database(entities = [User::class], version = 1, exportSchema = false)
+@Database(entities = [Auth::class], version = 1, exportSchema = false)
 abstract class AppDataBase: RoomDatabase() {
-    abstract fun userDao(): UserDao
+    abstract fun userDao(): AuthDao
 
     companion object{
         @Volatile

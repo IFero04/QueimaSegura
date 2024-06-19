@@ -5,13 +5,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.queimasegura.retrofit.model.CheckEmailGet
 import com.example.queimasegura.retrofit.model.CreateUserGet
 import com.example.queimasegura.retrofit.model.CreateUserSend
+import com.example.queimasegura.retrofit.model.SimpleResponseGet
 import com.example.queimasegura.retrofit.repository.Repository
 import com.example.queimasegura.room.db.AppDataBase
-import com.example.queimasegura.room.entities.User
-import com.example.queimasegura.room.repository.UserRepository
+import com.example.queimasegura.room.entities.Auth
+import com.example.queimasegura.room.repository.AuthRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Response
@@ -20,16 +20,16 @@ class RegisterViewModel(
     application: Application,
     private val repository: Repository
 ): ViewModel() {
-    private val _checkEmailResponse = MutableLiveData<Response<CheckEmailGet>>()
-    val checkEmailResponse: LiveData<Response<CheckEmailGet>> get() = _checkEmailResponse
+    private val _checkEmailResponse = MutableLiveData<Response<SimpleResponseGet>>()
+    val checkEmailResponse: LiveData<Response<SimpleResponseGet>> get() = _checkEmailResponse
     private val _createUserResponse = MutableLiveData<Response<CreateUserGet>>()
     val createUserResponse: LiveData<Response<CreateUserGet>> get() = _createUserResponse
 
-    private val userRepository: UserRepository
+    private val authRepository: AuthRepository
 
     init {
         val userDao = AppDataBase.getDatabase(application).userDao()
-        userRepository = UserRepository(userDao)
+        authRepository = AuthRepository(userDao)
     }
 
     fun checkEmail(
@@ -51,7 +51,7 @@ class RegisterViewModel(
                 val resetJob = resetUserData()
                 resetJob.join()
                 response.body()?.result?.let {
-                    val user = User(
+                    val auth = Auth(
                         id = it.userId,
                         sessionId = it.sessionId,
                         email = createUserBody.email,
@@ -59,19 +59,19 @@ class RegisterViewModel(
                         nif = createUserBody.nif.toInt(),
                         type = 0
                     )
-                    saveUser(user)
+                    saveUser(auth)
                 }
             }
         }
     }
 
-    private fun saveUser(user: User) {
+    private fun saveUser(auth: Auth) {
         viewModelScope.launch(Dispatchers.IO) {
-            userRepository.addUser(user)
+            authRepository.authenticate(auth)
         }
     }
 
     private fun resetUserData() = viewModelScope.launch(Dispatchers.IO) {
-        userRepository.deleteAll()
+        authRepository.delAuth()
     }
 }

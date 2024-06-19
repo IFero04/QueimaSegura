@@ -9,8 +9,8 @@ import com.example.queimasegura.retrofit.model.LoginGet
 import com.example.queimasegura.retrofit.model.LoginSend
 import com.example.queimasegura.retrofit.repository.Repository
 import com.example.queimasegura.room.db.AppDataBase
-import com.example.queimasegura.room.entities.User
-import com.example.queimasegura.room.repository.UserRepository
+import com.example.queimasegura.room.entities.Auth
+import com.example.queimasegura.room.repository.AuthRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Response
@@ -22,11 +22,11 @@ class LoginViewModel(
     private val _loginResponse = MutableLiveData<Response<LoginGet>>()
     val loginResponse: LiveData<Response<LoginGet>> get() = _loginResponse
 
-    private val userRepository: UserRepository
+    private val authRepository: AuthRepository
 
     init {
         val userDao = AppDataBase.getDatabase(application).userDao()
-        userRepository = UserRepository(userDao)
+        authRepository = AuthRepository(userDao)
     }
 
     fun loginUser(loginBody: LoginSend) {
@@ -37,7 +37,7 @@ class LoginViewModel(
                 val resetJob = resetUserData()
                 resetJob.join()
                 response.body()?.result?.let {
-                    val user = User(
+                    val auth = Auth(
                         id = it.user.id,
                         sessionId = it.sessionId,
                         email = loginBody.email,
@@ -45,19 +45,19 @@ class LoginViewModel(
                         nif = it.user.nif,
                         type = it.user.type
                     )
-                    saveUser(user)
+                    saveUser(auth)
                 }
             }
         }
     }
 
-    private fun saveUser(user: User) {
+    private fun saveUser(auth: Auth) {
         viewModelScope.launch(Dispatchers.IO) {
-            userRepository.addUser(user)
+            authRepository.authenticate(auth)
         }
     }
 
     private fun resetUserData() = viewModelScope.launch(Dispatchers.IO) {
-        userRepository.deleteAll()
+        authRepository.delAuth()
     }
 }

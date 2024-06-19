@@ -1,6 +1,6 @@
 package com.example.queimasegura.retrofit.model
 
-data class CheckEmailGet(
+data class LogoutGet(
     val status: String,
     val message: String,
 )
