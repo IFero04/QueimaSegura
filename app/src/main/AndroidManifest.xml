@@ -43,7 +43,7 @@
             android:name=".common.reqPerm.MapActivity"
             android:exported="false" />
         <activity
-            android:name=".common.IntroSliderActivity"
+            android:name=".common.intro.IntroSliderActivity"
             android:exported="false" />
         <activity
             android:name=".common.login.LoginActivity"

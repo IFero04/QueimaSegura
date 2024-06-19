@@ -53,7 +53,6 @@ class LoginActivity : AppCompatActivity() {
         val viewModelFactory = LoginViewModelFactory(application, repository)
         viewModel = ViewModelProvider(this, viewModelFactory)[LoginViewModel::class.java]
 
-
         viewModel.loginResponse.observe(this) { response ->
             if(response.isSuccessful) {
                 Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show()

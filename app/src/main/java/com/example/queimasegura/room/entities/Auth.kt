@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 data class Auth(
     @PrimaryKey
     val id: String,
-    var sessionId: String?,
+    var sessionId: String,
     val email: String,
     val fullName: String,
     val nif: Int,
