@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
         if (isFirstRun) {
             sharedPreferences.edit().putBoolean("isFirstRun", false).apply()
         }
-        return true
+        return isFirstRun
     }
 
     private fun initViewModels() {
