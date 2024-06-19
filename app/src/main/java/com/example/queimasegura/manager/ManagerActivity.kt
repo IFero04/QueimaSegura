@@ -25,17 +25,17 @@ class ManagerActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         val pedidos = listOf(
-            Pedido("Queima", "2024-06-11", "Pending"),
-            Pedido("Queimada", "2024-06-10", "Completed"),
-            Pedido("Queima", "2024-06-09", "In Progress"),
-            Pedido("Queima", "2024-06-08", "Pending"),
-            Pedido("Queima", "2024-06-07", "Completed"),
-            Pedido("Queimada", "2024-06-06", "In Progress"),
-            Pedido("Queima", "2024-06-05", "Pending"),
-            Pedido("Queima", "2024-06-04", "Completed"),
-            Pedido("Queimada", "2024-06-03", "In Progress"),
-            Pedido("Queima", "2024-06-02", "Pending"),
-            Pedido("Queima", "2024-06-01", "Completed"),
+            Pedido<Any>("Queima", "2024-06-11", "Pending"),
+            Pedido<Any>("Queimada", "2024-06-10", "Completed"),
+            Pedido<Any>("Queima", "2024-06-09", "In Progress"),
+            Pedido<Any>("Queima", "2024-06-08", "Pending"),
+            Pedido<Any>("Queima", "2024-06-07", "Completed"),
+            Pedido<Any>("Queimada", "2024-06-06", "In Progress"),
+            Pedido<Any>("Queima", "2024-06-05", "Pending"),
+            Pedido<Any>("Queima", "2024-06-04", "Completed"),
+            Pedido<Any>("Queimada", "2024-06-03", "In Progress"),
+            Pedido<Any>("Queima", "2024-06-02", "Pending"),
+            Pedido<Any>("Queima", "2024-06-01", "Completed"),
 
         ).sortedByDescending { it.date }
 

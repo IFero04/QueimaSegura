@@ -34,9 +34,9 @@ class HomeFragment : Fragment() {
 
         // Simulate list of orders (replace with your actual logic)
         val orders = listOf(
-            Pedido("Queima", "2024-06-11", "Pending"),
-            Pedido("Queimada", "2024-06-12", "Completed"),
-            Pedido("Queima", "2024-06-09", "In Progress")
+            Pedido<Any>("Queima", "2024-06-11", "Pending"),
+            Pedido<Any>("Queimada", "2024-06-12", "Completed"),
+            Pedido<Any>("Queima", "2024-06-09", "In Progress")
         )
 
         // Find the most recent order based on date

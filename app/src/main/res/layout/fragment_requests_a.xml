@@ -23,7 +23,7 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/textViewDateHeader"
+            android:id="@+id/textViewStateHeader"
             android:layout_width="337dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
