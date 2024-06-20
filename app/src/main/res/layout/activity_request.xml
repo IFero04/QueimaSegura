@@ -154,7 +154,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textViewLine" />
 
             <TextView
-                android:id="@+id/textViewDateHeader"
+                android:id="@+id/textViewStateHeader"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -174,7 +174,7 @@
                 android:background="@color/colorPrimary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewDateHeader" />
+                app:layout_constraintTop_toBottomOf="@+id/textViewStateHeader" />
 
             <ImageButton
                 android:id="@+id/imageButtonDate"

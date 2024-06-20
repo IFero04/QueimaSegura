@@ -1,25 +1,24 @@
 package com.example.queimasegura.user.fragments
 
-import android.app.DatePickerDialog
-import android.icu.text.SimpleDateFormat
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import android.widget.ImageButton
+import android.widget.PopupMenu
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.queimasegura.R
 import com.example.queimasegura.common.Pedido
 import com.example.queimasegura.common.PedidoAdapter
-import java.util.Calendar
-import java.util.Date
-import java.util.Locale
 
 class RequestsFragment : Fragment() {
-    private lateinit var date: Date
     private lateinit var recyclerView: RecyclerView
+    private lateinit var pedidos: List<Pedido<Int>>
+    private lateinit var pedidoAdapter: PedidoAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,48 +29,68 @@ class RequestsFragment : Fragment() {
         recyclerView = view.findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        val pedidos = listOf(
+        val imageButtonFilter = view.findViewById<ImageButton>(R.id.imageButtonDate)
+        imageButtonFilter.setOnClickListener { showFilterOptions(it) }
+
+        pedidos = listOf(
             Pedido("Queima", "2024-06-11", "Pending"),
-            Pedido("Queimada", "2024-06-10", "Completed"),
-            Pedido("Queima", "2024-06-09", "In Progress"),
-            Pedido("Queima", "2024-06-08", "Pending"),
-            Pedido("Queima", "2024-06-07", "Completed"),
-            Pedido("Queimada", "2024-06-06", "In Progress"),
-            Pedido("Queima", "2024-06-05", "Pending"),
-            Pedido("Queima", "2024-06-04", "Completed"),
-            Pedido("Queimada", "2024-06-03", "In Progress"),
-            Pedido("Queima", "2024-06-02", "Pending"),
-            Pedido("Queima", "2024-06-01", "Completed")
+            Pedido("Queima", "2024-06-11", "Completed"),
+            Pedido("Queima", "2024-06-11", "In Progress"),
+            Pedido("Queima", "2024-06-11", "Pending"),
+            Pedido("Queima", "2024-06-11", "Completed"),
+            Pedido("Queima", "2024-06-11", "In Progress"),
+            Pedido("Queima", "2024-06-11", "Pending"),
+            Pedido("Queima", "2024-06-11", "Completed"),
+            Pedido("Queima", "2024-06-11", "In Progress"),
+            Pedido("Queima", "2024-06-11", "Pending"),
+            Pedido("Queima", "2024-06-11", "Completed"),
+            Pedido("Queima", "2024-06-11", "In Progress"),
+
+
         ).sortedByDescending { it.date }
 
-        recyclerView.adapter = PedidoAdapter(requireContext(), pedidos)
-
+        pedidoAdapter = PedidoAdapter(requireContext(), pedidos)
+        recyclerView.adapter = pedidoAdapter
 
         return view
     }
 
+    private fun showFilterOptions(view: View) {
+        try {
+            val popupMenu = PopupMenu(requireContext(), view)
+            popupMenu.menuInflater.inflate(R.menu.filter_menu, popupMenu.menu)
 
-
-    private fun showDatePickerDialog() {
-        val calendar = Calendar.getInstance()
-        val year = calendar.get(Calendar.YEAR)
-        val month = calendar.get(Calendar.MONTH)
-        val day = calendar.get(Calendar.DAY_OF_MONTH)
-
-        val datePickerDialog = DatePickerDialog(requireContext(), { _, selectedYear, selectedMonth, selectedDay ->
-            val selectedDate = "$selectedDay/${selectedMonth + 1}/$selectedYear"
-            val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-            date = dateFormat.parse(selectedDate) ?: Date()
-            showToast(selectedDate)
-        },
-            year, month, day
-        )
-
-        datePickerDialog.datePicker.minDate = System.currentTimeMillis() - 1000
-        datePickerDialog.show()
+            popupMenu.setOnMenuItemClickListener { item ->
+                // Handle menu item clicks
+                when (item.itemId) {
+                    R.id.pending -> {
+                        Log.d("RequestsFragment", "Filtering by state: Pending")
+                        filterPedidosByState("Pending")
+                    }
+                    R.id.approved -> {
+                        Log.d("RequestsFragment", "Filtering by state: Completed")
+                        filterPedidosByState("Completed")
+                    }
+                    R.id.not_approved -> {
+                        Log.d("RequestsFragment", "Filtering by state: In Progress")
+                        filterPedidosByState("In Progress")
+                    }
+                }
+                true
+            }
+            popupMenu.show()
+        } catch (e: Exception) {
+            Log.e("RequestsFragment", "Error showing filter options", e)
+        }
     }
 
-    private fun showToast(str: String) {
-        Toast.makeText(requireContext(), str, Toast.LENGTH_SHORT).show()
+    private fun filterPedidosByState(state: String) {
+        // Filtra os pedidos com base no estado selecionado
+        val filteredPedidos = pedidos.filter { it.state == state }
+        // Atualiza o RecyclerView apenas com os pedidos filtrados
+        pedidoAdapter.updatePedidos(filteredPedidos)
+
+        // Atualiza o texto da TextView para exibir o estado selecionado
+        view?.findViewById<TextView>(R.id.textViewStateHeader)?.text = state
     }
 }
