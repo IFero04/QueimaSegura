@@ -9,6 +9,16 @@ interface ApiService {
     @GET("/")
     suspend fun getRoot(): Response<Root>
 
+    // STATIC
+    @GET("/static/types")
+    suspend fun getTypes(): Response<TypesGet>
+
+    @GET("/static/reasons")
+    suspend fun getReasons(): Response<ReasonsGet>
+
+    @GET("/static/controller")
+    suspend fun getController(): Response<ControllerGet>
+
     // AUTH
     @GET("/auth/check_email/")
     suspend fun checkEmail(

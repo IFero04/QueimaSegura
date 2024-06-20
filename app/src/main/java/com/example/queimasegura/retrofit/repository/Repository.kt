@@ -12,6 +12,19 @@ class Repository {
         return RetrofitInstance.api.getRoot()
     }
 
+    // STATIC
+    suspend fun getTypes(): Response<TypesGet> {
+        return RetrofitInstance.api.getTypes()
+    }
+
+    suspend fun getReasons(): Response<ReasonsGet> {
+        return RetrofitInstance.api.getReasons()
+    }
+
+    suspend fun getController(): Response<ControllerGet> {
+        return RetrofitInstance.api.getController()
+    }
+
     // AUTH
     suspend fun checkEmail(
         email: String

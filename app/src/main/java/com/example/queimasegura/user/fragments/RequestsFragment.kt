@@ -1,4 +1,4 @@
-package com.example.queimasegura.user
+package com.example.queimasegura.user.fragments
 
 import android.app.DatePickerDialog
 import android.icu.text.SimpleDateFormat
