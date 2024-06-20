@@ -90,6 +90,10 @@ class MainViewModel(
         }
     }
 
+    fun firstRun() {
+        updateStaticData()
+    }
+
     private fun checkController(
         roomController: Controller,
         callback: (Boolean) -> Unit

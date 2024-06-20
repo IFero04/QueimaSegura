@@ -29,6 +29,7 @@ class MainActivity : AppCompatActivity() {
 
         findViewById<View>(R.id.splash).setOnClickListener {
             if (isFirstRun()) {
+                viewModel.firstRun()
                 startActivity(Intent(this, IntroSliderActivity::class.java))
                 finish()
             } else {
