@@ -17,7 +17,7 @@ import com.example.queimasegura.common.PedidoAdapter
 
 class RequestsFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
-    private lateinit var pedidos: List<Pedido<Int>>
+    private lateinit var pedidos: List<Pedido>
     private lateinit var pedidoAdapter: PedidoAdapter
 
     override fun onCreateView(
