@@ -83,6 +83,9 @@
     <string name="confirm_btn">Confirm</string>
     <string name="leave_edit_mode">Leave edit mode</string>
 
+    <!-- Requests -->
+    <string name="filter">Filter</string>
+
     <!-- Main Activity -->
     <string name="main_error_controller">Properties not found, turn on internet access</string>
     <string name="main_error_auth">No session found, turn on internet access</string>
