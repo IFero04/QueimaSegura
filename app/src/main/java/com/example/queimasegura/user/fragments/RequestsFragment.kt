@@ -88,7 +88,6 @@ class RequestsFragment : Fragment() {
         // Filtra os pedidos com base no estado selecionado
         val filteredPedidos = pedidos.filter { it.state == state }
         // Atualiza o RecyclerView apenas com os pedidos filtrados
-        pedidoAdapter.updatePedidos(filteredPedidos)
 
         // Atualiza o texto da TextView para exibir o estado selecionado
         view?.findViewById<TextView>(R.id.textViewStateHeader)?.text = state
