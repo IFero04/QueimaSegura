@@ -28,7 +28,12 @@ class PedidoAdapter(
         holder.stateTextView.text = pedido.state
 
         holder.itemView.setOnClickListener {
-            val intent = Intent(context, QueimaDetailsActivity::class.java).apply {
+            val intent = when (pedido.type) {
+                "Queima" -> Intent(context, QueimaDetailsActivity::class.java)
+                "Queimada" -> Intent(context, QueimadaDetailsActivity::class.java)
+                else -> return@setOnClickListener
+            }
+            intent.apply {
                 putExtra("type", pedido.type)
                 putExtra("date", pedido.date)
                 putExtra("state", pedido.state)
