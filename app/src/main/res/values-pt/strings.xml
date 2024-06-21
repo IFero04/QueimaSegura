@@ -89,7 +89,9 @@
 
     <!-- Login Activity -->
     <string name="login_message_success">Login Efetuado</string>
-    <string name="login_message_error">Erro no Servidor</string>
+
+    <!-- Register Activity -->
+    <string name="register_message_success">Conta Criada</string>
 
     <!-- Main Activity -->
     <string name="main_error_controller">Propriedades não encontradas, ligar acesso a internet</string>

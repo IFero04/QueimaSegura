@@ -100,7 +100,9 @@
 
     <!-- Login Activity -->
     <string name="login_message_success">Login Successful</string>
-    <string name="login_message_error">Server Error</string>
+
+    <!-- Register Activity -->
+    <string name="register_message_success">Account Created</string>
 
 
     <!-- Main Activity -->

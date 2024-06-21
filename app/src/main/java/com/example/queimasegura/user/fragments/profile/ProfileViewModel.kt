@@ -27,4 +27,10 @@ class ProfileViewModel(
 
     }
 
+    fun logoutUser() {
+        viewModelScope.launch(Dispatchers.IO) {
+            authRepository.delAuth()
+        }
+    }
+
 }

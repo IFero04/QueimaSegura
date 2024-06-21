@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
 import com.example.queimasegura.R
@@ -28,6 +29,8 @@ class ProfileFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_profile_u, container, false)
 
         initVariables(view)
+
+        initEvents(view)
 
         return view
     }
@@ -55,4 +58,11 @@ class ProfileFragment : Fragment() {
             }
         }
     }
+
+    private fun initEvents(view: View) {
+        view.findViewById<Button>(R.id.profile_logout).setOnClickListener {
+            viewModel.logoutUser()
+        }
+    }
+
 }
