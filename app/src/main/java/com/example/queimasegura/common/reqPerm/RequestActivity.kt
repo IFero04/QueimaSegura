@@ -20,14 +20,13 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.queimasegura.R
 import com.example.queimasegura.common.reqPerm.fragment.QueimadaFragment
-import com.example.queimasegura.common.reqPerm.fragment.SuppTeamFragment
 import com.example.queimasegura.common.reqPerm.search.SearchActivity
 import com.example.queimasegura.retrofit.repository.Repository
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
-class RequestActivity : AppCompatActivity(), SuppTeamFragment.OnSuppTeamSelectedListener {
+class RequestActivity : AppCompatActivity() {
     private lateinit var viewModel: RequestViewModel
 
     private lateinit var postCode: TextView
@@ -36,7 +35,6 @@ class RequestActivity : AppCompatActivity(), SuppTeamFragment.OnSuppTeamSelected
     private lateinit var type: String
     private lateinit var motive: String
     private lateinit var date: Date
-    private lateinit var suppTeam: String
     private var latitude: Double? = null
     private var longitude: Double? = null
 
@@ -86,10 +84,6 @@ class RequestActivity : AppCompatActivity(), SuppTeamFragment.OnSuppTeamSelected
             handleTypeRadioGroupChange(checkedId)
         }
 
-        findViewById<RadioGroup>(R.id.radioGroupSuppTeam).setOnCheckedChangeListener { _, checkedId ->
-            handleSuppTeamRadioGroupChange(checkedId)
-        }
-
         findViewById<Button>(R.id.buttonMap).setOnClickListener {
             val intent = Intent(this, MapActivity::class.java)
             startActivity(intent)
@@ -120,38 +114,10 @@ class RequestActivity : AppCompatActivity(), SuppTeamFragment.OnSuppTeamSelected
         finish()
     }
     private fun handleTypeRadioGroupChange(checkedId: Int) {
-        val fragment = when (checkedId) {
-            R.id.radioButtonQueimada -> QueimadaFragment()
-            else -> null
-        }
-
-        if (fragment != null) {
-            replaceFragment(fragment, R.id.fragmentContainerViewType)
-        } else {
-            removeFragment(R.id.fragmentContainerViewType)
-        }
-
         when (checkedId) {
             R.id.radioButtonQueima -> type = R.id.radioButtonQueima.toString()
             R.id.radioButtonQueimada -> type = R.id.radioButtonQueimada.toString()
         }
-    }
-
-    private fun handleSuppTeamRadioGroupChange(checkedId: Int) {
-        val fragment = when (checkedId) {
-            R.id.radioButtonYes -> SuppTeamFragment()
-            else -> null
-        }
-
-        if (fragment != null) {
-            replaceFragment(fragment, R.id.fragmentContainerViewSuppTeam)
-        } else {
-            removeFragment(R.id.fragmentContainerViewSuppTeam)
-        }
-    }
-
-    override fun onSuppTeamSelected(suppTeam: String) {
-        this.suppTeam = suppTeam
     }
 
     private fun handleDropDownMotiveMenu(view: View, menuId: Int) {

@@ -74,9 +74,8 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="postcode_example_1" translatable="false">XXXX</string>
+    <string name="postcode_example_1" translatable="false">XXXX-XXX</string>
     <string name="coords_example" translatable="false">XXX.XXXXXX</string>
-    <string name="postcode_example_2" translatable="false">XXX</string>
     <string name="click">Click Here!</string>
     <string name="sign_up_prompt">"If you don’t have an account. "</string>
     <string name="login">Login</string>
