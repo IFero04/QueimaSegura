@@ -38,7 +38,18 @@ class HomeFragment : Fragment() {
             }
         }
 
+        val pendingRequestsTextView = view.findViewById<TextView>(R.id.statusPending)
+        val firePreventedTextView = view.findViewById<TextView>(R.id.statusCompleted)
+
+        viewModel.statusData.observe(viewLifecycleOwner) { status ->
+            status?.let {
+                pendingRequestsTextView.text = it.firesPending.toString()
+                firePreventedTextView.text = it.firesComplete.toString()
+            }
+        }
+
         viewModel.fetchUsername()
+        viewModel.fetchUserStatus()
 
         return view
     }
