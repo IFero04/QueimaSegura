@@ -1,9 +1,7 @@
 package com.example.queimasegura
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.AttributeSet
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -64,7 +62,9 @@ class MainActivity : AppCompatActivity() {
             if(viewModel.isAppStarted) {
                 if(auth == null) {
                     navigateTo(LoginActivity::class.java)
-                    showErrorMessage(application.getString(R.string.main_error_login))
+                    if(!cameFromLogout()) {
+                        showErrorMessage(application.getString(R.string.main_error_login))
+                    }
                 }
             }
         }
@@ -82,6 +82,16 @@ class MainActivity : AppCompatActivity() {
             sharedPreferences.edit().putBoolean("isFirstRun", false).apply()
         }
         return isFirstRun
+    }
+
+    private fun cameFromLogout(): Boolean {
+        val sharedPreferences = getSharedPreferences("PREFERENCE", MODE_PRIVATE)
+        val cameFromLogout = sharedPreferences.getBoolean("cameFromLogout", false)
+        if (cameFromLogout) {
+            sharedPreferences.edit().putBoolean("cameFromLogout", false).apply()
+            return true
+        }
+        return false
     }
 
     private fun showErrorMessage(message: String) {
