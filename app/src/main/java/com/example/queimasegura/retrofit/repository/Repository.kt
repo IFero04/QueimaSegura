@@ -2,6 +2,16 @@ package com.example.queimasegura.retrofit.repository
 
 import com.example.queimasegura.retrofit.model.*
 import com.example.queimasegura.retrofit.api.RetrofitInstance
+import com.example.queimasegura.retrofit.model.get.Controller
+import com.example.queimasegura.retrofit.model.get.CreateUser
+import com.example.queimasegura.retrofit.model.get.Location
+import com.example.queimasegura.retrofit.model.get.Login
+import com.example.queimasegura.retrofit.model.get.Reasons
+import com.example.queimasegura.retrofit.model.get.SimpleResponse
+import com.example.queimasegura.retrofit.model.get.Types
+import com.example.queimasegura.retrofit.model.get.UserStatus
+import com.example.queimasegura.retrofit.model.send.CreateUserBody
+import com.example.queimasegura.retrofit.model.send.LoginBody
 import com.example.queimasegura.retrofit.util.MD5
 import retrofit2.Response
 
@@ -13,53 +23,60 @@ class Repository {
     }
 
     // STATIC
-    suspend fun getTypes(): Response<TypesGet> {
+    suspend fun getTypes(): Response<Types> {
         return RetrofitInstance.api.getTypes()
     }
 
-    suspend fun getReasons(): Response<ReasonsGet> {
+    suspend fun getReasons(): Response<Reasons> {
         return RetrofitInstance.api.getReasons()
     }
 
-    suspend fun getController(): Response<ControllerGet> {
+    suspend fun getController(): Response<Controller> {
         return RetrofitInstance.api.getController()
     }
 
     // AUTH
     suspend fun checkEmail(
         email: String
-    ): Response<SimpleResponseGet> {
+    ): Response<SimpleResponse> {
         return RetrofitInstance.api.checkEmail(email)
     }
 
     suspend fun checkSession(
         userId: String,
         sessionId: String
-    ): Response<SimpleResponseGet> {
+    ): Response<SimpleResponse> {
         return RetrofitInstance.api.checkSession(userId, sessionId)
     }
 
     suspend fun loginUser(
-        loginSend: LoginSend
-    ): Response<LoginGet>{
-        loginSend.password = MD5().getMD5Hash(loginSend.password)
-        return RetrofitInstance.api.loginUser(loginSend)
+        loginBody: LoginBody
+    ): Response<Login>{
+        loginBody.password = MD5().getMD5Hash(loginBody.password)
+        return RetrofitInstance.api.loginUser(loginBody)
     }
 
     suspend fun logoutUser(
         userId: String,
         sessionId: String
-    ): Response<SimpleResponseGet> {
+    ): Response<SimpleResponse> {
         return RetrofitInstance.api.logoutUser(userId, sessionId)
     }
 
 
     // USERS
     suspend fun createUser(
-        createUserSend: CreateUserSend
-    ): Response<CreateUserGet> {
-        createUserSend.password = MD5().getMD5Hash(createUserSend.password)
-        return RetrofitInstance.api.createUser(createUserSend)
+        createUserBody: CreateUserBody
+    ): Response<CreateUser> {
+        createUserBody.password = MD5().getMD5Hash(createUserBody.password)
+        return RetrofitInstance.api.createUser(createUserBody)
+    }
+
+    suspend fun getUserStatus(
+        userId: String,
+        sessionId: String
+    ): Response<UserStatus> {
+        return RetrofitInstance.api.getUserStatus(userId, sessionId)
     }
 
     suspend fun getLocation(search: String): Response<Location> {

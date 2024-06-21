@@ -1,4 +1,4 @@
-package com.example.queimasegura.retrofit.model
+package com.example.queimasegura.retrofit.model.data
 
 data class User(
     val id: String,

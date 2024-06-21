@@ -1,6 +1,7 @@
 package com.example.queimasegura.user.fragments.home
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,13 +11,14 @@ import com.example.queimasegura.room.db.AppDataBase
 import com.example.queimasegura.room.entities.Status
 import com.example.queimasegura.room.repository.AuthRepository
 import com.example.queimasegura.room.repository.StatusRepository
+import com.example.queimasegura.util.NetworkUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
 class HomeViewModel (
-    application: Application,
-    private val repository: Repository
+    private val application: Application,
+    private val retrofitRepository: Repository
 ): ViewModel() {
     private val _username = MutableLiveData<String>()
     val username: LiveData<String> get() = _username
@@ -44,8 +46,24 @@ class HomeViewModel (
 
     fun fetchUserStatus() {
         viewModelScope.launch(Dispatchers.IO) {
-            statusRepository.clearStatus()
-            statusRepository.addStatus(Status(id= 0, firesPending = 1, firesComplete = 5))
+            val isInternetAvailable = NetworkUtils.isInternetAvailable(application)
+            if(isInternetAvailable) {
+                val auth = authRepository.getAuth()
+                if(auth != null){
+                    val response = retrofitRepository.getUserStatus(auth.id, auth.sessionId)
+                    if(response.isSuccessful) {
+                        response.body()?.let { userStatus ->
+                            val status = Status(
+                                id = 0,
+                                firesPending = userStatus.result.firesPending,
+                                firesComplete = userStatus.result.firesComplete
+                            )
+                            statusRepository.clearStatus()
+                            statusRepository.addStatus(status)
+                        }
+                    }
+                }
+            }
         }
     }
 }

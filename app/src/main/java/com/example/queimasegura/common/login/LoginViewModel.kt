@@ -5,8 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.queimasegura.retrofit.model.LoginGet
-import com.example.queimasegura.retrofit.model.LoginSend
+import com.example.queimasegura.retrofit.model.get.Login
+import com.example.queimasegura.retrofit.model.send.LoginBody
 import com.example.queimasegura.retrofit.repository.Repository
 import com.example.queimasegura.room.db.AppDataBase
 import com.example.queimasegura.room.entities.Auth
@@ -19,8 +19,8 @@ class LoginViewModel(
     application: Application,
     private val repository: Repository
 ): ViewModel() {
-    private val _loginResponse = MutableLiveData<Response<LoginGet>>()
-    val loginResponse: LiveData<Response<LoginGet>> get() = _loginResponse
+    private val _loginResponse = MutableLiveData<Response<Login>>()
+    val loginResponse: LiveData<Response<Login>> get() = _loginResponse
 
     private val authRepository: AuthRepository
 
@@ -29,7 +29,7 @@ class LoginViewModel(
         authRepository = AuthRepository(authDao)
     }
 
-    fun loginUser(loginBody: LoginSend) {
+    fun loginUser(loginBody: LoginBody) {
         viewModelScope.launch {
             val response = repository.loginUser(loginBody)
             _loginResponse.value = response

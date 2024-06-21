@@ -1,6 +1,16 @@
 package com.example.queimasegura.retrofit.api
 
 import com.example.queimasegura.retrofit.model.*
+import com.example.queimasegura.retrofit.model.get.Controller
+import com.example.queimasegura.retrofit.model.get.CreateUser
+import com.example.queimasegura.retrofit.model.get.Location
+import com.example.queimasegura.retrofit.model.get.Login
+import com.example.queimasegura.retrofit.model.get.Reasons
+import com.example.queimasegura.retrofit.model.get.SimpleResponse
+import com.example.queimasegura.retrofit.model.get.Types
+import com.example.queimasegura.retrofit.model.get.UserStatus
+import com.example.queimasegura.retrofit.model.send.CreateUserBody
+import com.example.queimasegura.retrofit.model.send.LoginBody
 import retrofit2.http.*
 import retrofit2.Response
 
@@ -11,43 +21,49 @@ interface ApiService {
 
     // STATIC
     @GET("/static/types")
-    suspend fun getTypes(): Response<TypesGet>
+    suspend fun getTypes(): Response<Types>
 
     @GET("/static/reasons")
-    suspend fun getReasons(): Response<ReasonsGet>
+    suspend fun getReasons(): Response<Reasons>
 
     @GET("/static/controller")
-    suspend fun getController(): Response<ControllerGet>
+    suspend fun getController(): Response<Controller>
 
     // AUTH
     @GET("/auth/check_email/")
     suspend fun checkEmail(
         @Query("email") email: String
-    ): Response<SimpleResponseGet>
+    ): Response<SimpleResponse>
 
     @GET("/auth/check_session")
     suspend fun checkSession(
         @Query("user_id") userId: String,
         @Query("session_id") sessionId: String,
-    ): Response<SimpleResponseGet>
+    ): Response<SimpleResponse>
 
     @POST("/auth/login/")
     suspend fun loginUser(
-        @Body loginSend: LoginSend
-    ): Response<LoginGet>
+        @Body loginBody: LoginBody
+    ): Response<Login>
 
     @DELETE("/auth/logout")
     suspend fun logoutUser(
         @Query("user_id") userId: String,
         @Query("session_id") sessionId: String,
-    ): Response<SimpleResponseGet>
+    ): Response<SimpleResponse>
 
 
     // USERS
     @POST("/users/create")
     suspend fun createUser(
-        @Body createUserSend: CreateUserSend
-    ): Response<CreateUserGet>
+        @Body createUserBody: CreateUserBody
+    ): Response<CreateUser>
+
+    @GET("/users/status/{user_id}")
+    suspend fun getUserStatus(
+        @Path("user_id") userId: String,
+        @Query("session_id") sessionId: String
+    ): Response<UserStatus>
 
     @GET("/location/")
     suspend fun getLocation(

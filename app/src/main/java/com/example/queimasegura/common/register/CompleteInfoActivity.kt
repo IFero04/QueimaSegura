@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.queimasegura.R
 import com.example.queimasegura.common.login.LoginActivity
-import com.example.queimasegura.retrofit.model.CreateUserSend
+import com.example.queimasegura.retrofit.model.send.CreateUserBody
 import com.example.queimasegura.retrofit.model.ErrorApi
 import com.example.queimasegura.retrofit.repository.Repository
 import com.example.queimasegura.user.UserActivity
@@ -43,7 +43,7 @@ class CompleteInfoActivity : AppCompatActivity() {
                 inputCheck(fullName, nif)
 
                 if (email.isNotEmpty() && password.isNotEmpty()) {
-                    viewModel.createUser(CreateUserSend(fullName, email, password, nif))
+                    viewModel.createUser(CreateUserBody(fullName, email, password, nif))
                 } else {
                     Toast.makeText(this, "Email or Password is missing", Toast.LENGTH_SHORT).show()
                 }

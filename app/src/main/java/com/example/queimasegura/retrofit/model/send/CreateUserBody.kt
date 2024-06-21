@@ -1,6 +1,7 @@
-package com.example.queimasegura.retrofit.model
+package com.example.queimasegura.retrofit.model.send
 
-data class CreateUserSend(
+
+data class CreateUserBody(
     val fullName: String,
     val email: String,
     var password: String,

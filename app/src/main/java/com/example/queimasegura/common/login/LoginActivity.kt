@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.queimasegura.R
 import com.example.queimasegura.common.register.RegisterActivity
 import com.example.queimasegura.retrofit.model.ErrorApi
-import com.example.queimasegura.retrofit.model.LoginSend
+import com.example.queimasegura.retrofit.model.send.LoginBody
 import com.example.queimasegura.retrofit.repository.Repository
 import com.example.queimasegura.user.UserActivity
 import com.google.gson.Gson
@@ -38,8 +38,8 @@ class LoginActivity : AppCompatActivity() {
             val password = passwordTextEdit.text.toString()
 
             if(inputCheck(email, password)){
-                val myLoginSend = LoginSend(email, password)
-                viewModel.loginUser(myLoginSend)
+                val myLoginBody = LoginBody(email, password)
+                viewModel.loginUser(myLoginBody)
             }
         }
 

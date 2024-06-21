@@ -49,7 +49,7 @@ class MainViewModel(
             val auth = authRepository.getAuth()
             val controller = staticRepository.getController()
 
-            if (isInternetAvailable) {
+            if(isInternetAvailable) {
                 if (controller == null) {
                     updateStaticData()
                 } else {
