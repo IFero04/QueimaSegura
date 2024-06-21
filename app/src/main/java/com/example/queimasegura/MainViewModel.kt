@@ -18,85 +18,124 @@ import com.example.queimasegura.util.NetworkUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
+
 class MainViewModel(
     private val application: Application,
     private val retrofitRepository: Repository
 ) : ViewModel() {
     enum class AppState {
-        HOME, LOGIN, ERROR
+        INTRO, HOME, LOGIN, ERROR
     }
     private val _appState = MutableLiveData<AppState>()
     val appState: LiveData<AppState> get() = _appState
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> get() = _errorMessage
 
-    val authData: LiveData<Auth>
+    private val authData: LiveData<Auth>
+    private var currentAuth: Auth? = null
 
     private val authRepository: AuthRepository
     private val staticRepository: StaticRepository
 
     init {
-        val authDao = AppDataBase.getDatabase(application).authDao()
-        authRepository = AuthRepository(authDao)
+        val database = AppDataBase.getDatabase(application)
+        authRepository = AuthRepository(database.authDao())
+        staticRepository = StaticRepository(
+            database.controllerDao(),
+            database.reasonDao(),
+            database.typeDao()
+        )
         authData = authRepository.readData
-
-        val controllerDao = AppDataBase.getDatabase(application).controllerDao()
-        val reasonDao = AppDataBase.getDatabase(application).reasonDao()
-        val typeDao = AppDataBase.getDatabase(application).typeDao()
-        staticRepository = StaticRepository(controllerDao, reasonDao, typeDao)
+        authData.observeForever { auth ->
+            auth?.let {
+                currentAuth = it
+            }
+        }
     }
+
 
     fun startApp() {
         viewModelScope.launch(Dispatchers.IO) {
             val isInternetAvailable = NetworkUtils.isInternetAvailable(application)
-            val auth = authData.value
-            Log.d("AUTH", authData.value.toString())
-            Log.d("AUTH", auth.toString())
+            val auth = currentAuth
+            val controller = staticRepository.getController()
+
+            handleInternetAvailability(isInternetAvailable, auth, controller)
+        }
+    }
+
+    fun firstRun() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val isInternetAvailable = NetworkUtils.isInternetAvailable(application)
+            val auth = currentAuth
             val controller = staticRepository.getController()
 
             if(isInternetAvailable) {
-                if (controller == null) {
-                    updateStaticData()
-                } else {
-                    checkController(controller) { isSameController ->
-                        if (!isSameController) {
-                            updateStaticData()
-                        }
-                    }
-                }
-                if (auth == null) {
-                    _appState.postValue(AppState.LOGIN)
-                } else {
-                    checkSession(auth.id, auth.sessionId) { isSameSession ->
-                        if (isSameSession) {
-                            _appState.postValue(AppState.HOME)
-                        } else {
-                            viewModelScope.launch(Dispatchers.IO) {
-                                authRepository.delAuth()
-                                _appState.postValue(AppState.LOGIN)
-                                _errorMessage.postValue(application.getString(R.string.main_error_login))
-                            }
-                        }
-                    }
-                }
+                handleController(controller)
+                _appState.postValue(AppState.INTRO)
             } else {
-                if (controller == null) {
-                    _appState.postValue(AppState.ERROR)
-                    _errorMessage.postValue(application.getString(R.string.main_error_controller))
+                handleOfflineMode(auth, controller)
+            }
+        }
+    }
+
+    private suspend fun handleInternetAvailability(
+        isInternetAvailable: Boolean,
+        auth: Auth?,
+        controller: Controller?
+    ) {
+        if(isInternetAvailable) {
+            handleController(controller)
+            handleAuth(auth)
+        } else {
+            handleOfflineMode(auth, controller)
+        }
+    }
+
+    private suspend fun handleController(controller: Controller?) {
+        if (controller == null) {
+            updateStaticData()
+        } else {
+            checkController(controller) { isSameController ->
+                if (!isSameController) {
+                    updateStaticData()
+                }
+            }
+        }
+    }
+
+    private suspend fun handleAuth(auth: Auth?) {
+        if (auth == null) {
+            _appState.postValue(AppState.LOGIN)
+        } else {
+            checkSession(auth.id, auth.sessionId) { isSameSession ->
+                if (isSameSession) {
+                    _appState.postValue(AppState.HOME)
                 } else {
-                    if (auth == null) {
-                        _appState.postValue(AppState.ERROR)
-                        _errorMessage.postValue(application.getString(R.string.main_error_auth))
-                    } else {
-                        _appState.postValue(AppState.HOME)
+                    viewModelScope.launch(Dispatchers.IO) {
+                        deleteAuthAndRedirectToLogin()
                     }
                 }
             }
         }
     }
 
-    fun firstRun() {
-        updateStaticData()
+    private suspend fun deleteAuthAndRedirectToLogin() {
+        authRepository.delAuth()
+        _appState.postValue(AppState.LOGIN)
+        _errorMessage.postValue(application.getString(R.string.main_error_login))
+    }
+
+    private fun handleOfflineMode(auth: Auth?, controller: Controller?) {
+        if (controller == null) {
+            _appState.postValue(AppState.ERROR)
+            _errorMessage.postValue(application.getString(R.string.main_error_controller))
+        } else if (auth == null) {
+            _appState.postValue(AppState.ERROR)
+            _errorMessage.postValue(application.getString(R.string.main_error_auth))
+        } else {
+            _appState.postValue(AppState.HOME)
+        }
     }
 
     private fun checkController(

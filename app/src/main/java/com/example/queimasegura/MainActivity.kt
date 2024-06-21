@@ -1,7 +1,9 @@
 package com.example.queimasegura
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.AttributeSet
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -21,21 +23,44 @@ class MainActivity : AppCompatActivity() {
 
         initViewModels()
 
-        viewModel.errorMessage.observe(this) { message ->
-            message?.let {
-                Toast.makeText(this, it, Toast.LENGTH_LONG).show()
+        initEvents()
+    }
+
+    private fun initViewModels() {
+        val repository = Repository()
+        val viewModelFactory = MainViewModelFactory(application, repository)
+        viewModel = ViewModelProvider(this, viewModelFactory)[MainViewModel::class.java]
+    }
+
+
+    private fun initEvents() {
+        viewModel.appState.observe(this) { state ->
+            when (state) {
+                MainViewModel.AppState.INTRO -> navigateTo(IntroSliderActivity::class.java)
+                MainViewModel.AppState.HOME -> navigateTo(UserActivity::class.java)
+                MainViewModel.AppState.LOGIN -> navigateTo(LoginActivity::class.java)
+                MainViewModel.AppState.ERROR -> handleAppError()
+                null -> showErrorMessage("SERVER ERROR")
             }
         }
+
+        viewModel.errorMessage.observe(this) { message ->
+            message?.let { showErrorMessage(it) }
+        }
+
 
         findViewById<View>(R.id.splash).setOnClickListener {
             if (isFirstRun()) {
                 viewModel.firstRun()
-                startActivity(Intent(this, IntroSliderActivity::class.java))
-                finish()
             } else {
                 viewModel.startApp()
             }
         }
+    }
+
+    private fun navigateTo(destination: Class<*>) {
+        startActivity(Intent(this, destination))
+        finish()
     }
 
     private fun isFirstRun(): Boolean {
@@ -47,29 +72,11 @@ class MainActivity : AppCompatActivity() {
         return isFirstRun
     }
 
-    private fun initViewModels() {
-        val repository = Repository()
-        val viewModelFactory = MainViewModelFactory(application, repository)
-        viewModel = ViewModelProvider(this, viewModelFactory)[MainViewModel::class.java]
+    private fun showErrorMessage(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+    }
 
-
-        viewModel.appState.observe(this) { state ->
-            when (state) {
-                MainViewModel.AppState.HOME -> {
-                    startActivity(Intent(this, UserActivity::class.java))
-                    finish()
-                }
-                MainViewModel.AppState.LOGIN -> {
-                    startActivity(Intent(this, LoginActivity::class.java))
-                    finish()
-                }
-                MainViewModel.AppState.ERROR -> {
-
-                }
-                null -> {
-                    Toast.makeText(this, "SERVER ERROR", Toast.LENGTH_LONG).show()
-                }
-            }
-        }
+    private fun handleAppError() {
+        // Handle any specific error scenario if needed
     }
 }
