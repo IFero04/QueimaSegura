@@ -101,4 +101,8 @@
     <string name="main_error_auth">No session found, turn on internet access</string>
     <string name="main_error_login">Account accessed from other device, please login again</string>
 
+    <!-- Profile Activity -->
+    <string name="profile_unknown">Unknown</string>
+
+
 </resources>

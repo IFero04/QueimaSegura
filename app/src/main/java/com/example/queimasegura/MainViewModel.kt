@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.queimasegura.retrofit.repository.Repository
 import com.example.queimasegura.room.db.AppDataBase
+import com.example.queimasegura.room.entities.Auth
 import com.example.queimasegura.room.entities.Controller
 import com.example.queimasegura.room.entities.Type
 import com.example.queimasegura.room.entities.Reason
@@ -26,9 +27,10 @@ class MainViewModel(
     }
     private val _appState = MutableLiveData<AppState>()
     val appState: LiveData<AppState> get() = _appState
-
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> get() = _errorMessage
+
+    val authData: LiveData<Auth>
 
     private val authRepository: AuthRepository
     private val staticRepository: StaticRepository
@@ -36,6 +38,7 @@ class MainViewModel(
     init {
         val authDao = AppDataBase.getDatabase(application).authDao()
         authRepository = AuthRepository(authDao)
+        authData = authRepository.readData
 
         val controllerDao = AppDataBase.getDatabase(application).controllerDao()
         val reasonDao = AppDataBase.getDatabase(application).reasonDao()
@@ -46,7 +49,9 @@ class MainViewModel(
     fun startApp() {
         viewModelScope.launch(Dispatchers.IO) {
             val isInternetAvailable = NetworkUtils.isInternetAvailable(application)
-            val auth = authRepository.getAuth()
+            val auth = authData.value
+            Log.d("AUTH", authData.value.toString())
+            Log.d("AUTH", auth.toString())
             val controller = staticRepository.getController()
 
             if(isInternetAvailable) {

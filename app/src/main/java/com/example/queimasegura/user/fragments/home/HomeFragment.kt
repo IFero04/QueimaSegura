@@ -13,9 +13,14 @@ import com.example.queimasegura.R
 import com.example.queimasegura.common.reqPerm.RequestActivity
 import com.example.queimasegura.retrofit.repository.Repository
 
-
 class HomeFragment : Fragment() {
     private lateinit var viewModel: HomeViewModel
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        initViewModels()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -23,8 +28,18 @@ class HomeFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_home_u, container, false)
 
-        initViewModels()
+        initVariables(view)
 
+        return view
+    }
+
+    private fun initViewModels() {
+        val repository = Repository()
+        val viewModelFactory = HomeViewModelFactory(requireActivity().application, repository)
+        viewModel = ViewModelProvider(this, viewModelFactory)[HomeViewModel::class.java]
+    }
+
+    private fun initVariables(view: View){
         val addImageView = view.findViewById<ImageView>(R.id.add)
         addImageView.setOnClickListener {
             val intent = Intent(activity, RequestActivity::class.java)
@@ -32,31 +47,19 @@ class HomeFragment : Fragment() {
         }
 
         val usernameTextView = view.findViewById<TextView>(R.id.username_welcome)
-        viewModel.username.observe(viewLifecycleOwner) { username ->
-            username?.let {
-                usernameTextView.text = it
+        viewModel.authData.observe(viewLifecycleOwner) { auth ->
+            auth?.let {
+                usernameTextView.text = it.fullName
             }
         }
 
         val pendingRequestsTextView = view.findViewById<TextView>(R.id.statusPending)
         val firePreventedTextView = view.findViewById<TextView>(R.id.statusCompleted)
-
         viewModel.statusData.observe(viewLifecycleOwner) { status ->
             status?.let {
                 pendingRequestsTextView.text = it.firesPending.toString()
                 firePreventedTextView.text = it.firesComplete.toString()
             }
         }
-
-        viewModel.fetchUsername()
-        viewModel.fetchUserStatus()
-
-        return view
-    }
-
-    private fun initViewModels(){
-        val repository = Repository()
-        val viewModelFactory = HomeViewModelFactory(requireActivity().application, repository)
-        viewModel = ViewModelProvider(this, viewModelFactory)[HomeViewModel::class.java]
     }
 }

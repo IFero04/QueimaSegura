@@ -91,4 +91,7 @@
     <string name="main_error_auth">Sessão não encontrada, ligar acesso a internet</string>
     <string name="main_error_login">Conta acedidade por outro despositivo, por favor logar novamente</string>
 
+    <!-- Profile Activity -->
+    <string name="profile_unknown">Desconhecido</string>
+
 </resources>
