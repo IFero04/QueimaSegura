@@ -83,8 +83,13 @@
     <string name="confirm_btn">Confirmar</string>
     <string name="leave_edit_mode">Sair do mode de edição</string>
 
-    <!-- Requests -->
-    <string name="filter">Filtro</string>
+    <!-- General -->
+    <string name="filter">Filter</string>
+    <string name="server_error">Server Error</string>
+
+    <!-- Login Activity -->
+    <string name="login_message_success">Login Efetuado</string>
+    <string name="login_message_error">Erro no Servidor</string>
 
     <!-- Main Activity -->
     <string name="main_error_controller">Propriedades não encontradas, ligar acesso a internet</string>
