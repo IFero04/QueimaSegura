@@ -9,13 +9,17 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.queimasegura.R
+import com.example.queimasegura.admin.AdminActivity
 import com.example.queimasegura.common.register.RegisterActivity
+import com.example.queimasegura.manager.ManagerActivity
 import com.example.queimasegura.retrofit.model.ErrorApi
 import com.example.queimasegura.retrofit.model.send.LoginBody
 import com.example.queimasegura.retrofit.repository.Repository
 import com.example.queimasegura.user.UserActivity
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import okhttp3.ResponseBody
+import retrofit2.Response
 
 
 class LoginActivity : AppCompatActivity() {
@@ -29,6 +33,18 @@ class LoginActivity : AppCompatActivity() {
 
         initViewModels()
 
+        initEvents()
+
+        initObservers()
+    }
+
+    private fun initViewModels() {
+        val repository = Repository()
+        val viewModelFactory = LoginViewModelFactory(application, repository)
+        viewModel = ViewModelProvider(this, viewModelFactory)[LoginViewModel::class.java]
+    }
+
+    private fun initEvents() {
         val emailTextEdit = findViewById<EditText>(R.id.editTextEmail)
         val passwordTextEdit = findViewById<EditText>(R.id.editTextPassword)
         val loginButton = findViewById<Button>(R.id.buttonLogin)
@@ -44,49 +60,57 @@ class LoginActivity : AppCompatActivity() {
         }
 
         findViewById<Button>(R.id.clickHereButton).setOnClickListener {
-            val intent = Intent(this, RegisterActivity::class.java)
-            startActivity(intent)
+            navigateTo(RegisterActivity::class.java)
         }
     }
 
-    private fun initViewModels() {
-        val repository = Repository()
-        val viewModelFactory = LoginViewModelFactory(application, repository)
-        viewModel = ViewModelProvider(this, viewModelFactory)[LoginViewModel::class.java]
-
+    private fun initObservers() {
         viewModel.loginResponse.observe(this) { response ->
             if(response.isSuccessful) {
-                Toast.makeText(this, "Login Successful", Toast.LENGTH_SHORT).show()
+                showMessage(application.getString(R.string.login_message_success))
                 val type = response.body()?.result?.user?.type
-
-                when(type) {
-                    0 -> {
-                        //USER
-                        startActivity(Intent(this, UserActivity::class.java))
-                        finish()
-                    }
-                    1 -> {
-                        //GESTOR
-                        startActivity(Intent(this, UserActivity::class.java))
-                        finish()
-                    }
-                    2 -> {
-                        //ADMIN
-                        startActivity(Intent(this, UserActivity::class.java))
-                        finish()
-                    }
+                if(type != null) {
+                    handleUserType(type)
+                } else{
+                    showMessage(application.getString(R.string.server_error))
                 }
-
-            } else {
-                val gson = Gson()
-                val type = object : TypeToken<ErrorApi>() {}.type
-                val errorApiResponse: ErrorApi? = gson.fromJson(response.errorBody()?.charStream(), type)
-                Toast.makeText(this, errorApiResponse?.detail, Toast.LENGTH_SHORT).show()
+            } else if(response.errorBody() != null) {
+                handleError(response.errorBody()!!)
+            } else{
+                showMessage(application.getString(R.string.server_error))
             }
+        }
+    }
+
+    private fun handleUserType(type: Int) {
+        when(type) {
+            0 -> navigateTo(UserActivity::class.java)
+            1 -> navigateTo(ManagerActivity::class.java)
+            2 -> navigateTo(AdminActivity::class.java)
+        }
+    }
+
+    private fun handleError(errorBody: ResponseBody) {
+        val gson = Gson()
+        val type = object : TypeToken<ErrorApi>() {}.type
+        val errorApiResponse: ErrorApi? = gson.fromJson(errorBody.charStream(), type)
+        if(errorApiResponse != null) {
+            showMessage(errorApiResponse.detail)
+        } else{
+            showMessage(application.getString(R.string.server_error))
         }
     }
 
     private fun inputCheck(email: String, password: String): Boolean {
         return !(TextUtils.isEmpty(email) && TextUtils.isEmpty(password))
+    }
+
+    private fun showMessage(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+    }
+
+    private fun navigateTo(destination: Class<*>) {
+        startActivity(Intent(this, destination))
+        finish()
     }
 }

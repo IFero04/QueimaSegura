@@ -30,8 +30,9 @@ class MainViewModel(
     val appState: LiveData<AppState> get() = _appState
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> get() = _errorMessage
+    var isAppStarted: Boolean = false
 
-    private val authData: LiveData<Auth>
+    val authData: LiveData<Auth>
     private var currentAuth: Auth? = null
 
     private val authRepository: AuthRepository
@@ -46,18 +47,14 @@ class MainViewModel(
             database.typeDao()
         )
         authData = authRepository.readData
-        authData.observeForever { auth ->
-            auth?.let {
-                currentAuth = it
-            }
-        }
     }
 
 
     fun startApp() {
+        isAppStarted = true
         viewModelScope.launch(Dispatchers.IO) {
             val isInternetAvailable = NetworkUtils.isInternetAvailable(application)
-            val auth = currentAuth
+            val auth = authData.value
             val controller = staticRepository.getController()
 
             handleInternetAvailability(isInternetAvailable, auth, controller)
@@ -65,9 +62,10 @@ class MainViewModel(
     }
 
     fun firstRun() {
+        isAppStarted = true
         viewModelScope.launch(Dispatchers.IO) {
             val isInternetAvailable = NetworkUtils.isInternetAvailable(application)
-            val auth = currentAuth
+            val auth = authData.value
             val controller = staticRepository.getController()
 
             if(isInternetAvailable) {

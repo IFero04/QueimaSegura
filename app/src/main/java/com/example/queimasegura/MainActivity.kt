@@ -1,9 +1,7 @@
 package com.example.queimasegura
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.AttributeSet
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -24,6 +22,8 @@ class MainActivity : AppCompatActivity() {
         initViewModels()
 
         initEvents()
+
+        initObservers()
     }
 
     private fun initViewModels() {
@@ -34,6 +34,16 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun initEvents() {
+        findViewById<View>(R.id.splash).setOnClickListener {
+            if (isFirstRun()) {
+                viewModel.firstRun()
+            } else {
+                viewModel.startApp()
+            }
+        }
+    }
+
+    private fun initObservers() {
         viewModel.appState.observe(this) { state ->
             when (state) {
                 MainViewModel.AppState.INTRO -> navigateTo(IntroSliderActivity::class.java)
@@ -48,12 +58,14 @@ class MainActivity : AppCompatActivity() {
             message?.let { showErrorMessage(it) }
         }
 
-
-        findViewById<View>(R.id.splash).setOnClickListener {
-            if (isFirstRun()) {
-                viewModel.firstRun()
-            } else {
-                viewModel.startApp()
+        viewModel.authData.observeForever { auth ->
+            if(viewModel.isAppStarted) {
+                if(auth == null) {
+                    navigateTo(LoginActivity::class.java)
+                    if(!cameFromLogout()) {
+                        showErrorMessage(application.getString(R.string.main_error_login))
+                    }
+                }
             }
         }
     }
@@ -70,6 +82,16 @@ class MainActivity : AppCompatActivity() {
             sharedPreferences.edit().putBoolean("isFirstRun", false).apply()
         }
         return isFirstRun
+    }
+
+    private fun cameFromLogout(): Boolean {
+        val sharedPreferences = getSharedPreferences("PREFERENCE", MODE_PRIVATE)
+        val cameFromLogout = sharedPreferences.getBoolean("cameFromLogout", false)
+        if (cameFromLogout) {
+            sharedPreferences.edit().putBoolean("cameFromLogout", false).apply()
+            return true
+        }
+        return false
     }
 
     private fun showErrorMessage(message: String) {

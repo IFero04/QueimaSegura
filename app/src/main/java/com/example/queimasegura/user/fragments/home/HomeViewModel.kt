@@ -1,7 +1,7 @@
 package com.example.queimasegura.user.fragments.home
 
 import android.app.Application
-import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.*
 import com.example.queimasegura.retrofit.repository.Repository
 import com.example.queimasegura.room.db.AppDataBase
@@ -9,12 +9,14 @@ import com.example.queimasegura.room.entities.Auth
 import com.example.queimasegura.room.entities.Status
 import com.example.queimasegura.room.repository.AuthRepository
 import com.example.queimasegura.room.repository.StatusRepository
+import com.example.queimasegura.util.ApiUtils
 import com.example.queimasegura.util.NetworkUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
+
 class HomeViewModel (
-    application: Application,
+    private val application: Application,
     private val retrofitRepository: Repository
 ) : AndroidViewModel(application) {
     val statusData: LiveData<Status>
@@ -58,8 +60,14 @@ class HomeViewModel (
                         statusRepository.clearStatus()
                         statusRepository.addStatus(status)
                     }
+                } else if(response.errorBody() != null) {
+                    ApiUtils.handleApiError(application, response.errorBody(), ::showMessage)
                 }
             }
         }
+    }
+
+    private fun showMessage(message: String) {
+        Toast.makeText(application, message, Toast.LENGTH_LONG).show()
     }
 }

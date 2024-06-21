@@ -183,6 +183,7 @@
                 android:textSize="20sp"
                 android:text="@string/profile_edit_btn"/>
             <Button
+                android:id="@+id/profile_logout"
                 android:layout_width="350dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="20dp"

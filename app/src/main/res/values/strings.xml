@@ -93,8 +93,17 @@
     <string name="confirm_btn">Confirm</string>
     <string name="leave_edit_mode">Leave edit mode</string>
 
-    <!-- Requests -->
+
+    <!-- General -->
     <string name="filter">Filter</string>
+    <string name="server_error">Server Error</string>
+
+    <!-- Login Activity -->
+    <string name="login_message_success">Login Successful</string>
+
+    <!-- Register Activity -->
+    <string name="register_message_success">Account Created</string>
+
 
     <!-- Main Activity -->
     <string name="main_error_controller">Properties not found, turn on internet access</string>

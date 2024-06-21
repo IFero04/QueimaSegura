@@ -17,7 +17,7 @@ import kotlinx.coroutines.launch
 import retrofit2.Response
 
 class RegisterViewModel(
-    application: Application,
+    private val application: Application,
     private val repository: Repository
 ): ViewModel() {
     private val _checkEmailResponse = MutableLiveData<Response<SimpleResponse>>()

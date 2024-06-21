@@ -14,6 +14,7 @@ import com.example.queimasegura.retrofit.model.ErrorApi
 import com.example.queimasegura.retrofit.repository.Repository
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import okhttp3.ResponseBody
 
 class RegisterActivity : AppCompatActivity() {
     private lateinit var viewModel: RegisterViewModel
@@ -24,24 +25,43 @@ class RegisterActivity : AppCompatActivity() {
 
         initViewModels()
 
+        initIntent()
+
+        initEvents()
+
+        initObservers()
+    }
+
+    private fun initViewModels() {
+        val repository = Repository()
+        val viewModelFactory = RegisterViewModelFactory(application, repository)
+        viewModel = ViewModelProvider(this, viewModelFactory)[RegisterViewModel::class.java]
+    }
+
+    private fun initIntent() {
         val emailTextEdit = findViewById<EditText>(R.id.editTextEmail)
         val passTextEdit = findViewById<EditText>(R.id.editTextPass)
         val passConfirmTextEdit = findViewById<EditText>(R.id.editTextConfirmPass)
 
         val oldEmail = intent.getStringExtra("EMAIL")
         val oldPassword = intent.getStringExtra("PASSWORD")
+
         oldEmail?.let {
             emailTextEdit.setText(it)
         }
-
         oldPassword?.let {
             passTextEdit.setText(it)
             passConfirmTextEdit.setText(it)
         }
+    }
+
+    private fun initEvents() {
+        val emailTextEdit = findViewById<EditText>(R.id.editTextEmail)
+        val passTextEdit = findViewById<EditText>(R.id.editTextPass)
+        val passConfirmTextEdit = findViewById<EditText>(R.id.editTextConfirmPass)
 
         findViewById<Button>(R.id.clickHereButton).setOnClickListener {
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
+            navigateTo(LoginActivity::class.java)
         }
 
         findViewById<Button>(R.id.buttonContinue).setOnClickListener {
@@ -53,9 +73,14 @@ class RegisterActivity : AppCompatActivity() {
                 inputCheck(email, password, confirm)
                 viewModel.checkEmail(email)
             } catch (error: Exception) {
-                Toast.makeText(this, error.message, Toast.LENGTH_SHORT).show()
+                showMessage(error.message!!)
             }
         }
+    }
+
+    private fun initObservers() {
+        val emailTextEdit = findViewById<EditText>(R.id.editTextEmail)
+        val passTextEdit = findViewById<EditText>(R.id.editTextPass)
 
         viewModel.checkEmailResponse.observe(this) { response ->
             if(response.isSuccessful) {
@@ -64,19 +89,12 @@ class RegisterActivity : AppCompatActivity() {
                     putExtra("PASSWORD", passTextEdit.text.toString())
                 }
                 startActivity(intent)
+            } else if(response.errorBody() != null) {
+                handleError(response.errorBody()!!)
             } else{
-                val gson = Gson()
-                val type = object : TypeToken<ErrorApi>() {}.type
-                val errorApiResponse: ErrorApi? = gson.fromJson(response.errorBody()?.charStream(), type)
-                Toast.makeText(this, errorApiResponse?.detail, Toast.LENGTH_SHORT).show()
+                showMessage(application.getString(R.string.server_error))
             }
         }
-    }
-
-    private fun initViewModels() {
-        val repository = Repository()
-        val viewModelFactory = RegisterViewModelFactory(application, repository)
-        viewModel = ViewModelProvider(this, viewModelFactory)[RegisterViewModel::class.java]
     }
 
     private fun inputCheck(email: String, password: String, confirm: String) {
@@ -86,5 +104,25 @@ class RegisterActivity : AppCompatActivity() {
             throw IllegalArgumentException("Password must have more or 6 chars")
         if (!TextUtils.equals(password, confirm))
             throw IllegalArgumentException("Password and Confirm Password must be equal")
+    }
+
+    private fun handleError(errorBody: ResponseBody) {
+        val gson = Gson()
+        val type = object : TypeToken<ErrorApi>() {}.type
+        val errorApiResponse: ErrorApi? = gson.fromJson(errorBody.charStream(), type)
+        if(errorApiResponse != null) {
+            showMessage(errorApiResponse.detail)
+        } else{
+            showMessage(application.getString(R.string.server_error))
+        }
+    }
+
+    private fun showMessage(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+    }
+
+    private fun navigateTo(destination: Class<*>) {
+        startActivity(Intent(this, destination))
+        finish()
     }
 }
