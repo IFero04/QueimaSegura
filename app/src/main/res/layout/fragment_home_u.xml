@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".user.HomeFragment">
+    tools:context=".user.fragments.home.HomeFragment">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -111,12 +111,14 @@
                         android:layout_gravity="center" />
 
                     <TextView
+                        android:id="@+id/statusPending"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="1"
                         android:textSize="20sp"
+                        android:text="1"
                         android:layout_marginTop="8dp"
-                        android:layout_gravity="center" />
+                        android:layout_gravity="center"
+                        tools:ignore="HardcodedText" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -134,13 +136,14 @@
                         android:layout_gravity="center" />
 
                     <TextView
-                        android:id="@+id/textView5"
+                        android:id="@+id/statusCompleted"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="1"
                         android:textSize="20sp"
+                        android:text="1"
                         android:layout_marginTop="8dp"
-                        android:layout_gravity="center" />
+                        android:layout_gravity="center"
+                        tools:ignore="HardcodedText" />
                 </LinearLayout>
             </LinearLayout>
 
