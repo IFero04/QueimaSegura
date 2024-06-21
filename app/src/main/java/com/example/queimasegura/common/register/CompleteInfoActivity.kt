@@ -14,6 +14,7 @@ import com.example.queimasegura.common.login.LoginActivity
 import com.example.queimasegura.retrofit.model.CreateUserSend
 import com.example.queimasegura.retrofit.model.ErrorApi
 import com.example.queimasegura.retrofit.repository.Repository
+import com.example.queimasegura.user.UserActivity
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
@@ -77,7 +78,8 @@ class CompleteInfoActivity : AppCompatActivity() {
         viewModel.createUserResponse.observe(this) { response ->
             if (response.isSuccessful) {
                 Toast.makeText(this, "Account Created Successfully", Toast.LENGTH_SHORT).show()
-                // GO TO MAIN MENU
+                startActivity(Intent(this, UserActivity::class.java))
+                finish()
             } else {
                 val gson = Gson()
                 val type = object : TypeToken<ErrorApi>() {}.type

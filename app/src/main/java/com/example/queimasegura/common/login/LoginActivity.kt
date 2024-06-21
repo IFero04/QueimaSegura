@@ -13,6 +13,7 @@ import com.example.queimasegura.common.register.RegisterActivity
 import com.example.queimasegura.retrofit.model.ErrorApi
 import com.example.queimasegura.retrofit.model.LoginSend
 import com.example.queimasegura.retrofit.repository.Repository
+import com.example.queimasegura.user.UserActivity
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 
@@ -59,9 +60,21 @@ class LoginActivity : AppCompatActivity() {
                 val type = response.body()?.result?.user?.type
 
                 when(type) {
-                    0 -> println("USER")
-                    50 -> println("GESTOR")
-                    100 -> println("ADMIN")
+                    0 -> {
+                        //USER
+                        startActivity(Intent(this, UserActivity::class.java))
+                        finish()
+                    }
+                    1 -> {
+                        //GESTOR
+                        startActivity(Intent(this, UserActivity::class.java))
+                        finish()
+                    }
+                    2 -> {
+                        //ADMIN
+                        startActivity(Intent(this, UserActivity::class.java))
+                        finish()
+                    }
                 }
 
             } else {
