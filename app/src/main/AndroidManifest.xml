@@ -25,7 +25,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".common.reqPerm.SearchActivity"
+            android:name=".common.reqPerm.search.SearchActivity"
             android:exported="false" />
         <activity
             android:name=".common.register.CompleteInfoActivity"

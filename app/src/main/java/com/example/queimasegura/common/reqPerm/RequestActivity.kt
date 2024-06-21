@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.RadioGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -16,19 +17,26 @@ import androidx.appcompat.widget.PopupMenu
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.example.queimasegura.R
 import com.example.queimasegura.common.reqPerm.fragment.QueimadaFragment
 import com.example.queimasegura.common.reqPerm.fragment.SuppTeamFragment
+import com.example.queimasegura.common.reqPerm.search.SearchActivity
+import com.example.queimasegura.retrofit.repository.Repository
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
 class RequestActivity : AppCompatActivity(), SuppTeamFragment.OnSuppTeamSelectedListener {
+    private lateinit var viewModel: RequestViewModel
+
+    private lateinit var postCode: TextView
+    private var postCodeId: Int = 0
+
     private lateinit var type: String
     private lateinit var motive: String
     private lateinit var date: Date
     private lateinit var suppTeam: String
-    private lateinit var postCode: String
     private var latitude: Double? = null
     private var longitude: Double? = null
 
@@ -45,12 +53,32 @@ class RequestActivity : AppCompatActivity(), SuppTeamFragment.OnSuppTeamSelected
         }
 
         btnListeners()
+        initVariables()
         getCoords()
+    }
+
+    private fun initViewModels() {
+        val repository = Repository()
+        val viewModelFactory = RequestViewModelFactory(application, repository)
+        viewModel = ViewModelProvider(this, viewModelFactory)[RequestViewModel::class.java]
     }
 
     private fun getCoords() {
         latitude = intent.getDoubleExtra("latitude", Double.NaN)
         longitude = intent.getDoubleExtra("longitude", Double.NaN)
+    }
+
+    private fun initVariables() {
+        val intent = intent
+
+        postCode = findViewById(R.id.textViewPostCode)
+        postCodeId = intent.getIntExtra("LOCATION_ID", -1)
+
+        val zipCode = intent.getStringExtra("ZIP_CODE")
+        if (!zipCode.isNullOrEmpty()) postCode.text = zipCode
+
+
+
     }
 
     private fun btnListeners() {
