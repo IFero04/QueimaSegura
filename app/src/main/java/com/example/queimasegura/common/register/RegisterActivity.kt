@@ -28,6 +28,8 @@ class RegisterActivity : AppCompatActivity() {
         initIntent()
 
         initEvents()
+
+        initObservers()
     }
 
     private fun initViewModels() {
@@ -74,6 +76,11 @@ class RegisterActivity : AppCompatActivity() {
                 showMessage(error.message!!)
             }
         }
+    }
+
+    private fun initObservers() {
+        val emailTextEdit = findViewById<EditText>(R.id.editTextEmail)
+        val passTextEdit = findViewById<EditText>(R.id.editTextPass)
 
         viewModel.checkEmailResponse.observe(this) { response ->
             if(response.isSuccessful) {

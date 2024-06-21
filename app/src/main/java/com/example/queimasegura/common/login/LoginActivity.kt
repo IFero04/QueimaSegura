@@ -34,6 +34,8 @@ class LoginActivity : AppCompatActivity() {
         initViewModels()
 
         initEvents()
+
+        initObservers()
     }
 
     private fun initViewModels() {
@@ -46,6 +48,7 @@ class LoginActivity : AppCompatActivity() {
         val emailTextEdit = findViewById<EditText>(R.id.editTextEmail)
         val passwordTextEdit = findViewById<EditText>(R.id.editTextPassword)
         val loginButton = findViewById<Button>(R.id.buttonLogin)
+
         loginButton.setOnClickListener {
             val email = emailTextEdit.text.toString()
             val password = passwordTextEdit.text.toString()
@@ -59,7 +62,9 @@ class LoginActivity : AppCompatActivity() {
         findViewById<Button>(R.id.clickHereButton).setOnClickListener {
             navigateTo(RegisterActivity::class.java)
         }
+    }
 
+    private fun initObservers() {
         viewModel.loginResponse.observe(this) { response ->
             if(response.isSuccessful) {
                 showMessage(application.getString(R.string.login_message_success))

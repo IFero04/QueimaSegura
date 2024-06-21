@@ -24,6 +24,8 @@ class MainActivity : AppCompatActivity() {
         initViewModels()
 
         initEvents()
+
+        initObservers()
     }
 
     private fun initViewModels() {
@@ -34,6 +36,16 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun initEvents() {
+        findViewById<View>(R.id.splash).setOnClickListener {
+            if (isFirstRun()) {
+                viewModel.firstRun()
+            } else {
+                viewModel.startApp()
+            }
+        }
+    }
+
+    private fun initObservers() {
         viewModel.appState.observe(this) { state ->
             when (state) {
                 MainViewModel.AppState.INTRO -> navigateTo(IntroSliderActivity::class.java)
@@ -46,15 +58,6 @@ class MainActivity : AppCompatActivity() {
 
         viewModel.errorMessage.observe(this) { message ->
             message?.let { showErrorMessage(it) }
-        }
-
-
-        findViewById<View>(R.id.splash).setOnClickListener {
-            if (isFirstRun()) {
-                viewModel.firstRun()
-            } else {
-                viewModel.startApp()
-            }
         }
 
         viewModel.authData.observeForever { auth ->
