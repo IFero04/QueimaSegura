@@ -15,9 +15,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Response
 
+
 class LoginViewModel(
     application: Application,
-    private val repository: Repository
+    private val retrofitRepository: Repository
 ): ViewModel() {
     private val _loginResponse = MutableLiveData<Response<Login>>()
     val loginResponse: LiveData<Response<Login>> get() = _loginResponse
@@ -31,7 +32,7 @@ class LoginViewModel(
 
     fun loginUser(loginBody: LoginBody) {
         viewModelScope.launch {
-            val response = repository.loginUser(loginBody)
+            val response = retrofitRepository.loginUser(loginBody)
             _loginResponse.value = response
             if(response.isSuccessful) {
                 val resetJob = resetUserData()

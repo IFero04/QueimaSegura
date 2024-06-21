@@ -56,6 +56,15 @@ class MainActivity : AppCompatActivity() {
                 viewModel.startApp()
             }
         }
+
+        viewModel.authData.observeForever { auth ->
+            if(viewModel.isAppStarted) {
+                if(auth == null) {
+                    navigateTo(LoginActivity::class.java)
+                    showErrorMessage(application.getString(R.string.main_error_login))
+                }
+            }
+        }
     }
 
     private fun navigateTo(destination: Class<*>) {
