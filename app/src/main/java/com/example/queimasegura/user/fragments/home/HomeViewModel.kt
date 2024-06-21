@@ -1,7 +1,6 @@
 package com.example.queimasegura.user.fragments.home
 
 import android.app.Application
-import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.*
 import com.example.queimasegura.retrofit.repository.Repository
@@ -14,6 +13,7 @@ import com.example.queimasegura.util.ApiUtils
 import com.example.queimasegura.util.NetworkUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+
 
 class HomeViewModel (
     private val application: Application,
