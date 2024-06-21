@@ -1,8 +1,7 @@
 <resources>
     <style name="Base.Theme.QueimaSegura" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/black</item>
     </style>
 
     <style name="CustomEditTextStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">

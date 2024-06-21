@@ -30,6 +30,7 @@
             android:layout_marginStart="16dp"
             android:fontFamily="@font/karma_medium"
             android:text="@string/state"
+            android:textColor="@color/black"
             android:textSize="20sp" />
 
         <ImageButton

@@ -69,6 +69,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/pending_req"
+                        android:textColor="@color/black"
                         android:textSize="20sp"
                         android:gravity="center" />
                 </LinearLayout>
@@ -85,6 +86,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/fire_prevented"
+                        android:textColor="@color/black"
                         android:textSize="20sp"
                         android:gravity="center" />
                 </LinearLayout>
@@ -118,6 +120,7 @@
                         android:layout_height="wrap_content"
                         android:textSize="20sp"
                         android:text="1"
+                        android:textColor="@color/black"
                         android:layout_marginTop="8dp"
                         android:layout_gravity="center"
                         tools:ignore="HardcodedText" />
@@ -143,6 +146,7 @@
                         android:layout_height="wrap_content"
                         android:textSize="20sp"
                         android:text="1"
+                        android:textColor="@color/black"
                         android:layout_marginTop="8dp"
                         android:layout_gravity="center"
                         tools:ignore="HardcodedText" />
@@ -255,7 +259,6 @@
                             android:layout_marginLeft="8dp"/>
                     </LinearLayout>
 
-                    <!-- Linha para o estado -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

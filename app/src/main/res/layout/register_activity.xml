@@ -55,6 +55,8 @@
         android:layout_height="48dp"
         android:layout_marginTop="15dp"
         android:hint="@string/username"
+        android:textColorHint="@color/hintext"
+        android:textColor="@color/black"
         android:inputType="text"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         app:layout_constraintEnd_toEndOf="parent"
@@ -81,6 +83,8 @@
         android:layout_height="48dp"
         android:layout_marginTop="15dp"
         android:hint="@string/email"
+        android:textColorHint="@color/hintext"
+        android:textColor="@color/black"
         android:inputType="textWebEmailAddress"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         app:layout_constraintEnd_toEndOf="parent"
@@ -107,6 +111,8 @@
         android:layout_height="48dp"
         android:layout_marginTop="15dp"
         android:hint="@string/password"
+        android:textColorHint="@color/hintext"
+        android:textColor="@color/black"
         android:inputType="textPassword"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         app:layout_constraintEnd_toEndOf="parent"
@@ -133,6 +139,8 @@
         android:layout_height="48dp"
         android:layout_marginTop="15dp"
         android:hint="@string/confirm_password"
+        android:textColorHint="@color/hintext"
+        android:textColor="@color/black"
         android:inputType="textPassword"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         app:layout_constraintEnd_toEndOf="parent"
@@ -169,16 +177,6 @@
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/textViewLine4"
-        android:layout_width="411dp"
-        android:layout_height="1dp"
-        android:layout_marginBottom="15dp"
-        android:background="@color/colorAccent"
-        app:layout_constraintBottom_toTopOf="@+id/buttonContinue"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <Button
         android:id="@+id/buttonContinue"
         android:layout_width="330dp"
@@ -188,6 +186,7 @@
         android:layout_marginBottom="15dp"
         android:fontFamily="@font/karma_bold"
         android:text="@string/continue_btn"
+        android:textColor="@color/white"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

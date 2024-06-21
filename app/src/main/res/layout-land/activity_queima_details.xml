@@ -52,6 +52,7 @@
                 android:textSize="20sp"
                 android:layout_gravity="start|center_vertical"
                 android:layout_marginStart="10dp"
+                android:textColor="@color/black"
                 android:text="@string/type"/>
 
             <TextView
@@ -60,6 +61,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textSize="20sp"
+                android:textColor="@color/black"
                 android:layout_gravity="end|center_vertical"/>
         </LinearLayout>
 
@@ -76,6 +78,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textSize="20sp"
+                android:textColor="@color/black"
                 android:layout_gravity="start|center_vertical"
                 android:layout_marginStart="10dp"
                 android:text="@string/motive"/>
@@ -86,6 +89,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textSize="20sp"
+                android:textColor="@color/black"
                 android:layout_gravity="end|center_vertical"
                 android:layout_marginEnd="-10dp"/>
         </LinearLayout>
@@ -103,6 +107,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textSize="20sp"
+                android:textColor="@color/black"
                 android:layout_gravity="start|center_vertical"
                 android:layout_marginStart="10dp"
                 android:text="@string/date"/>
@@ -113,6 +118,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textSize="20sp"
+                android:textColor="@color/black"
                 android:layout_gravity="end|center_vertical"/>
         </LinearLayout>
 
@@ -129,6 +135,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textSize="20sp"
+                android:textColor="@color/black"
                 android:layout_gravity="start|center_vertical"
                 android:layout_marginStart="10dp"
                 android:text="@string/supp_team"/>
@@ -139,6 +146,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textSize="20sp"
+                android:textColor="@color/black"
                 android:layout_gravity="end|center_vertical"
                 android:layout_marginEnd="-10dp"/>
         </LinearLayout>
@@ -156,6 +164,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textSize="20sp"
+                android:textColor="@color/black"
                 android:layout_gravity="start|center_vertical"
                 android:layout_marginStart="10dp"
                 android:text="@string/district"/>
@@ -166,6 +175,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textSize="20sp"
+                android:textColor="@color/black"
                 android:layout_gravity="end|center_vertical"
                 android:layout_marginEnd="-10dp"/>
         </LinearLayout>
@@ -183,6 +193,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textSize="20sp"
+                android:textColor="@color/black"
                 android:layout_gravity="start|center_vertical"
                 android:layout_marginStart="10dp"
                 android:text="@string/phone"/>
@@ -193,6 +204,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textSize="20sp"
+                android:textColor="@color/black"
                 android:layout_gravity="end|center_vertical"
                 android:layout_marginEnd="-10dp"/>
         </LinearLayout>
@@ -212,6 +224,7 @@
                 android:textSize="20sp"
                 android:layout_gravity="start|center_vertical"
                 android:layout_marginStart="10dp"
+                android:textColor="@color/black"
                 android:text="@string/post_code"/>
 
             <TextView
@@ -221,6 +234,7 @@
                 android:layout_weight="1"
                 android:textSize="20sp"
                 android:layout_gravity="end|center_vertical"
+                android:textColor="@color/black"
                 android:layout_marginEnd="-10dp"/>
         </LinearLayout>
 
@@ -239,6 +253,7 @@
                 android:textSize="20sp"
                 android:layout_gravity="start|center_vertical"
                 android:layout_marginStart="10dp"
+                android:textColor="@color/black"
                 android:text="@string/state"/>
 
             <TextView
@@ -248,6 +263,7 @@
                 android:layout_weight="1"
                 android:textSize="20sp"
                 android:layout_gravity="end|center_vertical"
+                android:textColor="@color/black"
                 android:layout_marginEnd="-10dp"/>
         </LinearLayout>
 

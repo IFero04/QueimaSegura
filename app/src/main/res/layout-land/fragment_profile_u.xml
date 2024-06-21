@@ -70,6 +70,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:text="@string/username"
+                        android:textColor="@color/black"
                         android:textSize="25sp" />
 
                     <TextView
@@ -77,6 +78,7 @@
                         android:layout_height="wrap_content"
                         android:text="email@email.com"
                         android:textSize="25sp"
+                        android:textColor="@color/black"
                         tools:ignore="HardcodedText" />
                 </LinearLayout>
             </LinearLayout>
@@ -109,6 +111,7 @@
                         android:layout_marginStart="10dp"
                         android:layout_weight="1"
                         android:text="@string/name"
+                        android:textColor="@color/black"
                         android:textSize="20sp" />
 
                     <TextView
@@ -116,6 +119,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="end|center_vertical"
                         android:layout_weight="1"
+                        android:textColor="@color/black"
                         android:text="Sónia Soares"
                         android:textSize="20sp" />
                 </LinearLayout>
@@ -135,6 +139,7 @@
                         android:layout_marginStart="10dp"
                         android:layout_weight="1"
                         android:text="@string/nif"
+                        android:textColor="@color/black"
                         android:textSize="20sp" />
 
                     <TextView
@@ -143,6 +148,7 @@
                         android:layout_gravity="end|center_vertical"
                         android:layout_weight="1"
                         android:text="249724820"
+                        android:textColor="@color/black"
                         android:textSize="20sp" />
                 </LinearLayout>
 
@@ -161,6 +167,7 @@
                         android:layout_marginStart="10dp"
                         android:layout_weight="1"
                         android:text="@string/phone"
+                        android:textColor="@color/black"
                         android:textSize="20sp" />
 
                     <TextView
@@ -170,6 +177,7 @@
                         android:layout_marginEnd="-10dp"
                         android:layout_weight="1"
                         android:text="930203020"
+                        android:textColor="@color/black"
                         android:textSize="20sp" />
                 </LinearLayout>
 
@@ -185,6 +193,7 @@
                         android:layout_marginEnd="16dp"
                         android:layout_weight="1"
                         android:text="@string/profile_edit_btn"
+                        android:textColor="@color/white"
                         android:textSize="20sp" />
 
                     <Button
@@ -192,6 +201,7 @@
                         android:layout_height="50dp"
                         android:layout_weight="1"
                         android:text="@string/log_out_btn"
+                        android:textColor="@color/white"
                         android:textSize="20sp" />
                 </LinearLayout>
             </LinearLayout>

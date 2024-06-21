@@ -15,18 +15,21 @@
             android:id="@+id/radioButtonAdmin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
             android:text="@string/admin_perm" />
 
         <RadioButton
             android:id="@+id/radioButtonManager"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
             android:text="@string/manager_perm" />
 
         <RadioButton
             android:id="@+id/radioButtonUser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
             android:text="@string/user_perm" />
 
     </RadioGroup>
@@ -36,6 +39,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/confirm_btn"
+        android:textColor="@color/white"
         android:layout_gravity="center"/>
 
 </LinearLayout>
