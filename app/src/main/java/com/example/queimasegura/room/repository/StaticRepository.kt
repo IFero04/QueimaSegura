@@ -1,5 +1,6 @@
 package com.example.queimasegura.room.repository
 
+import androidx.lifecycle.LiveData
 import com.example.queimasegura.room.dao.ControllerDao
 import com.example.queimasegura.room.dao.ReasonDao
 import com.example.queimasegura.room.dao.TypeDao
@@ -8,7 +9,7 @@ import com.example.queimasegura.room.entities.Reason
 import com.example.queimasegura.room.entities.Type
 
 
-data class StaticRepository(
+class StaticRepository(
     private val controllerDao: ControllerDao,
     private val reasonDao: ReasonDao,
     private val typeDao: TypeDao
@@ -27,9 +28,7 @@ data class StaticRepository(
     }
 
     // REASONS
-    suspend fun getReasons(): List<Reason>? {
-        return reasonDao.getReasons()
-    }
+    val readReasonsData: LiveData<List<Reason>> = reasonDao.readReasonsData()
 
     suspend fun addReason(reason: Reason) {
         reasonDao.addReason(reason)
@@ -40,9 +39,7 @@ data class StaticRepository(
     }
 
     // TYPES
-    suspend fun getTypes(): List<Type>? {
-        return typeDao.getTypes()
-    }
+    val readTypesData: LiveData<List<Type>> = typeDao.readTypesData()
 
     suspend fun addType(type: Type) {
         typeDao.addType(type)

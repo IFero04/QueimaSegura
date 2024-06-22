@@ -1,5 +1,6 @@
 package com.example.queimasegura.room.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -16,5 +17,5 @@ interface ReasonDao {
     suspend fun clearReasons()
 
     @Query("SELECT * FROM reasons_table ORDER BY id")
-    suspend fun getReasons(): List<Reason>?
+    fun readReasonsData(): LiveData<List<Reason>>
 }

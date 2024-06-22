@@ -8,18 +8,6 @@
     android:background="#FFFFFF"
     tools:context=".common.fire.CreateFireActivity">
 
-    <ImageButton
-        android:id="@+id/imageButtonBack"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="16dp"
-        android:background="#00FFFFFF"
-        android:contentDescription="@string/arrow_back_vector"
-        app:layout_constraintBottom_toBottomOf="@+id/textViewTitle"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textViewTitle"
-        app:srcCompat="@drawable/baseline_arrow_back_24" />
-
     <TextView
         android:id="@+id/textViewTitle"
         android:layout_width="wrap_content"
@@ -29,8 +17,9 @@
         android:text="@string/perm_req"
         android:textColor="@color/colorPrimary"
         android:textSize="34sp"
-        app:layout_constraintStart_toEndOf="@+id/imageButtonBack"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <ScrollView
         android:id="@+id/scrollViewRequest"
@@ -65,34 +54,11 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginEnd="16dp"
-                android:checkedButton="@+id/radioButtonQueima"
+                android:checkedButton="@+id/radioTypeButton"
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textViewType">
-
-                <RadioButton
-                    android:id="@+id/radioButtonQueima"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:buttonTint="@color/colorPrimary"
-                    android:checked="false"
-                    android:fontFamily="@font/karma_medium"
-                    android:text="@string/queima"
-                    android:textColor="@color/black"
-                    android:textSize="16sp" />
-
-                <RadioButton
-                    android:id="@+id/radioButtonQueimada"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="105dp"
-                    android:buttonTint="@color/colorPrimary"
-                    android:checked="false"
-                    android:fontFamily="@font/karma_medium"
-                    android:text="@string/queimada"
-                    android:textColor="@color/black"
-                    android:textSize="16sp" />
             </RadioGroup>
 
             <TextView
@@ -108,17 +74,15 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/radioGroupType" />
 
-            <TextView
-                android:id="@+id/textViewMotiveHeader"
-                android:layout_width="wrap_content"
+            <Spinner
+                android:id="@+id/spinnerReason"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="15dp"
-                android:fontFamily="@font/karma_medium"
-                android:text="@string/motive"
-                android:textColor="@color/black"
-                android:textSize="16sp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="8dp"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textViewMotive" />
 
             <TextView
@@ -127,21 +91,11 @@
                 android:layout_height="1dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
+                android:layout_marginTop="8dp"
                 android:background="@color/colorPrimary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewMotiveHeader" />
-
-            <ImageButton
-                android:id="@+id/imageButtonDropDownMotive"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_marginEnd="16dp"
-                android:background="#00FFFFFF"
-                android:contentDescription="@string/drop_down_vector"
-                app:layout_constraintBottom_toTopOf="@+id/textViewLine"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:srcCompat="@drawable/baseline_arrow_drop_down_24" />
+                app:layout_constraintTop_toBottomOf="@+id/spinnerReason" />
 
             <TextView
                 android:id="@+id/textViewDate"
@@ -157,13 +111,13 @@
                 app:layout_constraintTop_toBottomOf="@+id/textViewLine" />
 
             <TextView
-                android:id="@+id/textViewStateHeader"
+                android:id="@+id/textViewDateShow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="15dp"
                 android:fontFamily="@font/karma_medium"
-                android:text="@string/date"
+                android:text="@string/create_fire_date"
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
@@ -178,7 +132,7 @@
                 android:background="@color/colorPrimary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewStateHeader" />
+                app:layout_constraintTop_toBottomOf="@+id/textViewDateShow" />
 
             <ImageButton
                 android:id="@+id/imageButtonDate"
@@ -308,7 +262,6 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
-
     <TextView
         android:id="@+id/textViewLine4"
         android:layout_width="411dp"
@@ -348,6 +301,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buttonRegister" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

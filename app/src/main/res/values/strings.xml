@@ -103,7 +103,6 @@
     <!-- Register Activity -->
     <string name="register_message_success">Account Created</string>
 
-
     <!-- Main Activity -->
     <string name="main_error_controller">Properties not found, turn on internet access</string>
     <string name="main_error_auth">No session found, turn on internet access</string>
@@ -113,5 +112,7 @@
     <string name="profile_unknown">Unknown</string>
     <string name="your_location">Your Location:</string>
 
+    <!-- Create Fire Activity -->
+    <string name="create_fire_date">Selected Date: </string>
 
 </resources>
