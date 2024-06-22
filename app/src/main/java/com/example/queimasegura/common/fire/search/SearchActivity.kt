@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.queimasegura.R
-import com.example.queimasegura.common.fire.CreateFireActivity
+import com.example.queimasegura.common.reqPerm.CreateFireActivity
 import com.example.queimasegura.retrofit.model.data.Location
 import com.example.queimasegura.retrofit.repository.Repository
 
