@@ -100,5 +100,6 @@
 
     <!-- Profile Activity -->
     <string name="profile_unknown">Desconhecido</string>
+    <string name="your_location">A sua Localização:</string>
 
 </resources>
