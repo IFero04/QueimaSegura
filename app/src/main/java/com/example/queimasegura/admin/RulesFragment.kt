@@ -143,7 +143,7 @@ class RulesFragment : Fragment() {
 
     private fun handleConfirmation(district: String, startDate: String, endDate: String): Boolean {
         if (district.isEmpty() || startDate.isEmpty() || endDate.isEmpty()) {
-            Toast.makeText(requireContext(), "Please fill in all fields", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Please fill in all fields!", Toast.LENGTH_SHORT).show()
             return false
         }
 
@@ -151,7 +151,7 @@ class RulesFragment : Fragment() {
         val endDateParsed = parseDate(endDate)
 
         if (startDateParsed == null || endDateParsed == null || startDateParsed.after(endDateParsed)) {
-            Toast.makeText(requireContext(), "End date must be after start date", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "End date must be after start date!", Toast.LENGTH_SHORT).show()
             return false
         }
 
