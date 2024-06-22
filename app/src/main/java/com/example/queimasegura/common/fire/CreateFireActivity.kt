@@ -1,4 +1,4 @@
-package com.example.queimasegura.common.fire
+package com.example.queimasegura.common.reqPerm
 
 import android.app.DatePickerDialog
 import android.content.Intent
@@ -16,25 +16,27 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.PopupMenu
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.queimasegura.R
-import com.example.queimasegura.common.fire.map.MapActivity
-import com.example.queimasegura.common.fire.search.SearchActivity
+import com.example.queimasegura.common.reqPerm.search.SearchActivity
 import com.example.queimasegura.retrofit.repository.Repository
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
-class CreateFireActivity : AppCompatActivity() {
-    private lateinit var viewModel: CreateFireViewModel
+class RequestActivity : AppCompatActivity() {
+    private lateinit var viewModel: RequestViewModel
 
     private lateinit var postCode: TextView
     private var postCodeId: Int = 0
-
+    private var typeId: Int = 0
+    private var reasonId: Int = 0
     private lateinit var type: String
     private lateinit var motive: String
     private lateinit var date: Date
+
+
+
     private var latitude: Double? = null
     private var longitude: Double? = null
 
@@ -57,19 +59,20 @@ class CreateFireActivity : AppCompatActivity() {
 
     private fun initViewModels() {
         val repository = Repository()
-        val viewModelFactory = CreateFireViewModelFactory(application, repository)
-        viewModel = ViewModelProvider(this, viewModelFactory)[CreateFireViewModel::class.java]
+        val viewModelFactory = RequestViewModelFactory(application, repository)
+        viewModel = ViewModelProvider(this, viewModelFactory)[RequestViewModel::class.java]
     }
 
     private fun getCoords() {
         latitude = intent.getDoubleExtra("latitude", Double.NaN)
         longitude = intent.getDoubleExtra("longitude", Double.NaN)
+        showToast(latitude.toString())
     }
 
     private fun initVariables() {
         val intent = intent
 
-        postCode = findViewById(R.id.textViewPostCode)
+        postCode = findViewById(R.id.textViewOutputLocation)
         postCodeId = intent.getIntExtra("LOCATION_ID", -1)
 
         val zipCode = intent.getStringExtra("ZIP_CODE")
@@ -110,9 +113,11 @@ class CreateFireActivity : AppCompatActivity() {
             cancelRequest()
         }
     }
+
     private fun cancelRequest() {
         finish()
     }
+
     private fun handleTypeRadioGroupChange(checkedId: Int) {
         when (checkedId) {
             R.id.radioButtonQueima -> type = R.id.radioButtonQueima.toString()
@@ -154,20 +159,5 @@ class CreateFireActivity : AppCompatActivity() {
 
     private fun showToast(str: String) {
         Toast.makeText(this, str, Toast.LENGTH_SHORT).show()
-    }
-
-    private fun replaceFragment(fragment: Fragment, containerId: Int) {
-        supportFragmentManager.beginTransaction()
-            .replace(containerId, fragment)
-            .commit()
-    }
-
-    private fun removeFragment(containerId: Int) {
-        val fragment = supportFragmentManager.findFragmentById(containerId)
-        fragment?.let {
-            supportFragmentManager.beginTransaction()
-                .remove(it)
-                .commit()
-        }
     }
 }
