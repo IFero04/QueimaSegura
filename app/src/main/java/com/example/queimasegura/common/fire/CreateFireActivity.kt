@@ -18,6 +18,7 @@ import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.PopupMenu
+import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -125,7 +126,7 @@ class CreateFireActivity : AppCompatActivity() {
                 text = type.nameEn
                 textSize = 16f
                 setTextColor(resources.getColor(R.color.black, null))
-                setButtonTintList(resources.getColorStateList(R.color.colorPrimary, null))
+                buttonTintList = ContextCompat.getColorStateList(context, R.color.radio_btn_tint)
                 typeface = ResourcesCompat.getFont(this@CreateFireActivity, R.font.karma_medium)
                 layoutParams = RadioGroup.LayoutParams(
                     RadioGroup.LayoutParams.WRAP_CONTENT,

@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import com.example.queimasegura.R
 import com.example.queimasegura.room.entities.Reason
 
@@ -24,9 +25,12 @@ class ReasonsAdapter(context: Context, reasons: List<Reason>) :
         val reason = getItem(position) ?: throw IllegalStateException("Reason at position $position not found")
 
         val view = convertView ?: LayoutInflater.from(context).inflate(android.R.layout.simple_spinner_dropdown_item, parent, false)
+        view.setBackgroundColor(ContextCompat.getColor(context, android.R.color.white))
 
         val textView = view.findViewById<TextView>(android.R.id.text1)
         textView.text = reason.namePt
+
+        textView.setTextColor(ContextCompat.getColor(context, R.color.black))
 
         return view
     }
