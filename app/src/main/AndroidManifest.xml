@@ -25,7 +25,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".common.reqPerm.search.SearchActivity"
+            android:name=".common.fire.search.SearchActivity"
             android:exported="false" />
         <activity
             android:name=".common.register.CompleteInfoActivity"
@@ -34,13 +34,13 @@
             android:name=".user.UserActivity"
             android:exported="true" />
         <activity
-            android:name=".common.reqPerm.RequestActivity"
+            android:name=".common.fire.CreateFireActivity"
             android:exported="true"
             android:label="@string/title_activity_request"
             android:theme="@style/Theme.QueimaSegura"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".common.reqPerm.MapActivity"
+            android:name=".common.fire.map.MapActivity"
             android:exported="false" />
         <activity
             android:name=".common.intro.IntroSliderActivity"

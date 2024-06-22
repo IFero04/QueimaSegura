@@ -1,4 +1,4 @@
-package com.example.queimasegura.common.reqPerm
+package com.example.queimasegura.common.fire
 
 import android.app.DatePickerDialog
 import android.content.Intent
@@ -19,15 +19,15 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.queimasegura.R
-import com.example.queimasegura.common.reqPerm.fragment.QueimadaFragment
-import com.example.queimasegura.common.reqPerm.search.SearchActivity
+import com.example.queimasegura.common.fire.map.MapActivity
+import com.example.queimasegura.common.fire.search.SearchActivity
 import com.example.queimasegura.retrofit.repository.Repository
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
-class RequestActivity : AppCompatActivity() {
-    private lateinit var viewModel: RequestViewModel
+class CreateFireActivity : AppCompatActivity() {
+    private lateinit var viewModel: CreateFireViewModel
 
     private lateinit var postCode: TextView
     private var postCodeId: Int = 0
@@ -57,8 +57,8 @@ class RequestActivity : AppCompatActivity() {
 
     private fun initViewModels() {
         val repository = Repository()
-        val viewModelFactory = RequestViewModelFactory(application, repository)
-        viewModel = ViewModelProvider(this, viewModelFactory)[RequestViewModel::class.java]
+        val viewModelFactory = CreateFireViewModelFactory(application, repository)
+        viewModel = ViewModelProvider(this, viewModelFactory)[CreateFireViewModel::class.java]
     }
 
     private fun getCoords() {

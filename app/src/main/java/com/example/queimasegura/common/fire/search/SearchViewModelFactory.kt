@@ -1,4 +1,4 @@
-package com.example.queimasegura.common.reqPerm.search
+package com.example.queimasegura.common.fire.search
 
 import android.app.Application
 import androidx.lifecycle.ViewModel

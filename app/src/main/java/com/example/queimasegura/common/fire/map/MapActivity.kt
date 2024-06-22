@@ -1,4 +1,4 @@
-package com.example.queimasegura.common.reqPerm
+package com.example.queimasegura.common.fire.map
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.queimasegura.R
+import com.example.queimasegura.common.fire.CreateFireActivity
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
@@ -49,13 +50,13 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapClic
 
     private fun btnListeners() {
         findViewById<ImageButton>(R.id.imageButtonBack).setOnClickListener {
-            val intent = Intent(this, RequestActivity::class.java)
+            val intent = Intent(this, CreateFireActivity::class.java)
             startActivity(intent)
         }
 
         findViewById<Button>(R.id.buttonConfirm).setOnClickListener {
             coords?.let {
-                val intent = Intent(this, RequestActivity::class.java)
+                val intent = Intent(this, CreateFireActivity::class.java)
                 intent.putExtra("latitude", it.latitude)
                 intent.putExtra("longitude", it.longitude)
                 startActivity(intent)
@@ -65,7 +66,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapClic
         }
 
         findViewById<Button>(R.id.buttonCancel).setOnClickListener {
-            val intent = Intent(this, RequestActivity::class.java)
+            val intent = Intent(this, CreateFireActivity::class.java)
             startActivity(intent)
         }
     }

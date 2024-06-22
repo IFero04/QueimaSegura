@@ -5,7 +5,7 @@
     android:id="@+id/searchPage"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".common.reqPerm.search.SearchActivity">
+    tools:context=".common.fire.search.SearchActivity">
 
     <ImageButton
         android:id="@+id/imageButtonBack"

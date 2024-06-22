@@ -10,7 +10,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.queimasegura.R
-import com.example.queimasegura.common.reqPerm.RequestActivity
+import com.example.queimasegura.common.fire.CreateFireActivity
 import com.example.queimasegura.retrofit.repository.Repository
 
 class HomeFragment : Fragment() {
@@ -30,6 +30,8 @@ class HomeFragment : Fragment() {
 
         initVariables(view)
 
+        initEvents(view)
+
         return view
     }
 
@@ -40,12 +42,6 @@ class HomeFragment : Fragment() {
     }
 
     private fun initVariables(view: View){
-        val addImageView = view.findViewById<ImageView>(R.id.add)
-        addImageView.setOnClickListener {
-            val intent = Intent(activity, RequestActivity::class.java)
-            startActivity(intent)
-        }
-
         val usernameTextView = view.findViewById<TextView>(R.id.username_welcome)
         viewModel.authData.observe(viewLifecycleOwner) { auth ->
             auth?.let {
@@ -62,4 +58,12 @@ class HomeFragment : Fragment() {
             }
         }
     }
+
+    private fun initEvents(view: View) {
+        val addImageView = view.findViewById<ImageView>(R.id.add)
+        addImageView.setOnClickListener {
+            startActivity(Intent(activity, CreateFireActivity::class.java))
+        }
+    }
+
 }
