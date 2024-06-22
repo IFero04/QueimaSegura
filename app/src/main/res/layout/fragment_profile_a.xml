@@ -52,7 +52,7 @@
                 android:layout_height="64dp"
                 android:layout_gravity="bottom|end"
                 android:layout_marginBottom="-10dp"
-                android:layout_marginEnd="150dp"
+                android:layout_marginEnd="120dp"
                 android:backgroundTint="#00FFFFFF"
                 android:contentDescription="@string/add_btn"
                 app:srcCompat="@drawable/pen" />
@@ -178,6 +178,7 @@
             android:orientation="vertical">
 
             <Button
+                android:id="@+id/buttonEditProfile"
                 android:layout_width="350dp"
                 android:layout_height="50dp"
                 android:textColor="@color/white"

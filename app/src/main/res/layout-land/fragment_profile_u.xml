@@ -188,6 +188,7 @@
                     android:orientation="horizontal">
 
                     <Button
+                        android:id="@+id/buttonEditProfile"
                         android:layout_width="0dp"
                         android:layout_height="50dp"
                         android:layout_marginEnd="16dp"
