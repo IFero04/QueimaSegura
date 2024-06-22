@@ -125,7 +125,7 @@ class CreateFireActivity : AppCompatActivity() {
                 text = type.nameEn
                 textSize = 16f
                 setTextColor(resources.getColor(R.color.black, null))
-                setButtonTintList(resources.getColorStateList(R.color.colorPrimary, null))
+                setButtonTintList(resources.getColorStateList(android.R.color.black, null))
                 typeface = ResourcesCompat.getFont(this@CreateFireActivity, R.font.karma_medium)
                 layoutParams = RadioGroup.LayoutParams(
                     RadioGroup.LayoutParams.WRAP_CONTENT,
