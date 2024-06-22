@@ -96,6 +96,11 @@
     <!-- General -->
     <string name="filter">Filter</string>
     <string name="server_error">Server Error</string>
+    <string name="district_colon">District:</string>
+    <string name="phone_colon">Phone Number:</string>
+    <string name="post_code_colon">Postcode:</string>
+    <string name="state_colon">State:</string>
+    <string name="fire_tech_colon">Fire Technician:</string>
 
     <!-- Login Activity -->
     <string name="login_message_success">Login Successful</string>
