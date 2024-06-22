@@ -1,6 +1,7 @@
 package com.example.queimasegura.util
 
 import android.content.Context
+import android.util.Log
 import com.example.queimasegura.R
 import com.example.queimasegura.retrofit.model.ErrorApi
 import com.example.queimasegura.room.db.AppDataBase
@@ -26,7 +27,7 @@ object ApiUtils {
                 val type = object : TypeToken<ErrorApi>() {}.type
                 val errorApiResponse: ErrorApi? = gson.fromJson(errorBody.charStream(), type)
                 errorApiResponse?.let {
-                    if (it.detail == "Session does not match") {
+                    if (it.detail == "Session does not match" || it.detail == "Session does not exist") {
                         deleteAuthData(context)
                     } else {
                         showMessage(it.detail)
