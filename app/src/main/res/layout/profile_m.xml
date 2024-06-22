@@ -209,6 +209,7 @@
             android:orientation="vertical">
 
             <Button
+                android:id="@+id/buttonEditProfile"
                 android:layout_width="350dp"
                 android:layout_height="50dp"
                 android:textSize="20sp"

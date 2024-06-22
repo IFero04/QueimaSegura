@@ -67,7 +67,7 @@
 
         <LinearLayout
             android:layout_width="550dp"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_marginTop="50dp"
             android:layout_gravity="center"
             android:background="@drawable/rounded_background"
@@ -81,7 +81,7 @@
                 android:textColor="@color/black"
                 android:layout_gravity="start|center_vertical"
                 android:layout_marginStart="10dp"
-                android:text="@string/motive"/>
+                android:text="@string/motive_colon"/>
 
             <TextView
                 android:text="Sobrantes Florestais"
@@ -110,7 +110,7 @@
                 android:textColor="@color/black"
                 android:layout_gravity="start|center_vertical"
                 android:layout_marginStart="10dp"
-                android:text="@string/date"/>
+                android:text="@string/date_colon"/>
 
             <TextView
                 android:id="@+id/detailDate"
@@ -138,7 +138,7 @@
                 android:textColor="@color/black"
                 android:layout_gravity="start|center_vertical"
                 android:layout_marginStart="10dp"
-                android:text="@string/supp_team"/>
+                android:text="@string/supp_team_colon"/>
 
             <TextView
                 android:text="Yes"
@@ -167,7 +167,7 @@
                 android:textColor="@color/black"
                 android:layout_gravity="start|center_vertical"
                 android:layout_marginStart="10dp"
-                android:text="@string/district"/>
+                android:text="@string/district_colon"/>
 
             <TextView
                 android:text="Viana do Castelo"
@@ -196,7 +196,7 @@
                 android:textColor="@color/black"
                 android:layout_gravity="start|center_vertical"
                 android:layout_marginStart="10dp"
-                android:text="@string/phone"/>
+                android:text="@string/phone_colon"/>
 
             <TextView
                 android:text="932123456"
@@ -225,7 +225,7 @@
                 android:layout_gravity="start|center_vertical"
                 android:layout_marginStart="10dp"
                 android:textColor="@color/black"
-                android:text="@string/post_code"/>
+                android:text="@string/post_code_colon"/>
 
             <TextView
                 android:text="4970-233"
@@ -254,7 +254,7 @@
                 android:layout_gravity="start|center_vertical"
                 android:layout_marginStart="10dp"
                 android:textColor="@color/black"
-                android:text="@string/state"/>
+                android:text="@string/state_colon"/>
 
             <TextView
                 android:id="@+id/detailState"
