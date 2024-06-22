@@ -30,7 +30,7 @@ interface ApiService {
     suspend fun getController(): Response<Controller>
 
     // AUTH
-    @GET("/auth/check_email/")
+    @GET("/auth/check_email")
     suspend fun checkEmail(
         @Query("email") email: String
     ): Response<SimpleResponse>
@@ -41,7 +41,7 @@ interface ApiService {
         @Query("session_id") sessionId: String,
     ): Response<SimpleResponse>
 
-    @POST("/auth/login/")
+    @POST("/auth/login")
     suspend fun loginUser(
         @Body loginBody: LoginBody
     ): Response<Login>
@@ -65,7 +65,7 @@ interface ApiService {
         @Query("session_id") sessionId: String
     ): Response<UserStatus>
 
-    @GET("/location/")
+    @GET("/location")
     suspend fun getLocation(
         @Query("search") search: String
     ): Response<Location>

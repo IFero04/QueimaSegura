@@ -5,7 +5,7 @@
     android:id="@+id/reqPermsMapPage"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".common.reqPerm.MapActivity">
+    tools:context=".common.fire.map.MapActivity">
 
     <ImageButton
         android:id="@+id/imageButtonBack"

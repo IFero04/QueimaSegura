@@ -47,10 +47,10 @@ class HomeViewModel (
 
     private fun fetchUserStatus(auth: Auth) {
         viewModelScope.launch(Dispatchers.IO) {
-            val isInternetAvailable = NetworkUtils.isInternetAvailable(getApplication())
-            if (isInternetAvailable) {
+            val isInternetAvailable = NetworkUtils.isInternetAvailable(application)
+            if(isInternetAvailable) {
                 val response = retrofitRepository.getUserStatus(auth.id, auth.sessionId)
-                if (response.isSuccessful) {
+                if(response.isSuccessful) {
                     response.body()?.let { userStatus ->
                         val status = Status(
                             id = 0,

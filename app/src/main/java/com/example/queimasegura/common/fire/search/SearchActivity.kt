@@ -1,4 +1,4 @@
-package com.example.queimasegura.common.reqPerm.search
+package com.example.queimasegura.common.fire.search
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,16 +7,11 @@ import android.widget.ImageButton
 import android.widget.ListView
 import android.widget.SearchView
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.queimasegura.R
-import com.example.queimasegura.common.login.LoginViewModel
-import com.example.queimasegura.common.login.LoginViewModelFactory
-import com.example.queimasegura.common.reqPerm.RequestActivity
+import com.example.queimasegura.common.fire.CreateFireActivity
 import com.example.queimasegura.retrofit.model.data.Location
 import com.example.queimasegura.retrofit.repository.Repository
 
@@ -77,7 +72,7 @@ class SearchActivity : AppCompatActivity() {
 
         findViewById<ListView>(R.id.suggestions_list).setOnItemClickListener { _, _, position, _ ->
             val selectedLocation = locations[position]
-            val intent = Intent(this, RequestActivity::class.java).apply {
+            val intent = Intent(this, CreateFireActivity::class.java).apply {
                 putExtra("LOCATION_ID", selectedLocation.id)
                 putExtra("ZIP_CODE", selectedLocation.zipCode)
             }

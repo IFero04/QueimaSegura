@@ -1,4 +1,4 @@
-package com.example.queimasegura.common.reqPerm.fragment
+package com.example.queimasegura.common.fire.fragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

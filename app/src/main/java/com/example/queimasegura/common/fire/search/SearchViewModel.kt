@@ -1,4 +1,4 @@
-package com.example.queimasegura.common.reqPerm.search
+package com.example.queimasegura.common.fire.search
 
 import android.app.Application
 import androidx.lifecycle.LiveData
@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.queimasegura.retrofit.model.get.Location
 import com.example.queimasegura.retrofit.repository.Repository
-import com.example.queimasegura.util.ApiUtils
 import kotlinx.coroutines.launch
 import retrofit2.Response
 
