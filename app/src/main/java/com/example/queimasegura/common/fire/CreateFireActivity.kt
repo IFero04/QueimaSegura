@@ -153,13 +153,11 @@ class CreateFireActivity : AppCompatActivity() {
             postcodeButton.background = disabledBackground
             mapButton.background = disabledBackground
 
-
             postcodeButton.setTextColor(getColor(android.R.color.darker_gray))
             mapButton.setTextColor(getColor(android.R.color.darker_gray))
 
             postcodeButton.isEnabled = false
             mapButton.isEnabled = false
-
 
             val textViewOutputLocation = findViewById<TextView>(R.id.textViewOutputLocation)
 
