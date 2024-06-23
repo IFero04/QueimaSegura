@@ -3,7 +3,10 @@ package com.example.queimasegura.common.fire
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
+import android.util.TypedValue
+import android.view.View
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.RadioButton
 import android.widget.RadioGroup
@@ -11,6 +14,8 @@ import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.ViewModelProvider
@@ -102,9 +107,9 @@ class CreateFireActivity : AppCompatActivity() {
             for (i in 0 until group.childCount) {
                 val radioButton = group.getChildAt(i) as RadioButton
                 if (radioButton.id == checkedId) {
-                    radioButton.setTextColor(resources.getColor(R.color.black))
+                    radioButton.setTextColor(getColor(R.color.black))
                 } else {
-                    radioButton.setTextColor(resources.getColor(android.R.color.darker_gray))
+                    radioButton.setTextColor(getColor(android.R.color.darker_gray))
                 }
             }
         }
@@ -120,6 +125,8 @@ class CreateFireActivity : AppCompatActivity() {
 
     private fun handleInternetAccessibility() {
         val isInternetAvailable = NetworkUtils.isInternetAvailable(application)
+        val parentLayout = findViewById<ConstraintLayout>(R.id.scrollViewConstraintLayout)
+
         if(!isInternetAvailable) {
             val postcodeButton = findViewById<Button>(R.id.buttonPostCode)
             val mapButton = findViewById<Button>(R.id.buttonMap)
@@ -128,11 +135,38 @@ class CreateFireActivity : AppCompatActivity() {
             postcodeButton.background = disabledBackground
             mapButton.background = disabledBackground
 
-            postcodeButton.setTextColor(resources.getColor(android.R.color.darker_gray))
-            mapButton.setTextColor(resources.getColor(android.R.color.darker_gray))
+
+            postcodeButton.setTextColor(getColor(android.R.color.darker_gray))
+            mapButton.setTextColor(getColor(android.R.color.darker_gray))
 
             postcodeButton.isEnabled = false
             mapButton.isEnabled = false
+
+
+            val textViewOutputLocation = findViewById<TextView>(R.id.textViewOutputLocation)
+
+            parentLayout.removeView(textViewOutputLocation)
+
+            val editTextOutputLocation = EditText(this).apply {
+                id = View.generateViewId()
+                layoutParams = ConstraintLayout.LayoutParams(
+                    ConstraintLayout.LayoutParams.MATCH_CONSTRAINT,
+                    ConstraintLayout.LayoutParams.WRAP_CONTENT
+                )
+                setTextSize(TypedValue.COMPLEX_UNIT_SP, 16f)
+                setTextColor(getColor(R.color.black))
+                typeface = ResourcesCompat.getFont(context, R.font.karma_bold)
+            }
+
+            parentLayout.addView(editTextOutputLocation)
+
+            val constraintSet = ConstraintSet()
+            constraintSet.clone(parentLayout)
+            constraintSet.connect(editTextOutputLocation.id, ConstraintSet.START, R.id.textViewYourLocation, ConstraintSet.END, 10)
+            constraintSet.connect(editTextOutputLocation.id, ConstraintSet.TOP, R.id.buttonMap, ConstraintSet.BOTTOM, 15)
+            constraintSet.connect(editTextOutputLocation.id, ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM, 15)
+            constraintSet.connect(editTextOutputLocation.id, ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END, 16)
+            constraintSet.applyTo(parentLayout)
         }
     }
 
