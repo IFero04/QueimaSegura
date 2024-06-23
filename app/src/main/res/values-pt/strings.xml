@@ -86,6 +86,11 @@
     <!-- General -->
     <string name="filter">Filter</string>
     <string name="server_error">Server Error</string>
+    <string name="district_colon">Distrito:</string>
+    <string name="phone_colon">Telemovel:</string>
+    <string name="post_code_colon">Código Postal:</string>
+    <string name="state_colon">Estado:</string>
+    <string name="fire_tech_colon">Técnico de Fogo:</string>
 
     <!-- Login Activity -->
     <string name="login_message_success">Login Efetuado</string>
@@ -101,5 +106,13 @@
     <!-- Profile Activity -->
     <string name="profile_unknown">Desconhecido</string>
     <string name="your_location">A sua Localização:</string>
+
+    <!-- Requests States -->
+    <string name="pending">Pendente</string>
+    <string name="in_progress">Em Progresso</string>
+    <string name="completed">Completado</string>
+    <string name="not_approved">Cancelado</string>
+    <!-- Create Fire Activity -->
+    <string name="create_fire_date">Data Selecionada: </string>
 
 </resources>

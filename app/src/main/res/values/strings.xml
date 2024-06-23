@@ -96,13 +96,23 @@
     <!-- General -->
     <string name="filter">Filter</string>
     <string name="server_error">Server Error</string>
+    <string name="district_colon">District:</string>
+    <string name="phone_colon">Phone Number:</string>
+    <string name="post_code_colon">Postcode:</string>
+    <string name="state_colon">State:</string>
+    <string name="fire_tech_colon">Fire Technician:</string>
+
+    <!-- Requests States -->
+    <string name="pending">Pending</string>
+    <string name="in_progress">In Progress</string>
+    <string name="completed">Completed</string>
+    <string name="not_approved">Canceled</string>
 
     <!-- Login Activity -->
     <string name="login_message_success">Login Successful</string>
 
     <!-- Register Activity -->
     <string name="register_message_success">Account Created</string>
-
 
     <!-- Main Activity -->
     <string name="main_error_controller">Properties not found, turn on internet access</string>
@@ -113,5 +123,7 @@
     <string name="profile_unknown">Unknown</string>
     <string name="your_location">Your Location:</string>
 
+    <!-- Create Fire Activity -->
+    <string name="create_fire_date">Selected Date: </string>
 
 </resources>

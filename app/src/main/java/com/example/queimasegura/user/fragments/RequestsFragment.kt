@@ -33,7 +33,7 @@ class RequestsFragment : Fragment() {
         imageButtonFilter.setOnClickListener { showFilterOptions(it) }
 
         pedidos = listOf(
-            Pedido("Queima", "2024-06-11", "Pending"),
+            Pedido("Queimada", "2024-06-11", "Pending"),
             Pedido("Queima", "2024-06-11", "Completed"),
             Pedido("Queima", "2024-06-11", "In Progress"),
             Pedido("Queima", "2024-06-11", "Pending"),
@@ -67,7 +67,7 @@ class RequestsFragment : Fragment() {
                         Log.d("RequestsFragment", "Filtering by state: Pending")
                         filterPedidosByState("Pending")
                     }
-                    R.id.approved -> {
+                    R.id.completed -> {
                         Log.d("RequestsFragment", "Filtering by state: Completed")
                         filterPedidosByState("Completed")
                     }

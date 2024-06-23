@@ -12,7 +12,7 @@
         android:background="@color/white"
         android:orientation="vertical"
         android:baselineAligned="false"
-        tools:context=".user.fragments.profile.ProfileFragment">
+        tools:context=".admin.ProfileFragment">
 
         <TextView
             android:layout_width="wrap_content"

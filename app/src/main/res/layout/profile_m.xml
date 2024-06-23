@@ -66,7 +66,7 @@
                 android:layout_height="64dp"
                 android:layout_gravity="bottom|end"
                 android:layout_marginBottom="-10dp"
-                android:layout_marginEnd="150dp"
+                android:layout_marginEnd="120dp"
                 android:backgroundTint="#00FFFFFF"
                 android:contentDescription="@string/add_btn"
                 app:srcCompat="@drawable/pen" />
@@ -82,17 +82,20 @@
             android:gravity="center_horizontal">
 
             <TextView
+                android:id="@+id/profile_userName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="25sp"
-                android:text="@string/username"/>
+                android:textColor="@color/black"
+                android:text="@string/profile_unknown"/>
 
             <TextView
+                android:id="@+id/profile_email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="25sp"
-                android:text="email@email.com"
-                tools:ignore="HardcodedText" />
+                android:textColor="@color/black"
+                android:text="@string/profile_unknown"/>
 
         </LinearLayout>
 
@@ -111,15 +114,18 @@
                 android:textSize="20sp"
                 android:layout_gravity="start|center_vertical"
                 android:layout_marginStart="10dp"
+                android:textColor="@color/black"
                 android:text="@string/name"/>
 
             <TextView
+                android:id="@+id/profile_fullName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textSize="20sp"
                 android:layout_gravity="end|center_vertical"
-                android:text="Sónia Soares"/>
+                android:textColor="@color/black"
+                android:text="@string/profile_unknown"/>
         </LinearLayout>
 
         <LinearLayout
@@ -137,15 +143,18 @@
                 android:textSize="20sp"
                 android:layout_gravity="start|center_vertical"
                 android:layout_marginStart="10dp"
+                android:textColor="@color/black"
                 android:text="@string/nif"/>
 
             <TextView
+                android:id="@+id/profile_nif"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textSize="20sp"
                 android:layout_gravity="end|center_vertical"
-                android:text="249724820"/>
+                android:textColor="@color/black"
+                android:text="@string/profile_unknown"/>
         </LinearLayout>
 
         <LinearLayout
@@ -163,16 +172,19 @@
                 android:textSize="20sp"
                 android:layout_gravity="start|center_vertical"
                 android:layout_marginStart="10dp"
+                android:textColor="@color/black"
                 android:text="@string/phone"/>
 
             <TextView
+                android:id="@+id/profile_phone"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textSize="20sp"
                 android:layout_gravity="end|center_vertical"
                 android:layout_marginEnd="-10dp"
-                android:text="99843245"/>
+                android:textColor="@color/black"
+                android:text="@string/profile_unknown"/>
         </LinearLayout>
 
         <LinearLayout
@@ -189,16 +201,19 @@
                 android:textSize="20sp"
                 android:layout_gravity="start|center_vertical"
                 android:layout_marginStart="10dp"
-                android:text="@string/municipality"/>/>
+                android:textColor="@color/black"
+                android:text="@string/municipality"/>
 
             <TextView
+                android:id="@+id/profile_municipality"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textSize="20sp"
                 android:layout_gravity="end|center_vertical"
                 android:layout_marginEnd="-10dp"
-                android:text="Viana do Castelo"/>
+                android:textColor="@color/black"
+                android:text="@string/profile_unknown"/>
         </LinearLayout>
 
         <LinearLayout
@@ -209,15 +224,19 @@
             android:orientation="vertical">
 
             <Button
+                android:id="@+id/buttonEditProfile"
                 android:layout_width="350dp"
                 android:layout_height="50dp"
                 android:textSize="20sp"
+                android:textColor="@color/white"
                 android:text="@string/profile_edit_btn"/>
             <Button
+                android:id="@+id/profile_logout"
                 android:layout_width="350dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="20dp"
                 android:textSize="20sp"
+                android:textColor="@color/white"
                 android:text="@string/log_out_btn"/>
 
         </LinearLayout>

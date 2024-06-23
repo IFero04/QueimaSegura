@@ -1,63 +1,61 @@
-package com.example.queimasegura.common.reqPerm
+package com.example.queimasegura.common.fire
 
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.icu.text.SimpleDateFormat
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
+import android.widget.AdapterView
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.RadioButton
 import android.widget.RadioGroup
+import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.PopupMenu
+import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.queimasegura.R
-import com.example.queimasegura.common.fire.CreateFireViewModel
-import com.example.queimasegura.common.fire.CreateFireViewModelFactory
+import com.example.queimasegura.common.fire.adapter.ReasonsAdapter
 import com.example.queimasegura.common.fire.map.MapActivity
 import com.example.queimasegura.common.fire.search.SearchActivity
 import com.example.queimasegura.retrofit.repository.Repository
+import com.example.queimasegura.room.entities.Reason
+import com.example.queimasegura.room.entities.Type
+import com.example.queimasegura.user.fragments.home.HomeFragment
+import com.example.queimasegura.util.LocaleUtils
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
+
 class CreateFireActivity : AppCompatActivity() {
     private lateinit var viewModel: CreateFireViewModel
-
-    private lateinit var postCode: TextView
-    private var postCodeId: Int = 0
-    private var typeId: Int = 0
-    private var reasonId: Int = 0
-    private lateinit var type: String
-    private lateinit var motive: String
-    private lateinit var date: Date
-
-
-
-    private var latitude: Double? = null
-    private var longitude: Double? = null
+    private lateinit var spinnerReason: Spinner
+    private lateinit var reasonsAdapter: ReasonsAdapter
+    private lateinit var radioGroupType: RadioGroup
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_request)
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.permissionRequestPage)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
+        initViewModels()
 
-        btnListeners()
         initVariables()
-        getCoords()
+
+        initEvents()
+
+        initObservers()
     }
 
     private fun initViewModels() {
@@ -66,78 +64,91 @@ class CreateFireActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this, viewModelFactory)[CreateFireViewModel::class.java]
     }
 
-    private fun getCoords() {
-        latitude = intent.getDoubleExtra("latitude", Double.NaN)
-        longitude = intent.getDoubleExtra("longitude", Double.NaN)
-        showToast(latitude.toString())
-    }
-
     private fun initVariables() {
-        val intent = intent
+        spinnerReason = findViewById(R.id.spinnerReason)
+        reasonsAdapter = ReasonsAdapter(this, mutableListOf())
+        radioGroupType = findViewById(R.id.radioGroupType)
 
-        postCode = findViewById(R.id.textViewOutputLocation)
-        postCodeId = intent.getIntExtra("LOCATION_ID", -1)
+        viewModel.typesData.observe(this) { types ->
+            types?.let{
+                populateRadioGroup(it)
+            }
+        }
 
-        val zipCode = intent.getStringExtra("ZIP_CODE")
-        if (!zipCode.isNullOrEmpty()) postCode.text = zipCode
-
-
-
+        viewModel.reasonsData.observe(this) { reasons ->
+            reasons?.let {
+                populateReasons(it)
+            }
+        }
     }
 
-    private fun btnListeners() {
-        findViewById<RadioGroup>(R.id.radioGroupType).setOnCheckedChangeListener { _, checkedId ->
-            handleTypeRadioGroupChange(checkedId)
-        }
-
-        findViewById<Button>(R.id.buttonMap).setOnClickListener {
-            val intent = Intent(this, MapActivity::class.java)
-            startActivity(intent)
-        }
-
-        findViewById<Button>(R.id.buttonPostCode).setOnClickListener {
-            val intent = Intent(this, SearchActivity::class.java)
-            startActivity(intent)
-        }
-
-        findViewById<ImageButton>(R.id.imageButtonBack).setOnClickListener {
+    private fun initEvents() {
+        findViewById<Button>(R.id.buttonCancel).setOnClickListener {
             finish()
         }
 
-        findViewById<ImageButton>(R.id.imageButtonDropDownMotive).setOnClickListener {
-            handleDropDownMotiveMenu(it, R.menu.temp_dropdown_motive)
+        findViewById<Button>(R.id.buttonPostCode).setOnClickListener {
+            popUp(SearchActivity::class.java)
+        }
+
+        findViewById<Button>(R.id.buttonMap).setOnClickListener {
+            popUp(MapActivity::class.java)
+        }
+
+        findViewById<RadioGroup>(R.id.radioGroupType).setOnCheckedChangeListener{ group, checkedId ->
+            for (i in 0 until group.childCount) {
+                val radioButton = group.getChildAt(i) as RadioButton
+                if (radioButton.id == checkedId) {
+                    radioButton.setTextColor(resources.getColor(R.color.black))
+                } else {
+                    radioButton.setTextColor(resources.getColor(android.R.color.darker_gray))
+                }
+            }
         }
 
         findViewById<ImageButton>(R.id.imageButtonDate).setOnClickListener {
             showDatePickerDialog()
         }
+    }
 
-        findViewById<Button>(R.id.buttonCancel).setOnClickListener {
-            cancelRequest()
+    private fun initObservers() {
+
+    }
+
+    private fun populateRadioGroup(types: List<Type>) {
+        val radioGroupType = findViewById<RadioGroup>(R.id.radioGroupType)
+        radioGroupType.removeAllViews()
+        var checkedId = -1
+
+        for (type in types) {
+            val radioButton = RadioButton(this).apply {
+                id = type.id
+                text = type.nameEn
+                textSize = 16f
+                setTextColor(resources.getColor(R.color.black, null))
+                buttonTintList = ContextCompat.getColorStateList(context, R.color.radio_btn_tint)
+                typeface = ResourcesCompat.getFont(this@CreateFireActivity, R.font.karma_medium)
+                layoutParams = RadioGroup.LayoutParams(
+                    RadioGroup.LayoutParams.WRAP_CONTENT,
+                    RadioGroup.LayoutParams.WRAP_CONTENT
+                )
+                setOnClickListener {
+                    radioGroupType.check(id)
+                }
+            }
+            radioGroupType.addView(radioButton)
+
+            if (checkedId == -1) {
+                radioButton.isChecked = true
+                checkedId = radioButton.id
+            }
         }
     }
 
-    private fun cancelRequest() {
-        finish()
-    }
-
-    private fun handleTypeRadioGroupChange(checkedId: Int) {
-        when (checkedId) {
-            R.id.radioButtonQueima -> type = R.id.radioButtonQueima.toString()
-            R.id.radioButtonQueimada -> type = R.id.radioButtonQueimada.toString()
-        }
-    }
-
-    private fun handleDropDownMotiveMenu(view: View, menuId: Int) {
-        val popupMenu = PopupMenu(this, view)
-        popupMenu.menuInflater.inflate(menuId, popupMenu.menu)
-
-        popupMenu.setOnMenuItemClickListener { item: MenuItem ->
-            motive = item.title.toString()
-            true
-        }
-
-        popupMenu.show()
+    private fun populateReasons(reasons: List<Reason>) {
+        reasonsAdapter.clear()
+        reasonsAdapter.addAll(reasons)
+        spinnerReason.adapter = reasonsAdapter
     }
 
     private fun showDatePickerDialog() {
@@ -147,11 +158,12 @@ class CreateFireActivity : AppCompatActivity() {
         val day = calendar.get(Calendar.DAY_OF_MONTH)
 
         val datePickerDialog = DatePickerDialog(this, { _, selectedYear, selectedMonth, selectedDay ->
-                val selectedDate = "$selectedDay/${selectedMonth + 1}/$selectedYear"
-                val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-                date = dateFormat.parse(selectedDate) ?: Date()
-                showToast(selectedDate)
-            },
+            val selectedDate = "$selectedDay/${selectedMonth + 1}/$selectedYear"
+
+            val textViewDate = findViewById<TextView>(R.id.textViewDateShow)
+            val dateString = getString(R.string.create_fire_date) + " " + selectedDate
+            textViewDate.text = dateString
+        },
             year, month, day
         )
 
@@ -159,8 +171,11 @@ class CreateFireActivity : AppCompatActivity() {
         datePickerDialog.show()
     }
 
+    private fun popUp(destination: Class<*>) {
+        startActivity(Intent(this, destination))
+    }
 
-    private fun showToast(str: String) {
-        Toast.makeText(this, str, Toast.LENGTH_SHORT).show()
+    private fun showMessage(message: String) {
+        Toast.makeText(application, message, Toast.LENGTH_LONG).show()
     }
 }
