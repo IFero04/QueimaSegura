@@ -112,7 +112,6 @@ class SearchActivity : AppCompatActivity() {
         searchText.setTextColor(getColor(color))
     }
 
-
     private fun initObservers() {
         viewModel.locationResponse.observe(this) { response ->
             if (response.isSuccessful) {

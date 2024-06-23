@@ -89,7 +89,11 @@ class Repository {
         return RetrofitInstance.api.createFire(userId, sessionId, createFireBody)
     }
 
+    // LOCATION
     suspend fun getLocation(search: String): Response<Location> {
         return RetrofitInstance.api.getLocation(search)
+    }
+    suspend fun getMapLocation(lat: Double, lng: Double): Response<Location> {
+        return RetrofitInstance.api.getMapLocation(lat, lng)
     }
 }

@@ -74,8 +74,15 @@ interface ApiService {
         @Body createFireBody: CreateFireBody
     ): Response<CreateFire>
 
+    // LOCATION
     @GET("/location")
     suspend fun getLocation(
         @Query("search") search: String
+    ): Response<Location>
+
+    @GET("/location/map")
+    suspend fun getMapLocation(
+        @Query("lat") lat: Double,
+        @Query("lng") lng: Double
     ): Response<Location>
 }

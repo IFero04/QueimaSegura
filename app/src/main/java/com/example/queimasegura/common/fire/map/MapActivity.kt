@@ -2,6 +2,7 @@ package com.example.queimasegura.common.fire.map
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.Toast
@@ -9,8 +10,13 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.ViewModelProvider
 import com.example.queimasegura.R
 import com.example.queimasegura.common.fire.CreateFireActivity
+import com.example.queimasegura.common.fire.model.ZipcodeIntent
+import com.example.queimasegura.retrofit.model.data.Location
+import com.example.queimasegura.retrofit.repository.Repository
+import com.example.queimasegura.util.ApiUtils
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
@@ -20,14 +26,15 @@ import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 
-class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapClickListener {
 
+class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapClickListener {
+    private lateinit var viewModel: MapViewModel
     private lateinit var mapView: MapView
     private lateinit var googleMap: GoogleMap
     private var userMarker: Marker? = null
     private val portugalBounds = LatLngBounds(
-        LatLng(37.036253, -8.974492),
-        LatLng(41.923624, -6.596450)
+        LatLng(36.9614, -9.5000),
+        LatLng(42.1543, -6.1892)
     )
     private var coords: LatLng? = null
 
@@ -45,10 +52,18 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapClic
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(this)
 
-        btnListeners()
+        initViewModels()
+
+        initEvents()
     }
 
-    private fun btnListeners() {
+    private fun initViewModels(){
+        val repository = Repository()
+        val mapModelFactory = MapViewModelFactory(application, repository)
+        viewModel = ViewModelProvider(this, mapModelFactory)[MapViewModel::class.java]
+    }
+
+    private fun initEvents() {
         findViewById<ImageButton>(R.id.imageButtonBack).setOnClickListener {
             val intent = Intent(this, CreateFireActivity::class.java)
             startActivity(intent)
@@ -56,18 +71,14 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapClic
 
         findViewById<Button>(R.id.buttonConfirm).setOnClickListener {
             coords?.let {
-                val intent = Intent(this, CreateFireActivity::class.java)
-                intent.putExtra("latitude", it.latitude)
-                intent.putExtra("longitude", it.longitude)
-                startActivity(intent)
+                viewModel.getMapLocation(it.latitude, it.longitude, ::handleSendLocation)
             } ?: run {
-                showToast(getString(R.string.coords_not_selected_toast))
+                showMessage(getString(R.string.coords_not_selected_toast))
             }
         }
 
         findViewById<Button>(R.id.buttonCancel).setOnClickListener {
-            val intent = Intent(this, CreateFireActivity::class.java)
-            startActivity(intent)
+            finish()
         }
     }
 
@@ -77,7 +88,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapClic
         googleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(portugalBounds, 0))
         googleMap.setLatLngBoundsForCameraTarget(portugalBounds)
         googleMap.setMinZoomPreference(6.0f)
-        googleMap.setMaxZoomPreference(15.0f)
+        googleMap.setMaxZoomPreference(25.0f)
         googleMap.setOnMapClickListener(this)
     }
 
@@ -86,8 +97,9 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapClic
             userMarker?.remove()
             userMarker = googleMap.addMarker(MarkerOptions().position(latLng))
             googleMap.moveCamera(CameraUpdateFactory.newLatLng(latLng))
+            coords = latLng
         } else {
-            showToast(getString(R.string.marker_boundaries_toast))
+            showMessage(getString(R.string.marker_boundaries_toast))
         }
     }
 
@@ -116,7 +128,21 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapClic
         mapView.onSaveInstanceState(outState)
     }
 
-    private fun showToast(str: String) {
-        Toast.makeText(this, str, Toast.LENGTH_LONG).show()
+    private fun handleSendLocation(location: Location) {
+        val zipcodeIntent = ZipcodeIntent(
+            id = location.id,
+            locationName = location.locationName,
+            zipCode = location.zipCode,
+            artName = location.artName,
+            tronco = location.tronco
+        )
+        val intent = Intent(this, CreateFireActivity::class.java)
+        intent.putExtra("selectedZipcode", zipcodeIntent)
+        startActivity(intent)
+        finish()
+    }
+
+    private fun showMessage(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 }
