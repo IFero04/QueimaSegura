@@ -22,6 +22,8 @@ import com.example.queimasegura.common.fire.search.SearchActivity
 import com.example.queimasegura.retrofit.repository.Repository
 import com.example.queimasegura.room.entities.Reason
 import com.example.queimasegura.room.entities.Type
+import com.example.queimasegura.util.LocaleUtils
+import com.example.queimasegura.util.NetworkUtils
 import java.util.Calendar
 
 
@@ -47,6 +49,8 @@ class CreateFireActivity : AppCompatActivity() {
         initEvents()
 
         initObservers()
+
+        handleInternetAccessibility()
     }
 
     private fun initViewModels() {
@@ -114,6 +118,24 @@ class CreateFireActivity : AppCompatActivity() {
 
     }
 
+    private fun handleInternetAccessibility() {
+        val isInternetAvailable = NetworkUtils.isInternetAvailable(application)
+        if(!isInternetAvailable) {
+            val postcodeButton = findViewById<Button>(R.id.buttonPostCode)
+            val mapButton = findViewById<Button>(R.id.buttonMap)
+
+            val disabledBackground = ContextCompat.getDrawable(this, R.drawable.button_disabled_outline)
+            postcodeButton.background = disabledBackground
+            mapButton.background = disabledBackground
+
+            postcodeButton.setTextColor(resources.getColor(android.R.color.darker_gray))
+            mapButton.setTextColor(resources.getColor(android.R.color.darker_gray))
+
+            postcodeButton.isEnabled = false
+            mapButton.isEnabled = false
+        }
+    }
+
     private fun handleLocationShow(location: ZipcodeIntent) {
         val locationStringBuilder = StringBuilder()
 
@@ -144,10 +166,16 @@ class CreateFireActivity : AppCompatActivity() {
         radioGroupType.removeAllViews()
         var checkedId = -1
 
+        val location = LocaleUtils.getUserPhoneLanguage(application)
+
         for (type in types) {
             val radioButton = RadioButton(this).apply {
                 id = type.id
-                text = type.nameEn
+                text = if(location == "pt"){
+                    type.namePt
+                }else{
+                    type.nameEn
+                }
                 textSize = 16f
                 setTextColor(resources.getColor(R.color.black, null))
                 buttonTintList = ContextCompat.getColorStateList(context, R.color.radio_btn_tint)
@@ -193,10 +221,6 @@ class CreateFireActivity : AppCompatActivity() {
 
         datePickerDialog.datePicker.minDate = System.currentTimeMillis() - 1000
         datePickerDialog.show()
-    }
-
-    companion object {
-        const val REQUEST_CODE = 123 // Use the same value here and when starting activities for result
     }
 
     private fun popUp(destination: Class<*>) {
