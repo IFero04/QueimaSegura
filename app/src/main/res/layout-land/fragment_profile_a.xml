@@ -12,15 +12,14 @@
         android:background="@color/white"
         android:orientation="vertical"
         android:baselineAligned="false"
-        tools:context=".manager.ProfileActivity">
+        tools:context=".admin.ProfileFragment">
 
         <TextView
-
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:text="@string/profile"
-            android:textSize="50sp"
+            android:textSize="35sp"
             android:textColor="@color/colorPrimary"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp" />
@@ -184,35 +183,6 @@
                         android:textColor="@color/black"
                         android:textSize="20sp" />
                 </LinearLayout>
-                <LinearLayout
-                    android:layout_width="400dp"
-                    android:layout_height="50dp"
-                    android:layout_gravity="center"
-                    android:layout_marginBottom="16dp"
-                    android:background="@drawable/rounded_background"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="start|center_vertical"
-                        android:layout_marginStart="10dp"
-                        android:layout_weight="1"
-                        android:text="@string/municipality"
-                        android:textColor="@color/black"
-                        android:textSize="20sp" />
-
-                    <TextView
-                        android:id="@+id/profile_municipality"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="end|center_vertical"
-                        android:layout_marginEnd="-10dp"
-                        android:layout_weight="1"
-                        android:text="@string/profile_unknown"
-                        android:textColor="@color/black"
-                        android:textSize="20sp" />
-                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="400dp"
@@ -222,7 +192,7 @@
 
                     <Button
                         android:id="@+id/buttonEditProfile"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="50dp"
                         android:layout_marginEnd="16dp"
                         android:layout_weight="1"
@@ -232,7 +202,7 @@
 
                     <Button
                         android:id="@+id/profile_logout"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="50dp"
                         android:layout_weight="1"
                         android:text="@string/log_out_btn"

@@ -12,15 +12,14 @@
         android:background="@color/white"
         android:orientation="vertical"
         android:baselineAligned="false"
-        tools:context=".user.fragments.ProfileFragment">
+        tools:context=".user.fragments.profile.ProfileFragment">
 
         <TextView
-
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:text="@string/profile"
-            android:textSize="50sp"
+            android:textSize="35sp"
             android:textColor="@color/colorPrimary"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp" />
@@ -66,20 +65,21 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/profile_userName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="@string/username"
+                        android:text="@string/profile_unknown"
                         android:textColor="@color/black"
                         android:textSize="25sp" />
 
                     <TextView
+                        android:id="@+id/profile_email"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="email@email.com"
+                        android:text="@string/profile_unknown"
                         android:textSize="25sp"
-                        android:textColor="@color/black"
-                        tools:ignore="HardcodedText" />
+                        android:textColor="@color/black"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -115,12 +115,13 @@
                         android:textSize="20sp" />
 
                     <TextView
+                        android:id="@+id/profile_fullName"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end|center_vertical"
                         android:layout_weight="1"
                         android:textColor="@color/black"
-                        android:text="Sónia Soares"
+                        android:text="@string/profile_unknown"
                         android:textSize="20sp" />
                 </LinearLayout>
 
@@ -143,11 +144,12 @@
                         android:textSize="20sp" />
 
                     <TextView
+                        android:id="@+id/profile_nif"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end|center_vertical"
                         android:layout_weight="1"
-                        android:text="249724820"
+                        android:text="@string/profile_unknown"
                         android:textColor="@color/black"
                         android:textSize="20sp" />
                 </LinearLayout>
@@ -171,12 +173,13 @@
                         android:textSize="20sp" />
 
                     <TextView
+                        android:id="@+id/profile_phone"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end|center_vertical"
                         android:layout_marginEnd="-10dp"
                         android:layout_weight="1"
-                        android:text="930203020"
+                        android:text="@string/profile_unknown"
                         android:textColor="@color/black"
                         android:textSize="20sp" />
                 </LinearLayout>
@@ -189,7 +192,7 @@
 
                     <Button
                         android:id="@+id/buttonEditProfile"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="50dp"
                         android:layout_marginEnd="16dp"
                         android:layout_weight="1"
@@ -198,7 +201,8 @@
                         android:textSize="20sp" />
 
                     <Button
-                        android:layout_width="0dp"
+                        android:id="@+id/profile_logout"
+                        android:layout_width="wrap_content"
                         android:layout_height="50dp"
                         android:layout_weight="1"
                         android:text="@string/log_out_btn"

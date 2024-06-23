@@ -67,7 +67,7 @@ class RequestsFragment : Fragment() {
                         Log.d("RequestsFragment", "Filtering by state: Pending")
                         filterPedidosByState("Pending")
                     }
-                    R.id.approved -> {
+                    R.id.completed -> {
                         Log.d("RequestsFragment", "Filtering by state: Completed")
                         filterPedidosByState("Completed")
                     }

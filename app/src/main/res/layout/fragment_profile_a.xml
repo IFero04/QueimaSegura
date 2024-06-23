@@ -68,19 +68,20 @@
             android:gravity="center_horizontal">
 
             <TextView
+                android:id="@+id/profile_userName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="25sp"
                 android:textColor="@color/black"
-                android:text="@string/username"/>
+                android:text="@string/profile_unknown"/>
 
             <TextView
+                android:id="@+id/profile_email"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="25sp"
                 android:textColor="@color/black"
-                android:text="email@email.com"
-                tools:ignore="HardcodedText" />
+                android:text="@string/profile_unknown"/>
 
         </LinearLayout>
 
@@ -103,13 +104,14 @@
                 android:text="@string/name"/>
 
             <TextView
+                android:id="@+id/profile_fullName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textSize="20sp"
                 android:textColor="@color/black"
                 android:layout_gravity="end|center_vertical"
-                android:text="Sónia Soares"/>
+                android:text="@string/profile_unknown"/>
         </LinearLayout>
 
         <LinearLayout
@@ -131,13 +133,14 @@
                 android:text="@string/nif"/>
 
             <TextView
+                android:id="@+id/profile_nif"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textSize="20sp"
                 android:textColor="@color/black"
                 android:layout_gravity="end|center_vertical"
-                android:text="249724820"/>
+                android:text="@string/profile_unknown"/>
         </LinearLayout>
 
         <LinearLayout
@@ -159,6 +162,7 @@
                 android:text="@string/phone"/>
 
             <TextView
+                android:id="@+id/profile_phone"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -166,7 +170,7 @@
                 android:textColor="@color/black"
                 android:layout_gravity="end|center_vertical"
                 android:layout_marginEnd="-10dp"
-                android:text="930203020"/>
+                android:text="@string/profile_unknown"/>
         </LinearLayout>
 
 
@@ -185,13 +189,13 @@
                 android:textSize="20sp"
                 android:text="@string/profile_edit_btn"/>
             <Button
+                android:id="@+id/profile_logout"
                 android:layout_width="350dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="20dp"
                 android:textColor="@color/white"
                 android:textSize="20sp"
                 android:text="@string/log_out_btn"/>
-
         </LinearLayout>
     </LinearLayout>
 </ScrollView>
