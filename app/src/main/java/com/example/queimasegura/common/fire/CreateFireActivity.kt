@@ -1,5 +1,6 @@
 package com.example.queimasegura.common.fire
 
+import android.app.Activity
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.icu.text.SimpleDateFormat
@@ -27,7 +28,9 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.queimasegura.R
 import com.example.queimasegura.common.fire.adapter.ReasonsAdapter
 import com.example.queimasegura.common.fire.map.MapActivity
+import com.example.queimasegura.common.fire.model.LocationIntent
 import com.example.queimasegura.common.fire.search.SearchActivity
+import com.example.queimasegura.retrofit.model.data.Location
 import com.example.queimasegura.retrofit.repository.Repository
 import com.example.queimasegura.room.entities.Reason
 import com.example.queimasegura.room.entities.Type
@@ -51,6 +54,8 @@ class CreateFireActivity : AppCompatActivity() {
 
         initViewModels()
 
+        initIntents()
+
         initVariables()
 
         initEvents()
@@ -62,6 +67,14 @@ class CreateFireActivity : AppCompatActivity() {
         val repository = Repository()
         val viewModelFactory = CreateFireViewModelFactory(application, repository)
         viewModel = ViewModelProvider(this, viewModelFactory)[CreateFireViewModel::class.java]
+    }
+
+    private fun initIntents() {
+        val locationIntent = intent.getParcelableExtra<LocationIntent>("selectedLocation")
+        Log.d("LOCATION INTENT", locationIntent.toString())
+        locationIntent?.let {
+            handleLocationShow(it)
+        }
     }
 
     private fun initVariables() {
@@ -113,6 +126,31 @@ class CreateFireActivity : AppCompatActivity() {
 
     private fun initObservers() {
 
+    }
+
+    private fun handleLocationShow(location: LocationIntent) {
+        val locationStringBuilder = StringBuilder()
+
+        locationStringBuilder.append(location.zipCode)
+        locationStringBuilder.append(", ")
+        locationStringBuilder.append(location.locationName)
+
+        location.artName?.let {
+            if (it.isNotEmpty()) {
+                locationStringBuilder.append(" - ")
+                locationStringBuilder.append(it)
+            }
+        }
+
+        location.tronco?.let {
+            if (it.isNotEmpty()) {
+                locationStringBuilder.append(" - ")
+                locationStringBuilder.append(it)
+            }
+        }
+
+        val locationOutput = findViewById<TextView>(R.id.textViewOutputLocation)
+        locationOutput.text = locationStringBuilder
     }
 
     private fun populateRadioGroup(types: List<Type>) {
@@ -169,6 +207,10 @@ class CreateFireActivity : AppCompatActivity() {
 
         datePickerDialog.datePicker.minDate = System.currentTimeMillis() - 1000
         datePickerDialog.show()
+    }
+
+    companion object {
+        const val REQUEST_CODE = 123 // Use the same value here and when starting activities for result
     }
 
     private fun popUp(destination: Class<*>) {

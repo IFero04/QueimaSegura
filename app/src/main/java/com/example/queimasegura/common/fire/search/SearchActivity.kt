@@ -1,9 +1,11 @@
 package com.example.queimasegura.common.fire.search
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.ImageButton
 import android.widget.ListView
@@ -13,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.queimasegura.R
 import com.example.queimasegura.common.fire.CreateFireActivity
+import com.example.queimasegura.common.fire.model.LocationIntent
 import com.example.queimasegura.retrofit.model.data.Location
 import com.example.queimasegura.retrofit.repository.Repository
 import com.example.queimasegura.util.ApiUtils
@@ -37,8 +40,6 @@ class SearchActivity : AppCompatActivity() {
 
         initEvents()
 
-        initListeners()
-
         initObservers()
     }
 
@@ -57,7 +58,12 @@ class SearchActivity : AppCompatActivity() {
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                return false
+                query?.let {
+                    if(query.isNotEmpty()) {
+                        viewModel.getLocation(it)
+                    }
+                }
+                return true
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
@@ -77,16 +83,20 @@ class SearchActivity : AppCompatActivity() {
         findViewById<ImageButton>(R.id.imageButtonBack).setOnClickListener {
             finish()
         }
-    }
 
-    private fun initListeners() {
         findViewById<ListView>(R.id.suggestions_list).setOnItemClickListener { _, _, position, _ ->
-            val selectedLocation = locations[position]
-            val intent = Intent(this, CreateFireActivity::class.java).apply {
-                putExtra("LOCATION_ID", selectedLocation.id)
-                putExtra("ZIP_CODE", selectedLocation.zipCode)
-            }
+            val location = locations[position]
+            val locationIntent = LocationIntent(
+                id = location.id,
+                locationName = location.locationName,
+                zipCode = location.zipCode,
+                artName = location.artName,
+                tronco = location.tronco
+            )
+            val intent = Intent(this, CreateFireActivity::class.java)
+            intent.putExtra("selectedLocation", locationIntent)
             startActivity(intent)
+            finish()
         }
     }
 
