@@ -3,6 +3,7 @@ package com.example.queimasegura.retrofit.repository
 import com.example.queimasegura.retrofit.model.*
 import com.example.queimasegura.retrofit.api.RetrofitInstance
 import com.example.queimasegura.retrofit.model.get.Controller
+import com.example.queimasegura.retrofit.model.get.CreateFire
 import com.example.queimasegura.retrofit.model.get.CreateUser
 import com.example.queimasegura.retrofit.model.get.Location
 import com.example.queimasegura.retrofit.model.get.Login
@@ -10,6 +11,7 @@ import com.example.queimasegura.retrofit.model.get.Reasons
 import com.example.queimasegura.retrofit.model.get.SimpleResponse
 import com.example.queimasegura.retrofit.model.get.Types
 import com.example.queimasegura.retrofit.model.get.UserStatus
+import com.example.queimasegura.retrofit.model.send.CreateFireBody
 import com.example.queimasegura.retrofit.model.send.CreateUserBody
 import com.example.queimasegura.retrofit.model.send.LoginBody
 import com.example.queimasegura.retrofit.util.MD5
@@ -63,7 +65,6 @@ class Repository {
         return RetrofitInstance.api.logoutUser(userId, sessionId)
     }
 
-
     // USERS
     suspend fun createUser(
         createUserBody: CreateUserBody
@@ -77,6 +78,15 @@ class Repository {
         sessionId: String
     ): Response<UserStatus> {
         return RetrofitInstance.api.getUserStatus(userId, sessionId)
+    }
+
+    // FIRES
+    suspend fun createFire(
+        userId: String,
+        sessionId: String,
+        createFireBody: CreateFireBody
+    ): Response<CreateFire> {
+        return RetrofitInstance.api.createFire(userId, sessionId, createFireBody)
     }
 
     suspend fun getLocation(search: String): Response<Location> {

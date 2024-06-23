@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.View
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
@@ -24,9 +25,12 @@ import com.example.queimasegura.common.fire.adapter.ReasonsAdapter
 import com.example.queimasegura.common.fire.map.MapActivity
 import com.example.queimasegura.common.fire.model.ZipcodeIntent
 import com.example.queimasegura.common.fire.search.SearchActivity
+import com.example.queimasegura.retrofit.model.send.CreateFireBody
 import com.example.queimasegura.retrofit.repository.Repository
 import com.example.queimasegura.room.entities.Reason
 import com.example.queimasegura.room.entities.Type
+import com.example.queimasegura.user.UserActivity
+import com.example.queimasegura.util.ApiUtils
 import com.example.queimasegura.util.LocaleUtils
 import com.example.queimasegura.util.NetworkUtils
 import java.util.Calendar
@@ -38,6 +42,7 @@ class CreateFireActivity : AppCompatActivity() {
     private lateinit var reasonsAdapter: ReasonsAdapter
     private lateinit var radioGroupType: RadioGroup
 
+    private lateinit var datePicked: String
     private lateinit var zipcodeData: ZipcodeIntent
 
 
@@ -117,10 +122,23 @@ class CreateFireActivity : AppCompatActivity() {
         findViewById<ImageButton>(R.id.imageButtonDate).setOnClickListener {
             showDatePickerDialog()
         }
+
+        findViewById<Button>(R.id.buttonRegister).setOnClickListener{
+            handleCreateFire()
+        }
     }
 
     private fun initObservers() {
-
+        viewModel.createFireResponse.observe(this) { response ->
+            if(response.isSuccessful){
+                showMessage("FIRE CREATED")
+                navigateTo(UserActivity::class.java)
+            }else if(response.errorBody() != null) {
+                ApiUtils.handleApiError(this, response.errorBody(), ::showMessage)
+            } else{
+                showMessage(application.getString(R.string.server_error))
+            }
+        }
     }
 
     private fun handleInternetAccessibility() {
@@ -168,6 +186,35 @@ class CreateFireActivity : AppCompatActivity() {
             constraintSet.connect(editTextOutputLocation.id, ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END, 16)
             constraintSet.applyTo(parentLayout)
         }
+    }
+
+    private fun handleCreateFire() {
+        try{
+            inputCheck()
+
+            val selectedTypeId = findViewById<RadioButton>(radioGroupType.checkedRadioButtonId)?.id ?: throw IllegalArgumentException("Type not selected")
+            val selectedReason = spinnerReason.selectedItem as Reason? ?: throw IllegalArgumentException("Reason not selected")
+
+            val createFireBody= CreateFireBody(
+                date = datePicked,
+                typeId = selectedTypeId,
+                reasonId = selectedReason.id,
+                zipCodeId = zipcodeData.id,
+                location = null,
+                observations = null
+            )
+            Log.d("FIRE", createFireBody.toString())
+            viewModel.createFire(createFireBody)
+        } catch (error: Exception) {
+            showMessage(error.message!!)
+        }
+    }
+
+    private fun inputCheck() {
+        if(!::datePicked.isInitialized)
+            throw IllegalArgumentException("Date cannot be empty")
+        if(!::zipcodeData.isInitialized)
+            throw IllegalArgumentException("Zipcode cannot be empty")
     }
 
     private fun handleLocationShow(location: ZipcodeIntent) {
@@ -242,12 +289,18 @@ class CreateFireActivity : AppCompatActivity() {
         val year = calendar.get(Calendar.YEAR)
         val month = calendar.get(Calendar.MONTH)
         val day = calendar.get(Calendar.DAY_OF_MONTH)
+        val language = LocaleUtils.getUserPhoneLanguage(this)
+        val textViewDate = findViewById<TextView>(R.id.textViewDateShow)
 
         val datePickerDialog = DatePickerDialog(this, { _, selectedYear, selectedMonth, selectedDay ->
-            val selectedDate = "$selectedDay/${selectedMonth + 1}/$selectedYear"
+            datePicked = "${selectedMonth + 1}/$selectedDay/$selectedYear"
+            val formattedDate = if (language == "pt") {
+                "${selectedDay}/${selectedMonth + 1}/$selectedYear"
+            } else {
+                "${selectedMonth + 1}/${selectedDay}/$selectedYear"
+            }
 
-            val textViewDate = findViewById<TextView>(R.id.textViewDateShow)
-            val dateString = getString(R.string.create_fire_date) + " " + selectedDate
+            val dateString = getString(R.string.create_fire_date) + " " + formattedDate
             textViewDate.text = dateString
         },
             year, month, day
@@ -259,6 +312,11 @@ class CreateFireActivity : AppCompatActivity() {
 
     private fun popUp(destination: Class<*>) {
         startActivity(Intent(this, destination))
+    }
+
+    private fun navigateTo(destination: Class<*>) {
+        startActivity(Intent(this, destination))
+        finish()
     }
 
     private fun showMessage(message: String) {

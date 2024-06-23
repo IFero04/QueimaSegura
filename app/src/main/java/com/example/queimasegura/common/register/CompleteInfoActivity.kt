@@ -15,6 +15,7 @@ import com.example.queimasegura.retrofit.model.send.CreateUserBody
 import com.example.queimasegura.retrofit.model.ErrorApi
 import com.example.queimasegura.retrofit.repository.Repository
 import com.example.queimasegura.user.UserActivity
+import com.example.queimasegura.util.ApiUtils
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import okhttp3.ResponseBody
@@ -92,21 +93,10 @@ class CompleteInfoActivity : AppCompatActivity() {
                 showMessage(application.getString(R.string.register_message_success))
                 navigateTo(UserActivity::class.java)
             } else if(response.errorBody() != null) {
-                handleError(response.errorBody()!!)
+                ApiUtils.handleApiError(this, response.errorBody(), ::showMessage)
             } else{
                 showMessage(application.getString(R.string.server_error))
             }
-        }
-    }
-
-    private fun handleError(errorBody: ResponseBody) {
-        val gson = Gson()
-        val type = object : TypeToken<ErrorApi>() {}.type
-        val errorApiResponse: ErrorApi? = gson.fromJson(errorBody.charStream(), type)
-        if(errorApiResponse != null) {
-            showMessage(errorApiResponse.detail)
-        } else{
-            showMessage(application.getString(R.string.server_error))
         }
     }
 
