@@ -2,6 +2,7 @@ package com.example.queimasegura.retrofit.api
 
 import com.example.queimasegura.retrofit.model.*
 import com.example.queimasegura.retrofit.model.get.Controller
+import com.example.queimasegura.retrofit.model.get.CreateFire
 import com.example.queimasegura.retrofit.model.get.CreateUser
 import com.example.queimasegura.retrofit.model.get.Location
 import com.example.queimasegura.retrofit.model.get.Login
@@ -10,6 +11,7 @@ import com.example.queimasegura.retrofit.model.get.SimpleResponse
 import com.example.queimasegura.retrofit.model.get.Types
 import com.example.queimasegura.retrofit.model.get.UserStatus
 import com.example.queimasegura.retrofit.model.send.CreateUserBody
+import com.example.queimasegura.retrofit.model.send.CreateFireBody
 import com.example.queimasegura.retrofit.model.send.LoginBody
 import retrofit2.http.*
 import retrofit2.Response
@@ -52,7 +54,6 @@ interface ApiService {
         @Query("session_id") sessionId: String,
     ): Response<SimpleResponse>
 
-
     // USERS
     @POST("/users/create")
     suspend fun createUser(
@@ -64,6 +65,14 @@ interface ApiService {
         @Path("user_id") userId: String,
         @Query("session_id") sessionId: String
     ): Response<UserStatus>
+
+    // FIRES
+    @POST("/fires/create/{user_id}")
+    suspend fun createFire(
+        @Path("user_id") userId: String,
+        @Query("session_id") sessionId: String,
+        @Body createFireBody: CreateFireBody
+    ): Response<CreateFire>
 
     @GET("/location")
     suspend fun getLocation(
