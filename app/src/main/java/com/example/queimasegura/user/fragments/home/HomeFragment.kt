@@ -10,7 +10,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.queimasegura.R
-import com.example.queimasegura.common.reqPerm.CreateFireActivity
+import com.example.queimasegura.common.fire.CreateFireActivity
 import com.example.queimasegura.retrofit.repository.Repository
 
 class HomeFragment : Fragment() {

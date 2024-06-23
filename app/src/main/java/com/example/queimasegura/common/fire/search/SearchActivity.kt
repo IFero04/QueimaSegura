@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.widget.ArrayAdapter
+import android.widget.AutoCompleteTextView
+import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ListView
 import android.widget.SearchView
@@ -13,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.queimasegura.R
 import com.example.queimasegura.common.fire.CreateFireActivity
+import com.example.queimasegura.common.fire.adapter.SearchListAdapter
 import com.example.queimasegura.common.fire.model.ZipcodeIntent
 import com.example.queimasegura.retrofit.model.data.Location
 import com.example.queimasegura.retrofit.repository.Repository
@@ -49,9 +52,13 @@ class SearchActivity : AppCompatActivity() {
 
     private fun initEvents() {
         val searchView = findViewById<SearchView>(R.id.searchView)
+
+        setSearchViewTextColor(searchView, R.color.black)
+
+
         val listView = findViewById<ListView>(R.id.suggestions_list)
 
-        adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, mutableListOf<String>())
+        adapter = SearchListAdapter(this, mutableListOf())
         listView.adapter = adapter
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -97,6 +104,14 @@ class SearchActivity : AppCompatActivity() {
             finish()
         }
     }
+
+    private fun setSearchViewTextColor(searchView: SearchView, color: Int) {
+        val searchTextField = SearchView::class.java.getDeclaredField("mSearchSrcTextView")
+        searchTextField.isAccessible = true
+        val searchText = searchTextField.get(searchView) as EditText
+        searchText.setTextColor(getColor(color))
+    }
+
 
     private fun initObservers() {
         viewModel.locationResponse.observe(this) { response ->
