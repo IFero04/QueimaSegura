@@ -2,11 +2,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/pending"
-        android:title="Pending" />
+        android:title="@string/pending" />
     <item
-        android:id="@+id/approved"
-        android:title="Approved" />
+        android:id="@+id/in_progress"
+        android:title="@string/in_progress" />
+    <item
+        android:id="@+id/completed"
+        android:title="@string/completed" />
     <item
         android:id="@+id/not_approved"
-        android:title="Not Approved" />
+        android:title="@string/not_approved" />
+
 </menu>

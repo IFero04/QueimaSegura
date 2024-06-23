@@ -107,6 +107,12 @@
     <string name="profile_unknown">Unknown</string>
     <string name="your_location">Your Location:</string>
 
+    <!-- Requests States -->
+    <string name="pending">Pending</string>
+    <string name="in_progress">In Progress</string>
+    <string name="completed">Completed</string>
+    <string name="not_approved">Canceled</string>
+
     <!-- Create Fire Activity -->
     <string name="create_fire_date">Selected Date: </string>
 
