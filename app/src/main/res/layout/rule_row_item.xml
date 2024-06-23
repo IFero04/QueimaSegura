@@ -7,6 +7,7 @@
 
     <TextView
         android:id="@+id/district"
+        android:textColor="@color/black"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -15,6 +16,7 @@
 
     <TextView
         android:id="@+id/startDate"
+        android:textColor="@color/black"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -22,6 +24,7 @@
 
     <TextView
         android:id="@+id/endDate"
+        android:textColor="@color/black"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"

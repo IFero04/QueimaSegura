@@ -17,7 +17,7 @@ class PedidoAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PedidoViewHolder {
         val itemView = LayoutInflater.from(parent.context)
-            .inflate(R.layout.card_item, parent, false)
+            .inflate(R.layout.request_card, parent, false)
         return PedidoViewHolder(itemView)
     }
 

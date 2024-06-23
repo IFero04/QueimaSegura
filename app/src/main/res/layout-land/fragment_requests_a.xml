@@ -10,11 +10,11 @@
         android:id="@+id/profileText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_margin="10dp"
         android:gravity="center"
         android:text="@string/Requests"
         android:textColor="@color/colorPrimary"
-        android:textSize="45sp" />
+        android:textSize="35sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -24,8 +24,9 @@
 
         <TextView
             android:id="@+id/textViewStateHeader"
-            android:layout_width="337dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="2"
             android:layout_marginStart="16dp"
             android:fontFamily="@font/karma_medium"
             android:text="@string/state"
@@ -36,11 +37,12 @@
             android:id="@+id/imageButtonDate"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="16dp"
             android:background="#00FFFFFF"
             android:contentDescription="@string/filter"
             android:src="@drawable/filter" />
     </LinearLayout>
+
 
     <View
         android:id="@+id/textViewLine2"
