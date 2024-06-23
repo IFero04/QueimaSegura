@@ -10,6 +10,7 @@ import com.example.queimasegura.retrofit.repository.Repository
 import kotlinx.coroutines.launch
 import retrofit2.Response
 
+
 class SearchViewModel(
     private val application: Application,
     private val retrofitRepository: Repository
@@ -20,7 +21,7 @@ class SearchViewModel(
     fun getLocation(search: String) {
         viewModelScope.launch {
             val response = retrofitRepository.getLocation(search)
-            _locationResponse.postValue(response)
+            _locationResponse.value = response
         }
     }
 
