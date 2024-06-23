@@ -1,11 +1,9 @@
 package com.example.queimasegura.common.fire.search
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.ImageButton
 import android.widget.ListView
@@ -15,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.queimasegura.R
 import com.example.queimasegura.common.fire.CreateFireActivity
-import com.example.queimasegura.common.fire.model.LocationIntent
+import com.example.queimasegura.common.fire.model.ZipcodeIntent
 import com.example.queimasegura.retrofit.model.data.Location
 import com.example.queimasegura.retrofit.repository.Repository
 import com.example.queimasegura.util.ApiUtils
@@ -86,7 +84,7 @@ class SearchActivity : AppCompatActivity() {
 
         findViewById<ListView>(R.id.suggestions_list).setOnItemClickListener { _, _, position, _ ->
             val location = locations[position]
-            val locationIntent = LocationIntent(
+            val zipcodeIntent = ZipcodeIntent(
                 id = location.id,
                 locationName = location.locationName,
                 zipCode = location.zipCode,
@@ -94,7 +92,7 @@ class SearchActivity : AppCompatActivity() {
                 tronco = location.tronco
             )
             val intent = Intent(this, CreateFireActivity::class.java)
-            intent.putExtra("selectedLocation", locationIntent)
+            intent.putExtra("selectedZipcode", zipcodeIntent)
             startActivity(intent)
             finish()
         }

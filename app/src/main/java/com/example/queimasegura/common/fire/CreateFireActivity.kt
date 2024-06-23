@@ -1,14 +1,8 @@
 package com.example.queimasegura.common.fire
 
-import android.app.Activity
 import android.app.DatePickerDialog
 import android.content.Intent
-import android.icu.text.SimpleDateFormat
 import android.os.Bundle
-import android.util.Log
-import android.view.MenuItem
-import android.view.View
-import android.widget.AdapterView
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.RadioButton
@@ -16,29 +10,19 @@ import android.widget.RadioGroup
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.PopupMenu
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.queimasegura.R
 import com.example.queimasegura.common.fire.adapter.ReasonsAdapter
 import com.example.queimasegura.common.fire.map.MapActivity
-import com.example.queimasegura.common.fire.model.LocationIntent
+import com.example.queimasegura.common.fire.model.ZipcodeIntent
 import com.example.queimasegura.common.fire.search.SearchActivity
-import com.example.queimasegura.retrofit.model.data.Location
 import com.example.queimasegura.retrofit.repository.Repository
 import com.example.queimasegura.room.entities.Reason
 import com.example.queimasegura.room.entities.Type
-import com.example.queimasegura.user.fragments.home.HomeFragment
-import com.example.queimasegura.util.LocaleUtils
 import java.util.Calendar
-import java.util.Date
-import java.util.Locale
 
 
 class CreateFireActivity : AppCompatActivity() {
@@ -46,6 +30,8 @@ class CreateFireActivity : AppCompatActivity() {
     private lateinit var spinnerReason: Spinner
     private lateinit var reasonsAdapter: ReasonsAdapter
     private lateinit var radioGroupType: RadioGroup
+
+    private lateinit var zipcodeData: ZipcodeIntent
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -70,9 +56,9 @@ class CreateFireActivity : AppCompatActivity() {
     }
 
     private fun initIntents() {
-        val locationIntent = intent.getParcelableExtra<LocationIntent>("selectedLocation")
-        Log.d("LOCATION INTENT", locationIntent.toString())
-        locationIntent?.let {
+        val zipcodeIntent = intent.getParcelableExtra<ZipcodeIntent>("selectedZipcode")
+        zipcodeIntent?.let {
+            zipcodeData = it
             handleLocationShow(it)
         }
     }
@@ -128,7 +114,7 @@ class CreateFireActivity : AppCompatActivity() {
 
     }
 
-    private fun handleLocationShow(location: LocationIntent) {
+    private fun handleLocationShow(location: ZipcodeIntent) {
         val locationStringBuilder = StringBuilder()
 
         locationStringBuilder.append(location.zipCode)

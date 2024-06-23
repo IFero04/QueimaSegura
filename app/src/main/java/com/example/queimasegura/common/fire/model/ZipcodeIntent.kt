@@ -5,7 +5,7 @@ import kotlinx.android.parcel.Parcelize
 
 
 @Parcelize
-data class LocationIntent(
+data class ZipcodeIntent(
     val id: Int,
     val locationName: String,
     val zipCode: String,
