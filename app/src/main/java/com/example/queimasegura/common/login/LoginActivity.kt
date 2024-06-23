@@ -16,6 +16,7 @@ import com.example.queimasegura.retrofit.model.ErrorApi
 import com.example.queimasegura.retrofit.model.send.LoginBody
 import com.example.queimasegura.retrofit.repository.Repository
 import com.example.queimasegura.user.UserActivity
+import com.example.queimasegura.util.ApiUtils
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import okhttp3.ResponseBody
@@ -75,7 +76,7 @@ class LoginActivity : AppCompatActivity() {
                     showMessage(application.getString(R.string.server_error))
                 }
             } else if(response.errorBody() != null) {
-                handleError(response.errorBody()!!)
+                ApiUtils.handleApiError(application, response.errorBody(), ::showMessage)
             } else{
                 showMessage(application.getString(R.string.server_error))
             }
@@ -87,17 +88,6 @@ class LoginActivity : AppCompatActivity() {
             0 -> navigateTo(UserActivity::class.java)
             1 -> navigateTo(ManagerActivity::class.java)
             2 -> navigateTo(AdminActivity::class.java)
-        }
-    }
-
-    private fun handleError(errorBody: ResponseBody) {
-        val gson = Gson()
-        val type = object : TypeToken<ErrorApi>() {}.type
-        val errorApiResponse: ErrorApi? = gson.fromJson(errorBody.charStream(), type)
-        if(errorApiResponse != null) {
-            showMessage(errorApiResponse.detail)
-        } else{
-            showMessage(application.getString(R.string.server_error))
         }
     }
 

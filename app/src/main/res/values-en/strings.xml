@@ -91,6 +91,8 @@
     <string name="post_code_colon">Postcode:</string>
     <string name="state_colon">State:</string>
     <string name="fire_tech_colon">Fire Technician:</string>
+    <string name="fires_approved">fires_approved</string>
+    <string name="create_req">Create Request</string>
 
     <!-- Login Activity -->
     <string name="login_message_success">Login Successful</string>
@@ -115,5 +117,7 @@
 
     <!-- Create Fire Activity -->
     <string name="create_fire_date">Selected Date: </string>
+
+
 
 </resources>

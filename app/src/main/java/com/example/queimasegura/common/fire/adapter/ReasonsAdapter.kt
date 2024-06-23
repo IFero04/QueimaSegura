@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import com.example.queimasegura.R
 import com.example.queimasegura.room.entities.Reason
+import com.example.queimasegura.util.LocaleUtils
 
 
 class ReasonsAdapter(context: Context, reasons: List<Reason>) :
@@ -28,7 +29,13 @@ class ReasonsAdapter(context: Context, reasons: List<Reason>) :
         view.setBackgroundColor(ContextCompat.getColor(context, android.R.color.white))
 
         val textView = view.findViewById<TextView>(android.R.id.text1)
-        textView.text = reason.namePt
+
+        val location = LocaleUtils.getUserPhoneLanguage(context)
+        textView.text = if(location == "pt"){
+            reason.namePt
+        }else{
+            reason.nameEn
+        }
 
         textView.setTextColor(ContextCompat.getColor(context, R.color.black))
 

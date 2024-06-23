@@ -2,12 +2,7 @@ package com.example.queimasegura.common.fire
 
 import android.app.DatePickerDialog
 import android.content.Intent
-import android.icu.text.SimpleDateFormat
 import android.os.Bundle
-import android.util.Log
-import android.view.MenuItem
-import android.view.View
-import android.widget.AdapterView
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.RadioButton
@@ -15,27 +10,21 @@ import android.widget.RadioGroup
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.PopupMenu
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.queimasegura.R
 import com.example.queimasegura.common.fire.adapter.ReasonsAdapter
 import com.example.queimasegura.common.fire.map.MapActivity
+import com.example.queimasegura.common.fire.model.ZipcodeIntent
 import com.example.queimasegura.common.fire.search.SearchActivity
 import com.example.queimasegura.retrofit.repository.Repository
 import com.example.queimasegura.room.entities.Reason
 import com.example.queimasegura.room.entities.Type
-import com.example.queimasegura.user.fragments.home.HomeFragment
 import com.example.queimasegura.util.LocaleUtils
+import com.example.queimasegura.util.NetworkUtils
 import java.util.Calendar
-import java.util.Date
-import java.util.Locale
 
 
 class CreateFireActivity : AppCompatActivity() {
@@ -44,6 +33,8 @@ class CreateFireActivity : AppCompatActivity() {
     private lateinit var reasonsAdapter: ReasonsAdapter
     private lateinit var radioGroupType: RadioGroup
 
+    private lateinit var zipcodeData: ZipcodeIntent
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,17 +42,29 @@ class CreateFireActivity : AppCompatActivity() {
 
         initViewModels()
 
+        initIntents()
+
         initVariables()
 
         initEvents()
 
         initObservers()
+
+        handleInternetAccessibility()
     }
 
     private fun initViewModels() {
         val repository = Repository()
         val viewModelFactory = CreateFireViewModelFactory(application, repository)
         viewModel = ViewModelProvider(this, viewModelFactory)[CreateFireViewModel::class.java]
+    }
+
+    private fun initIntents() {
+        val zipcodeIntent = intent.getParcelableExtra<ZipcodeIntent>("selectedZipcode")
+        zipcodeIntent?.let {
+            zipcodeData = it
+            handleLocationShow(it)
+        }
     }
 
     private fun initVariables() {
@@ -115,15 +118,64 @@ class CreateFireActivity : AppCompatActivity() {
 
     }
 
+    private fun handleInternetAccessibility() {
+        val isInternetAvailable = NetworkUtils.isInternetAvailable(application)
+        if(!isInternetAvailable) {
+            val postcodeButton = findViewById<Button>(R.id.buttonPostCode)
+            val mapButton = findViewById<Button>(R.id.buttonMap)
+
+            val disabledBackground = ContextCompat.getDrawable(this, R.drawable.button_disabled_outline)
+            postcodeButton.background = disabledBackground
+            mapButton.background = disabledBackground
+
+            postcodeButton.setTextColor(resources.getColor(android.R.color.darker_gray))
+            mapButton.setTextColor(resources.getColor(android.R.color.darker_gray))
+
+            postcodeButton.isEnabled = false
+            mapButton.isEnabled = false
+        }
+    }
+
+    private fun handleLocationShow(location: ZipcodeIntent) {
+        val locationStringBuilder = StringBuilder()
+
+        locationStringBuilder.append(location.zipCode)
+        locationStringBuilder.append(", ")
+        locationStringBuilder.append(location.locationName)
+
+        location.artName?.let {
+            if (it.isNotEmpty()) {
+                locationStringBuilder.append(" - ")
+                locationStringBuilder.append(it)
+            }
+        }
+
+        location.tronco?.let {
+            if (it.isNotEmpty()) {
+                locationStringBuilder.append(" - ")
+                locationStringBuilder.append(it)
+            }
+        }
+
+        val locationOutput = findViewById<TextView>(R.id.textViewOutputLocation)
+        locationOutput.text = locationStringBuilder
+    }
+
     private fun populateRadioGroup(types: List<Type>) {
         val radioGroupType = findViewById<RadioGroup>(R.id.radioGroupType)
         radioGroupType.removeAllViews()
         var checkedId = -1
 
+        val location = LocaleUtils.getUserPhoneLanguage(application)
+
         for (type in types) {
             val radioButton = RadioButton(this).apply {
                 id = type.id
-                text = type.nameEn
+                text = if(location == "pt"){
+                    type.namePt
+                }else{
+                    type.nameEn
+                }
                 textSize = 16f
                 setTextColor(resources.getColor(R.color.black, null))
                 buttonTintList = ContextCompat.getColorStateList(context, R.color.radio_btn_tint)

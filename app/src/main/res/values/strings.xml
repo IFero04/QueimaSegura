@@ -101,6 +101,9 @@
     <string name="post_code_colon">Postcode:</string>
     <string name="state_colon">State:</string>
     <string name="fire_tech_colon">Fire Technician:</string>
+    <string name="fires_approved">Fires Approved</string>
+    <string name="create_req">Create Request</string>
+    <string name="Date_Ex" translatable="false">DD/MM/YYYY</string>
 
     <!-- Requests States -->
     <string name="pending">Pending</string>
@@ -125,5 +128,7 @@
 
     <!-- Create Fire Activity -->
     <string name="create_fire_date">Selected Date: </string>
+
+
 
 </resources>
