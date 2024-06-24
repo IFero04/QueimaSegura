@@ -16,7 +16,7 @@ class SearchListAdapter(context: Context, private val items: List<String>): Arra
         val textView = view.findViewById<TextView>(R.id.textItem)
         textView.text = items[position]
 
-        textView.setTextColor(context.getColor(R.color.black))
+        textView.setTextColor(context.getColor(android.R.color.darker_gray))
         return view
     }
 }

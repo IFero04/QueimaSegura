@@ -1,12 +1,11 @@
 package com.example.queimasegura.common.fire.search
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ListView
@@ -15,7 +14,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.viewModelScope
 import com.example.queimasegura.R
 import com.example.queimasegura.common.fire.CreateFireActivity
 import com.example.queimasegura.common.fire.adapter.SearchListAdapter
@@ -70,7 +68,6 @@ class SearchActivity : AppCompatActivity() {
                         tronco = zipCode.tronco
                     )
                 }
-                Log.d("LOCATIONS", locations.toString())
                 updateListView(locations)
             }
         }
@@ -80,7 +77,6 @@ class SearchActivity : AppCompatActivity() {
         val searchView = findViewById<SearchView>(R.id.searchView)
 
         setSearchViewTextColor(searchView, R.color.black)
-
 
         val listView = findViewById<ListView>(R.id.suggestions_list)
 
@@ -153,6 +149,7 @@ class SearchActivity : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("DiscouragedPrivateApi")
     private fun setSearchViewTextColor(searchView: SearchView, color: Int) {
         val searchTextField = SearchView::class.java.getDeclaredField("mSearchSrcTextView")
         searchTextField.isAccessible = true
