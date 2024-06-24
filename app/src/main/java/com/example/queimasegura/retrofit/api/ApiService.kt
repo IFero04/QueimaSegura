@@ -67,7 +67,7 @@ interface ApiService {
     ): Response<UserStatus>
 
     // FIRES
-    @POST("/fires/create/{user_id}")
+    @POST("/fires/{user_id}")
     suspend fun createFire(
         @Path("user_id") userId: String,
         @Query("session_id") sessionId: String,
