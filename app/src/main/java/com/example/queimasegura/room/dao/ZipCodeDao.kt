@@ -16,7 +16,7 @@ interface ZipCodeDao {
     suspend fun clearZips()
 
     @Query("SELECT * FROM location_table LIMIT 25")
-    fun readZipsData(): LiveData<List<ZipCode>>
+    suspend fun getZipsData(): List<ZipCode>?
 
     @Query("SELECT EXISTS(SELECT 1 FROM location_table WHERE id = :zipCodeId LIMIT 1)")
     suspend fun isZipCodeExists(zipCodeId: Int): Boolean

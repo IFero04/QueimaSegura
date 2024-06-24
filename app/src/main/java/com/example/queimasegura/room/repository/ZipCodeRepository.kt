@@ -5,7 +5,9 @@ import com.example.queimasegura.room.dao.ZipCodeDao
 import com.example.queimasegura.room.entities.ZipCode
 
 class ZipCodeRepository(private val zipCodeDao: ZipCodeDao) {
-    val readData: LiveData<List<ZipCode>> = zipCodeDao.readZipsData()
+    suspend fun getZips(): List<ZipCode>? {
+        return zipCodeDao.getZipsData()
+    }
 
     suspend fun addZipcode(zipCode: ZipCode) {
         if(!zipCodeDao.isZipCodeExists(zipCode.id)){

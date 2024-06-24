@@ -55,6 +55,11 @@ class SearchViewModel(
         }
     }
 
+    suspend fun getZips(): List<ZipCode>? {
+        val zipCodes = zipCodeRepository.getZips()
+        return zipCodes
+    }
+
     fun saveLocation(zipcode: ZipCode) {
         viewModelScope.launch {
             zipCodeRepository.addZipcode(zipcode)
