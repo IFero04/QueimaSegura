@@ -3,6 +3,7 @@ package com.example.queimasegura.common.fire
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.util.TypedValue
 import android.view.View
 import android.widget.Button
@@ -22,6 +23,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.queimasegura.R
 import com.example.queimasegura.common.fire.adapter.ReasonsAdapter
 import com.example.queimasegura.common.fire.map.MapActivity
+import com.example.queimasegura.common.fire.model.CreateFireDataIntent
 import com.example.queimasegura.common.fire.model.ZipcodeIntent
 import com.example.queimasegura.common.fire.search.SearchActivity
 import com.example.queimasegura.retrofit.model.send.CreateFireBody
@@ -72,6 +74,18 @@ class CreateFireActivity : AppCompatActivity() {
         zipcodeIntent?.let {
             zipcodeData = it
             handleLocationShow(it)
+        }
+
+        val myDataIntent = intent.getParcelableExtra<CreateFireDataIntent>("parentData")
+        Log.d("DATARECEIVED", myDataIntent.toString())
+        myDataIntent?.let {
+            if(it.selectedDate != null) {
+                datePicked = it.selectedDate
+            }
+            val textViewDate = findViewById<TextView>(R.id.textViewDateShow)
+            if(it.selectedDateString != null) {
+                textViewDate.text = it.selectedDateString
+            }
         }
     }
 
@@ -306,7 +320,17 @@ class CreateFireActivity : AppCompatActivity() {
     }
 
     private fun popUp(destination: Class<*>) {
-        startActivity(Intent(this, destination))
+        val textViewDate = findViewById<TextView>(R.id.textViewDateShow)
+
+        val myDataIntent = CreateFireDataIntent(
+            selectedDate = if (::datePicked.isInitialized) datePicked else null,
+            selectedDateString = textViewDate.text.toString()
+        )
+
+        Log.d("MYDATEINTENT", myDataIntent.toString())
+        val intent = Intent(this, destination)
+        intent.putExtra("parentData", myDataIntent)
+        startActivity(intent)
         finish()
     }
 

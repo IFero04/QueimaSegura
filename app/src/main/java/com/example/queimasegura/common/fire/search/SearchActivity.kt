@@ -17,6 +17,7 @@ import androidx.lifecycle.lifecycleScope
 import com.example.queimasegura.R
 import com.example.queimasegura.common.fire.CreateFireActivity
 import com.example.queimasegura.common.fire.adapter.SearchListAdapter
+import com.example.queimasegura.common.fire.model.CreateFireDataIntent
 import com.example.queimasegura.common.fire.model.ZipcodeIntent
 import com.example.queimasegura.retrofit.model.data.Location
 import com.example.queimasegura.retrofit.repository.Repository
@@ -34,6 +35,8 @@ class SearchActivity : AppCompatActivity() {
     private var searchRunnable: Runnable? = null
     private val searchDelay: Long = 500
 
+    private lateinit var parentData: CreateFireDataIntent
+
     override fun onCreate(
         savedInstanceState: Bundle?
     ) {
@@ -41,6 +44,8 @@ class SearchActivity : AppCompatActivity() {
         setContentView(R.layout.activity_search)
 
         initViewModels()
+
+        initIntents()
 
         initVariables()
 
@@ -53,6 +58,13 @@ class SearchActivity : AppCompatActivity() {
         val repository = Repository()
         val viewModelFactory = SearchViewModelFactory(application, repository)
         viewModel = ViewModelProvider(this, viewModelFactory)[SearchViewModel::class.java]
+    }
+
+    private fun initIntents() {
+        val parentDataIntent = intent.getParcelableExtra<CreateFireDataIntent>("parentData")
+        parentDataIntent?.let {
+            parentData = it
+        }
     }
 
     private fun initVariables() {
@@ -108,7 +120,7 @@ class SearchActivity : AppCompatActivity() {
         })
 
         findViewById<ImageButton>(R.id.imageButtonBack).setOnClickListener {
-            finish()
+            goBack()
         }
 
         findViewById<ListView>(R.id.suggestions_list).setOnItemClickListener { _, _, position, _ ->
@@ -127,10 +139,8 @@ class SearchActivity : AppCompatActivity() {
                 artName = location.artName,
                 tronco = location.tronco
             )
-            val intent = Intent(this, CreateFireActivity::class.java)
-            intent.putExtra("selectedZipcode", zipcodeIntent)
-            startActivity(intent)
-            finish()
+
+            goBack(zipcodeIntent)
         }
     }
 
@@ -186,6 +196,16 @@ class SearchActivity : AppCompatActivity() {
         adapter.clear()
         adapter.addAll(locationStrings)
         adapter.notifyDataSetChanged()
+    }
+
+    private fun goBack(zipcodeIntent: ZipcodeIntent? = null) {
+        val intent = Intent(this, CreateFireActivity::class.java)
+        if(zipcodeIntent != null){
+            intent.putExtra("selectedZipcode", zipcodeIntent)
+        }
+        intent.putExtra("parentData", parentData)
+        startActivity(intent)
+        finish()
     }
 
     private fun showMessage(message: String) {
