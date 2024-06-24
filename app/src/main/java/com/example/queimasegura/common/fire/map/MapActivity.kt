@@ -2,7 +2,6 @@ package com.example.queimasegura.common.fire.map
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.Toast
@@ -13,10 +12,10 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
 import com.example.queimasegura.R
 import com.example.queimasegura.common.fire.CreateFireActivity
+import com.example.queimasegura.common.fire.model.CreateFireDataIntent
 import com.example.queimasegura.common.fire.model.ZipcodeIntent
 import com.example.queimasegura.retrofit.model.data.Location
 import com.example.queimasegura.retrofit.repository.Repository
-import com.example.queimasegura.util.ApiUtils
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
@@ -38,6 +37,8 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapClic
     )
     private var coords: LatLng? = null
 
+    private lateinit var parentData: CreateFireDataIntent
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -54,6 +55,8 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapClic
 
         initViewModels()
 
+        initIntents()
+
         initEvents()
     }
 
@@ -63,10 +66,16 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapClic
         viewModel = ViewModelProvider(this, mapModelFactory)[MapViewModel::class.java]
     }
 
+    private fun initIntents() {
+        val parentDataIntent = intent.getParcelableExtra<CreateFireDataIntent>("parentData")
+        parentDataIntent?.let {
+            parentData = it
+        }
+    }
+
     private fun initEvents() {
         findViewById<ImageButton>(R.id.imageButtonBack).setOnClickListener {
-            val intent = Intent(this, CreateFireActivity::class.java)
-            startActivity(intent)
+            goBack()
         }
 
         findViewById<Button>(R.id.buttonConfirm).setOnClickListener {
@@ -78,7 +87,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapClic
         }
 
         findViewById<Button>(R.id.buttonCancel).setOnClickListener {
-            finish()
+            goBack()
         }
     }
 
@@ -136,8 +145,15 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapClic
             artName = location.artName,
             tronco = location.tronco
         )
+        goBack(zipcodeIntent)
+    }
+
+    private fun goBack(zipcodeIntent: ZipcodeIntent? = null) {
         val intent = Intent(this, CreateFireActivity::class.java)
-        intent.putExtra("selectedZipcode", zipcodeIntent)
+        if(zipcodeIntent != null){
+            intent.putExtra("selectedZipcode", zipcodeIntent)
+        }
+        intent.putExtra("parentData", parentData)
         startActivity(intent)
         finish()
     }

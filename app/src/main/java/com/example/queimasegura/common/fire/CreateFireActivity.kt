@@ -3,7 +3,6 @@ package com.example.queimasegura.common.fire
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.util.TypedValue
 import android.view.View
 import android.widget.Button
@@ -44,6 +43,7 @@ class CreateFireActivity : AppCompatActivity() {
 
     private lateinit var datePicked: String
     private lateinit var zipcodeData: ZipcodeIntent
+    private lateinit var myDataIntent: CreateFireDataIntent
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -76,14 +76,18 @@ class CreateFireActivity : AppCompatActivity() {
             handleLocationShow(it)
         }
 
-        val myDataIntent = intent.getParcelableExtra<CreateFireDataIntent>("parentData")
-        Log.d("DATARECEIVED", myDataIntent.toString())
-        myDataIntent?.let {
+        val intentData = intent.getParcelableExtra<CreateFireDataIntent>("parentData")
+        intentData?.let {
+            myDataIntent = it
+            if(it.reasonId != null) {
+                val spinner = findViewById<Spinner>(R.id.spinnerReason)
+                spinner.setSelection(it.reasonId)
+            }
             if(it.selectedDate != null) {
                 datePicked = it.selectedDate
             }
-            val textViewDate = findViewById<TextView>(R.id.textViewDateShow)
             if(it.selectedDateString != null) {
+                val textViewDate = findViewById<TextView>(R.id.textViewDateShow)
                 textViewDate.text = it.selectedDateString
             }
         }
@@ -254,7 +258,12 @@ class CreateFireActivity : AppCompatActivity() {
     private fun populateRadioGroup(types: List<Type>) {
         val radioGroupType = findViewById<RadioGroup>(R.id.radioGroupType)
         radioGroupType.removeAllViews()
-        var checkedId = -1
+        var checkedId: Int
+        if(::myDataIntent.isInitialized){
+            checkedId = if(myDataIntent.typeId != null) myDataIntent.typeId!! else -1
+        } else {
+            checkedId = -1
+        }
 
         val location = LocaleUtils.getUserPhoneLanguage(application)
 
@@ -280,7 +289,7 @@ class CreateFireActivity : AppCompatActivity() {
             }
             radioGroupType.addView(radioButton)
 
-            if (checkedId == -1) {
+            if (checkedId == -1 || checkedId == radioButton.id) {
                 radioButton.isChecked = true
                 checkedId = radioButton.id
             }
@@ -291,6 +300,11 @@ class CreateFireActivity : AppCompatActivity() {
         reasonsAdapter.clear()
         reasonsAdapter.addAll(reasons)
         spinnerReason.adapter = reasonsAdapter
+        if(::myDataIntent.isInitialized){
+            myDataIntent.reasonId?.let {
+                spinnerReason.setSelection(it - 1)
+            }
+        }
     }
 
     private fun showDatePickerDialog() {
@@ -321,13 +335,15 @@ class CreateFireActivity : AppCompatActivity() {
 
     private fun popUp(destination: Class<*>) {
         val textViewDate = findViewById<TextView>(R.id.textViewDateShow)
+        val selectedType = findViewById<RadioButton>(radioGroupType.checkedRadioButtonId)
 
         val myDataIntent = CreateFireDataIntent(
+            typeId = selectedType.id,
+            reasonId = (spinnerReason.selectedItem as Reason?)?.id,
             selectedDate = if (::datePicked.isInitialized) datePicked else null,
             selectedDateString = textViewDate.text.toString()
         )
 
-        Log.d("MYDATEINTENT", myDataIntent.toString())
         val intent = Intent(this, destination)
         intent.putExtra("parentData", myDataIntent)
         startActivity(intent)
