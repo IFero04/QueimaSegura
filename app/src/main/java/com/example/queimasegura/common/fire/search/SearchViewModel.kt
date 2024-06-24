@@ -9,7 +9,9 @@ import com.example.queimasegura.retrofit.model.get.Location
 import com.example.queimasegura.retrofit.repository.Repository
 import com.example.queimasegura.room.db.AppDataBase
 import com.example.queimasegura.room.entities.Auth
+import com.example.queimasegura.room.entities.ZipCode
 import com.example.queimasegura.room.repository.AuthRepository
+import com.example.queimasegura.room.repository.ZipCodeRepository
 import kotlinx.coroutines.launch
 import retrofit2.Response
 
@@ -24,11 +26,13 @@ class SearchViewModel(
     private val authData: LiveData<Auth>
     private lateinit var authUser: Auth
 
+    private val zipCodeRepository: ZipCodeRepository
     private val authRepository: AuthRepository
 
     init {
         val database = AppDataBase.getDatabase(application)
         authRepository = AuthRepository(database.authDao())
+        zipCodeRepository = ZipCodeRepository(database.zipCodeDao())
         authData = authRepository.readData
 
         observeAuth()
@@ -51,4 +55,9 @@ class SearchViewModel(
         }
     }
 
+    fun saveLocation(zipcode: ZipCode) {
+        viewModelScope.launch {
+            zipCodeRepository.addZipcode(zipcode)
+        }
+    }
 }

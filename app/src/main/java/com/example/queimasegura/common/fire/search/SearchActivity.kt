@@ -19,6 +19,7 @@ import com.example.queimasegura.common.fire.adapter.SearchListAdapter
 import com.example.queimasegura.common.fire.model.ZipcodeIntent
 import com.example.queimasegura.retrofit.model.data.Location
 import com.example.queimasegura.retrofit.repository.Repository
+import com.example.queimasegura.room.entities.ZipCode
 import com.example.queimasegura.util.ApiUtils
 
 
@@ -91,6 +92,13 @@ class SearchActivity : AppCompatActivity() {
 
         findViewById<ListView>(R.id.suggestions_list).setOnItemClickListener { _, _, position, _ ->
             val location = locations[position]
+            viewModel.saveLocation(ZipCode(
+                id = location.id,
+                locationName = location.locationName,
+                zipCode = location.zipCode,
+                artName = location.artName,
+                tronco = location.tronco
+            ))
             val zipcodeIntent = ZipcodeIntent(
                 id = location.id,
                 locationName = location.locationName,
