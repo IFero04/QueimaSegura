@@ -19,7 +19,6 @@ import retrofit2.Response
 
 
 class Repository {
-
     suspend fun getRoot(): Response<Root> {
         return RetrofitInstance.api.getRoot()
     }

@@ -6,23 +6,26 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.queimasegura.room.dao.AuthDao
 import com.example.queimasegura.room.dao.ControllerDao
+import com.example.queimasegura.room.dao.LocationDao
 import com.example.queimasegura.room.dao.ReasonDao
 import com.example.queimasegura.room.dao.StatusDao
 import com.example.queimasegura.room.dao.TypeDao
 import com.example.queimasegura.room.entities.Auth
 import com.example.queimasegura.room.entities.Controller
+import com.example.queimasegura.room.entities.Location
 import com.example.queimasegura.room.entities.Reason
 import com.example.queimasegura.room.entities.Status
 import com.example.queimasegura.room.entities.Type
 
 
-@Database(entities = [Auth::class, Controller::class, Reason::class, Type::class, Status::class], version = 1, exportSchema = false)
+@Database(entities = [Auth::class, Controller::class, Reason::class, Type::class, Status::class, Location::class], version = 1, exportSchema = false)
 abstract class AppDataBase: RoomDatabase() {
     abstract fun authDao(): AuthDao
     abstract fun controllerDao(): ControllerDao
     abstract fun reasonDao(): ReasonDao
     abstract fun typeDao(): TypeDao
     abstract fun statusDao(): StatusDao
+    abstract fun locationDao(): LocationDao
 
     companion object{
         @Volatile
