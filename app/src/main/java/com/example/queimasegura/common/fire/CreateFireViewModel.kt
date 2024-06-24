@@ -14,6 +14,7 @@ import com.example.queimasegura.room.entities.Reason
 import com.example.queimasegura.room.entities.Type
 import com.example.queimasegura.room.repository.AuthRepository
 import com.example.queimasegura.room.repository.StaticRepository
+import com.example.queimasegura.room.repository.StatusRepository
 import com.example.queimasegura.util.NetworkUtils
 import kotlinx.coroutines.launch
 import retrofit2.Response
@@ -33,6 +34,7 @@ class CreateFireViewModel(
 
     private val staticRepository: StaticRepository
     private val authRepository: AuthRepository
+    private val statusRepository: StatusRepository
 
     init {
         val database = AppDataBase.getDatabase(application)
@@ -40,9 +42,11 @@ class CreateFireViewModel(
         staticRepository = StaticRepository(
             database.controllerDao(), database.reasonDao(), database.typeDao()
         )
+        statusRepository = StatusRepository(database.statusDao())
         authData = authRepository.readData
         typesData = staticRepository.readTypesData
         reasonsData = staticRepository.readReasonsData
+
 
         observeAuth()
     }
@@ -65,7 +69,7 @@ class CreateFireViewModel(
                     val response = repository.createFire(authUser.id, authUser.sessionId, createFireBody)
                     _createFireResponse.value = response
                     if(response.isSuccessful) {
-                        TODO()
+                        statusRepository.addPending()
                     }
                 }
             }

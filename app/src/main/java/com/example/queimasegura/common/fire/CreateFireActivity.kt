@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.View
-import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
@@ -29,7 +28,6 @@ import com.example.queimasegura.retrofit.model.send.CreateFireBody
 import com.example.queimasegura.retrofit.repository.Repository
 import com.example.queimasegura.room.entities.Reason
 import com.example.queimasegura.room.entities.Type
-import com.example.queimasegura.user.UserActivity
 import com.example.queimasegura.util.ApiUtils
 import com.example.queimasegura.util.LocaleUtils
 import com.example.queimasegura.util.NetworkUtils
@@ -132,7 +130,7 @@ class CreateFireActivity : AppCompatActivity() {
         viewModel.createFireResponse.observe(this) { response ->
             if(response.isSuccessful){
                 showMessage("FIRE CREATED")
-                navigateTo(UserActivity::class.java)
+                finish()
             }else if(response.errorBody() != null) {
                 ApiUtils.handleApiError(this, response.errorBody(), ::showMessage)
             } else{
@@ -201,7 +199,6 @@ class CreateFireActivity : AppCompatActivity() {
                 location = null,
                 observations = null
             )
-            Log.d("FIRE", createFireBody.toString())
             viewModel.createFire(createFireBody)
         } catch (error: Exception) {
             showMessage(error.message!!)
@@ -309,10 +306,6 @@ class CreateFireActivity : AppCompatActivity() {
     }
 
     private fun popUp(destination: Class<*>) {
-        startActivity(Intent(this, destination))
-    }
-
-    private fun navigateTo(destination: Class<*>) {
         startActivity(Intent(this, destination))
         finish()
     }

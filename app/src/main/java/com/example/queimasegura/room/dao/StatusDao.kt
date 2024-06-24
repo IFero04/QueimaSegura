@@ -18,4 +18,10 @@ interface StatusDao {
 
     @Query("SELECT * FROM status_table LIMIT 1")
     fun readStatusData(): LiveData<Status>
+
+    @Query("UPDATE status_table SET firesPending = firesPending + 1")
+    suspend fun addPending()
+
+    @Query("UPDATE status_table SET firesComplete = firesComplete + 1")
+    suspend fun addComplete()
 }

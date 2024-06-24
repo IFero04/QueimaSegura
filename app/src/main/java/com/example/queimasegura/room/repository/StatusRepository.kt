@@ -12,6 +12,14 @@ class StatusRepository(private val statusDao: StatusDao) {
         statusDao.addStatus(status)
     }
 
+    suspend fun addPending() {
+        statusDao.addPending()
+    }
+
+    suspend fun addComplete() {
+        statusDao.addComplete()
+    }
+
     suspend fun clearStatus() {
         statusDao.clearStatus()
     }
