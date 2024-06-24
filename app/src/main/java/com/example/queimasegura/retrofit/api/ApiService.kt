@@ -4,6 +4,7 @@ import com.example.queimasegura.retrofit.model.*
 import com.example.queimasegura.retrofit.model.get.Controller
 import com.example.queimasegura.retrofit.model.get.CreateFire
 import com.example.queimasegura.retrofit.model.get.CreateUser
+import com.example.queimasegura.retrofit.model.get.Fire
 import com.example.queimasegura.retrofit.model.get.Location
 import com.example.queimasegura.retrofit.model.get.Login
 import com.example.queimasegura.retrofit.model.get.Reasons
@@ -73,6 +74,12 @@ interface ApiService {
         @Query("session_id") sessionId: String,
         @Body createFireBody: CreateFireBody
     ): Response<CreateFire>
+
+    @GET("/fires/{user_id}")
+    suspend fun getUserFires(
+        @Path("user_id") userId: String,
+        @Query("session_id") sessionId: String,
+    ): Response<Fire>
 
     // LOCATION
     @GET("/location")

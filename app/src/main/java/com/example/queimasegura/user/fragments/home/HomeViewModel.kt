@@ -6,10 +6,13 @@ import androidx.lifecycle.*
 import com.example.queimasegura.retrofit.repository.Repository
 import com.example.queimasegura.room.db.AppDataBase
 import com.example.queimasegura.room.entities.Auth
+import com.example.queimasegura.room.entities.Fire
 import com.example.queimasegura.room.entities.Status
 import com.example.queimasegura.room.repository.AuthRepository
+import com.example.queimasegura.room.repository.FireRepository
 import com.example.queimasegura.room.repository.StatusRepository
 import com.example.queimasegura.util.ApiUtils
+import com.example.queimasegura.util.LocaleUtils
 import com.example.queimasegura.util.NetworkUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -24,15 +27,17 @@ class HomeViewModel (
 
     private val authRepository: AuthRepository
     private val statusRepository: StatusRepository
+    private val fireRepository: FireRepository
 
     init {
-        val authDao = AppDataBase.getDatabase(application).authDao()
-        authRepository = AuthRepository(authDao)
+        val database = AppDataBase.getDatabase(application)
+        authRepository = AuthRepository(database.authDao())
         authData = authRepository.readData
 
-        val statusDao = AppDataBase.getDatabase(application).statusDao()
-        statusRepository = StatusRepository(statusDao)
+        statusRepository = StatusRepository(database.statusDao())
         statusData = statusRepository.readData
+
+        fireRepository = FireRepository(database.fireDao())
 
         observeAuthData()
     }
@@ -65,6 +70,14 @@ class HomeViewModel (
                 }
             }
         }
+    }
+
+    suspend fun getNextFire(): Fire? {
+        val language = LocaleUtils.getUserPhoneLanguage(application)
+        if(language == "pt") {
+            return fireRepository.nextFirePt()
+        }
+        return fireRepository.nextFireEn()
     }
 
     private fun showMessage(message: String) {

@@ -2,6 +2,7 @@ package com.example.queimasegura
 
 import android.app.Application
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,10 +11,14 @@ import com.example.queimasegura.retrofit.repository.Repository
 import com.example.queimasegura.room.db.AppDataBase
 import com.example.queimasegura.room.entities.Auth
 import com.example.queimasegura.room.entities.Controller
+import com.example.queimasegura.room.entities.Fire
 import com.example.queimasegura.room.entities.Type
 import com.example.queimasegura.room.entities.Reason
 import com.example.queimasegura.room.repository.AuthRepository
+import com.example.queimasegura.room.repository.FireRepository
 import com.example.queimasegura.room.repository.StaticRepository
+import com.example.queimasegura.util.ApiUtils
+import com.example.queimasegura.util.LocaleUtils
 import com.example.queimasegura.util.NetworkUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -33,10 +38,10 @@ class MainViewModel(
     var isAppStarted: Boolean = false
 
     val authData: LiveData<Auth>
-    private var currentAuth: Auth? = null
 
     private val authRepository: AuthRepository
     private val staticRepository: StaticRepository
+    private val fireRepository: FireRepository
 
     init {
         val database = AppDataBase.getDatabase(application)
@@ -46,6 +51,7 @@ class MainViewModel(
             database.reasonDao(),
             database.typeDao()
         )
+        fireRepository = FireRepository(database.fireDao())
         authData = authRepository.readData
     }
 
@@ -85,12 +91,13 @@ class MainViewModel(
         if(isInternetAvailable) {
             handleController(controller)
             handleAuth(auth)
+            handleFires(auth)
         } else {
             handleOfflineMode(auth, controller)
         }
     }
 
-    private suspend fun handleController(controller: Controller?) {
+    private fun handleController(controller: Controller?) {
         if (controller == null) {
             updateStaticData()
         } else {
@@ -114,6 +121,38 @@ class MainViewModel(
                         deleteAuthAndRedirectToLogin()
                     }
                 }
+            }
+        }
+    }
+
+    private suspend fun handleFires(auth: Auth?) {
+        if(auth != null) {
+            val response = retrofitRepository.getUserFires(auth.id, auth.sessionId)
+            if(response.isSuccessful) {
+                val language = LocaleUtils.getUserPhoneLanguage(application)
+                fireRepository.clearFires()
+                response.body()?.result?.forEach { result ->
+                    val statusTranslated = if (language == "pt") {
+                        when (result.status) {
+                            "Scheduled" -> "Agendado"
+                            "Ongoing" -> "Em Andamento"
+                            "Completed" -> "Concluído"
+                            else -> result.status
+                        }
+                    } else {
+                        result.status
+                    }
+                    fireRepository.addFire(Fire(
+                        id = result.id,
+                        date = result.date,
+                        status = statusTranslated,
+                        type = if(language == "pt") result.typePt else result.typeEn
+                    ))
+                }
+            } else if(response.errorBody() != null) {
+                ApiUtils.handleApiError(application, response.errorBody(), ::showMessage)
+            } else{
+                showMessage(application.getString(R.string.server_error))
             }
         }
     }
@@ -212,5 +251,9 @@ class MainViewModel(
                 }
             }
         }
+    }
+
+    private fun showMessage(message: String) {
+        Toast.makeText(application, message, Toast.LENGTH_LONG).show()
     }
 }

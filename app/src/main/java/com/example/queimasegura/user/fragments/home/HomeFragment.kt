@@ -9,9 +9,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.example.queimasegura.R
 import com.example.queimasegura.common.fire.CreateFireActivity
 import com.example.queimasegura.retrofit.repository.Repository
+import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
     private lateinit var viewModel: HomeViewModel
@@ -55,6 +57,19 @@ class HomeFragment : Fragment() {
             status?.let {
                 pendingRequestsTextView.text = it.firesPending.toString()
                 firePreventedTextView.text = it.firesComplete.toString()
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            val fire = viewModel.getNextFire()
+            fire?.let {
+                val typeTextView = view.findViewById<TextView>(R.id.type)
+                val dateTextView = view.findViewById<TextView>(R.id.date)
+                val stateTextView = view.findViewById<TextView>(R.id.state)
+
+                typeTextView.text = it.type
+                dateTextView.text = it.date
+                stateTextView.text = it.status
             }
         }
     }

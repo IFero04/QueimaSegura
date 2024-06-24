@@ -15,7 +15,11 @@ class FireRepository(private val fireDao: FireDao) {
         fireDao.clearFires()
     }
 
-    suspend fun nextFire(): Fire? {
-        return fireDao.nextFire()
+    suspend fun nextFireEn(): Fire? {
+        return fireDao.nextFireEn()
+    }
+
+    suspend fun nextFirePt(): Fire? {
+        return fireDao.nextFirePt()
     }
 }
