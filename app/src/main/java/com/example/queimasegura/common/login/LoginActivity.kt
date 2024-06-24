@@ -12,15 +12,10 @@ import com.example.queimasegura.R
 import com.example.queimasegura.admin.AdminActivity
 import com.example.queimasegura.common.register.RegisterActivity
 import com.example.queimasegura.manager.ManagerActivity
-import com.example.queimasegura.retrofit.model.ErrorApi
 import com.example.queimasegura.retrofit.model.send.LoginBody
 import com.example.queimasegura.retrofit.repository.Repository
 import com.example.queimasegura.user.UserActivity
 import com.example.queimasegura.util.ApiUtils
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
-import okhttp3.ResponseBody
-import retrofit2.Response
 
 
 class LoginActivity : AppCompatActivity() {
