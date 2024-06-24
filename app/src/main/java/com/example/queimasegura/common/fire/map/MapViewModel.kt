@@ -3,32 +3,56 @@ package com.example.queimasegura.common.fire.map
 import android.app.Application
 import android.widget.Toast
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.queimasegura.R
 import com.example.queimasegura.retrofit.model.data.Location
 import com.example.queimasegura.retrofit.repository.Repository
+import com.example.queimasegura.room.db.AppDataBase
+import com.example.queimasegura.room.entities.Auth
+import com.example.queimasegura.room.repository.AuthRepository
 import com.example.queimasegura.util.ApiUtils
 import kotlinx.coroutines.launch
-import retrofit2.Response
 
 
 class MapViewModel(
     private val application: Application,
     private val retrofitRepository: Repository
 ) : ViewModel() {
+    private val authData: LiveData<Auth>
+    private lateinit var authUser: Auth
+
+    private val authRepository: AuthRepository
+
+    init {
+        val database = AppDataBase.getDatabase(application)
+        authRepository = AuthRepository(database.authDao())
+        authData = authRepository.readData
+
+        observeAuth()
+    }
+
+    private fun observeAuth() {
+        authRepository.readData.observeForever { auth ->
+            auth?.let {
+                authUser = it
+            }
+        }
+    }
+
     fun getMapLocation(lat: Double, lng: Double, handleSendLocation: (Location) -> Unit) {
         viewModelScope.launch {
-            val response = retrofitRepository.getMapLocation(lat, lng)
-            if(response.isSuccessful) {
-                response.body()?.result.let { locations ->
-                    locations?.get(0)?.let { handleSendLocation(it) }
+            if(::authUser.isInitialized) {
+                val response = retrofitRepository.getMapLocation(authUser.id, authUser.sessionId, lat, lng)
+                if(response.isSuccessful) {
+                    response.body()?.result.let { locations ->
+                        locations?.get(0)?.let { handleSendLocation(it) }
+                    }
+                } else if(response.errorBody() != null) {
+                    ApiUtils.handleApiError(application, response.errorBody(), ::showMessage)
+                } else{
+                    showMessage(application.getString(R.string.server_error))
                 }
-            } else if(response.errorBody() != null) {
-                ApiUtils.handleApiError(application, response.errorBody(), ::showMessage)
-            } else{
-                showMessage(application.getString(R.string.server_error))
             }
         }
     }

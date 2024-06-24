@@ -1,12 +1,10 @@
 package com.example.queimasegura.common.fire
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.queimasegura.retrofit.model.data.Location
 import com.example.queimasegura.retrofit.model.get.CreateFire
 import com.example.queimasegura.retrofit.model.send.CreateFireBody
 import com.example.queimasegura.retrofit.repository.Repository
@@ -30,7 +28,7 @@ class CreateFireViewModel(
 
     val typesData: LiveData<List<Type>>
     val reasonsData: LiveData<List<Reason>>
-    val authData: LiveData<Auth>
+    private val authData: LiveData<Auth>
     private lateinit var authUser: Auth
 
     private val staticRepository: StaticRepository
@@ -52,7 +50,6 @@ class CreateFireViewModel(
     private fun observeAuth() {
         authRepository.readData.observeForever { auth ->
             auth?.let {
-                Log.d("AUTH", it.toString())
                 authUser = it
             }
         }
@@ -66,7 +63,6 @@ class CreateFireViewModel(
             if(::authUser.isInitialized) {
                 viewModelScope.launch {
                     val response = repository.createFire(authUser.id, authUser.sessionId, createFireBody)
-                    Log.d("RESPONSE", response.toString())
                     _createFireResponse.value = response
                     if(response.isSuccessful) {
                         TODO()

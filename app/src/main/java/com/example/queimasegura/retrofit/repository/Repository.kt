@@ -90,10 +90,19 @@ class Repository {
     }
 
     // LOCATION
-    suspend fun getLocation(search: String): Response<Location> {
-        return RetrofitInstance.api.getLocation(search)
+    suspend fun getLocation(
+        userId: String,
+        sessionId: String,
+        search: String
+    ): Response<Location> {
+        return RetrofitInstance.api.getLocation(userId, sessionId, search)
     }
-    suspend fun getMapLocation(lat: Double, lng: Double): Response<Location> {
-        return RetrofitInstance.api.getMapLocation(lat, lng)
+    suspend fun getMapLocation(
+        userId: String,
+        sessionId: String,
+        lat: Double,
+        lng: Double
+    ): Response<Location> {
+        return RetrofitInstance.api.getMapLocation(userId, sessionId, lat, lng)
     }
 }

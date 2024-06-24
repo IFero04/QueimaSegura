@@ -77,11 +77,15 @@ interface ApiService {
     // LOCATION
     @GET("/location")
     suspend fun getLocation(
+        @Query("user_id") userId: String,
+        @Query("session_id") sessionId: String,
         @Query("search") search: String
     ): Response<Location>
 
     @GET("/location/map")
     suspend fun getMapLocation(
+        @Query("user_id") userId: String,
+        @Query("session_id") sessionId: String,
         @Query("lat") lat: Double,
         @Query("lng") lng: Double
     ): Response<Location>
