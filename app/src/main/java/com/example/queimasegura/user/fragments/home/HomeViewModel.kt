@@ -54,8 +54,8 @@ class HomeViewModel (
                     response.body()?.let { userStatus ->
                         val status = Status(
                             id = 0,
-                            firesPending = userStatus.result.firesPending + 2,
-                            firesComplete = userStatus.result.firesComplete + 3
+                            firesPending = userStatus.result.firesPending,
+                            firesComplete = userStatus.result.firesComplete
                         )
                         statusRepository.clearStatus()
                         statusRepository.addStatus(status)
