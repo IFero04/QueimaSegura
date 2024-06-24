@@ -10,7 +10,9 @@ import com.example.queimasegura.retrofit.model.data.Location
 import com.example.queimasegura.retrofit.repository.Repository
 import com.example.queimasegura.room.db.AppDataBase
 import com.example.queimasegura.room.entities.Auth
+import com.example.queimasegura.room.entities.ZipCode
 import com.example.queimasegura.room.repository.AuthRepository
+import com.example.queimasegura.room.repository.ZipCodeRepository
 import com.example.queimasegura.util.ApiUtils
 import kotlinx.coroutines.launch
 
@@ -22,11 +24,13 @@ class MapViewModel(
     private val authData: LiveData<Auth>
     private lateinit var authUser: Auth
 
+    private val zipCodeRepository: ZipCodeRepository
     private val authRepository: AuthRepository
 
     init {
         val database = AppDataBase.getDatabase(application)
         authRepository = AuthRepository(database.authDao())
+        zipCodeRepository = ZipCodeRepository(database.zipCodeDao())
         authData = authRepository.readData
 
         observeAuth()
@@ -46,7 +50,17 @@ class MapViewModel(
                 val response = retrofitRepository.getMapLocation(authUser.id, authUser.sessionId, lat, lng)
                 if(response.isSuccessful) {
                     response.body()?.result.let { locations ->
-                        locations?.get(0)?.let { handleSendLocation(it) }
+                        val location =  locations?.get(0)
+                        if(location != null) {
+                            handleSendLocation(location)
+                            zipCodeRepository.addZipcode(ZipCode(
+                                id = location.id,
+                                locationName = location.locationName,
+                                zipCode = location.zipCode,
+                                artName = location.artName,
+                                tronco = location.tronco
+                            ))
+                        }
                     }
                 } else if(response.errorBody() != null) {
                     ApiUtils.handleApiError(application, response.errorBody(), ::showMessage)
