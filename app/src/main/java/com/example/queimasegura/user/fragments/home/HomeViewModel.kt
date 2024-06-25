@@ -73,7 +73,7 @@ class HomeViewModel (
     }
 
     suspend fun getNextFire(): Fire? {
-       return fireRepository.getNextFire()
+       return fireRepository.getNextFire(application)
     }
 
     private fun showMessage(message: String) {

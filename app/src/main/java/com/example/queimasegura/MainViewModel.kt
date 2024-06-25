@@ -133,10 +133,10 @@ class MainViewModel(
                 fireRepository.clearFires()
                 response.body()?.result?.forEach { result ->
                     val statusTranslated = when (result.status) {
-                        "Scheduled" -> R.string.fire_status_scheduled.toString()
-                        "Ongoing" -> R.string.fire_status_ongoing.toString()
-                        "Completed" -> R.string.fire_status_completed.toString()
-                        "Pending" -> R.string.fire_status_pending.toString()
+                        "Scheduled" -> application.getString(R.string.fire_status_scheduled)
+                        "Ongoing" -> application.getString(R.string.fire_status_ongoing)
+                        "Completed" -> application.getString(R.string.fire_status_completed)
+                        "Pending" -> application.getString(R.string.fire_status_pending)
                         else -> result.status
                     }
 
