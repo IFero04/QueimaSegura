@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.PopupMenu
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,6 +23,7 @@ class FiresFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var fireAdapter: FireAdapter
     private lateinit var fires: List<Fire>
+    private lateinit var textViewStateHeaderTextView: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,6 +54,7 @@ class FiresFragment : Fragment() {
     private fun initVariables(view: View) {
         recyclerView = view.findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        textViewStateHeaderTextView = view.findViewById(R.id.textViewStateHeader)
 
         viewModel.firesData.observe(viewLifecycleOwner) { firesData ->
             firesData?.let {
@@ -63,8 +66,9 @@ class FiresFragment : Fragment() {
     }
 
     private fun initEvents(view: View) {
-        val imageButtonFilter = view.findViewById<ImageButton>(R.id.imageButtonDate)
-        imageButtonFilter.setOnClickListener { showFilterOptions(it) }
+        view.findViewById<ImageButton>(R.id.imageButtonDate).setOnClickListener {
+            showFilterOptions(it)
+        }
     }
 
     private fun showFilterOptions(view: View) {
@@ -74,18 +78,23 @@ class FiresFragment : Fragment() {
         popupMenu.setOnMenuItemClickListener { item ->
             when (item.itemId) {
                 R.id.blank -> {
+                    textViewStateHeaderTextView.text = getString(R.string.state)
                     fireAdapter.updateFires(fires)
                 }
                 R.id.pending -> {
+                    textViewStateHeaderTextView.text = getString(R.string.fire_status_pending)
                     filterFiresByState(getString(R.string.fire_status_pending))
                 }
                 R.id.scheduled -> {
+                    textViewStateHeaderTextView.text = getString(R.string.fire_status_scheduled)
                     filterFiresByState(getString(R.string.fire_status_scheduled))
                 }
                 R.id.ongoing -> {
+                    textViewStateHeaderTextView.text = getString(R.string.fire_status_ongoing)
                     filterFiresByState(getString(R.string.fire_status_ongoing))
                 }
                 R.id.completed -> {
+                    textViewStateHeaderTextView.text = getString(R.string.fire_status_completed)
                     filterFiresByState(getString(R.string.fire_status_completed))
                 }
             }
