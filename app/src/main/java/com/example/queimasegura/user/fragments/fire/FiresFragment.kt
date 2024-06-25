@@ -1,23 +1,20 @@
 package com.example.queimasegura.user.fragments.fire
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.PopupMenu
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.queimasegura.R
-import com.example.queimasegura.common.Pedido
-import com.example.queimasegura.common.PedidoAdapter
 import com.example.queimasegura.retrofit.repository.Repository
 import com.example.queimasegura.room.entities.Fire
 import com.example.queimasegura.user.fragments.fire.adapter.FireAdapter
+
 
 class FiresFragment : Fragment() {
     private lateinit var viewModel: FiresViewModel
@@ -25,7 +22,6 @@ class FiresFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var fireAdapter: FireAdapter
     private lateinit var fires: List<Fire>
-    private lateinit var filteredFires: List<Fire>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,7 +56,6 @@ class FiresFragment : Fragment() {
         viewModel.firesData.observe(viewLifecycleOwner) { firesData ->
             firesData?.let {
                 fires = it
-                filteredFires = it
                 fireAdapter = FireAdapter(requireContext(), it)
                 recyclerView.adapter = fireAdapter
             }
@@ -73,40 +68,31 @@ class FiresFragment : Fragment() {
     }
 
     private fun showFilterOptions(view: View) {
-        try {
-            val popupMenu = PopupMenu(requireContext(), view)
-            popupMenu.menuInflater.inflate(R.menu.filter_menu, popupMenu.menu)
+        val popupMenu = PopupMenu(requireContext(), view)
+        popupMenu.menuInflater.inflate(R.menu.filter_menu, popupMenu.menu)
 
-            popupMenu.setOnMenuItemClickListener { item ->
-                // Handle menu item clicks
-                when (item.itemId) {
-                    R.id.pending -> {
-                        Log.d("RequestsFragment", "Filtering by state: Pending")
-                        filterPedidosByState("Pending")
-                    }
-                    R.id.completed -> {
-                        Log.d("RequestsFragment", "Filtering by state: Completed")
-                        filterPedidosByState("Completed")
-                    }
-                    R.id.not_approved -> {
-                        Log.d("RequestsFragment", "Filtering by state: In Progress")
-                        filterPedidosByState("In Progress")
-                    }
+        popupMenu.setOnMenuItemClickListener { item ->
+            when (item.itemId) {
+                R.id.pending -> {
+                    filterPedidosByState(getString(R.string.fire_status_pending))
                 }
-                true
+                R.id.scheduled -> {
+                    filterPedidosByState(getString(R.string.fire_status_scheduled))
+                }
+                R.id.ongoing -> {
+                    filterPedidosByState(getString(R.string.fire_status_ongoing))
+                }
+                R.id.completed -> {
+                    filterPedidosByState(getString(R.string.fire_status_completed))
+                }
             }
-            popupMenu.show()
-        } catch (e: Exception) {
-            Log.e("RequestsFragment", "Error showing filter options", e)
+            true
         }
+        popupMenu.show()
     }
 
     private fun filterPedidosByState(state: String) {
-        // Filtra os pedidos com base no estado selecionado
-        val filteredPedidos = fires.filter { it.status == state }
-        // Atualiza o RecyclerView apenas com os pedidos filtrados
-
-        // Atualiza o texto da TextView para exibir o estado selecionado
-        view?.findViewById<TextView>(R.id.textViewStateHeader)?.text = state
+        val filteredFires = fires.filter { it.status == state }
+        fireAdapter.updateFires(filteredFires)
     }
 }

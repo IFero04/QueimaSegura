@@ -2,15 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/pending"
-        android:title="@string/pending" />
+        android:title="@string/fire_status_pending" />
     <item
-        android:id="@+id/in_progress"
-        android:title="@string/in_progress" />
+        android:id="@+id/scheduled"
+        android:title="@string/fire_status_scheduled" />
+    <item
+        android:id="@+id/ongoing"
+        android:title="@string/fire_status_ongoing" />
     <item
         android:id="@+id/completed"
-        android:title="@string/completed" />
-    <item
-        android:id="@+id/not_approved"
-        android:title="@string/not_approved" />
-
+        android:title="@string/fire_status_completed" />
 </menu>

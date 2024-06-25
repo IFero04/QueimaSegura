@@ -1,5 +1,6 @@
 package com.example.queimasegura.user.fragments.fire.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
@@ -15,7 +16,7 @@ import com.example.queimasegura.room.entities.Fire
 
 class FireAdapter(
     private val context: Context,
-    private val fires: List<Fire>
+    private var fires: List<Fire>
 ): RecyclerView.Adapter<FireAdapter.FireViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FireViewHolder {
         val itemView = LayoutInflater.from(parent.context)
@@ -48,6 +49,12 @@ class FireAdapter(
     }
 
     override fun getItemCount() = fires.size
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun updateFires(newFires: List<Fire>) {
+        fires = newFires
+        notifyDataSetChanged()
+    }
 
     inner class FireViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val typeTextView: TextView = itemView.findViewById(R.id.type)

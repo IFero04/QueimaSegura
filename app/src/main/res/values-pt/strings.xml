@@ -94,6 +94,11 @@
     <string name="fires_approved">Queimadas Aprovadas</string>
     <string name="create_req">Criar Pedido</string>
 
+    <!-- Variables -->
+    <string name="fire_status_scheduled">Agendado</string>
+    <string name="fire_status_ongoing">Em Andamento</string>
+    <string name="fire_status_completed">Concluído</string>
+    <string name="fire_status_pending">Em Aguardado</string>
 
     <!-- Login Activity -->
     <string name="login_message_success">Login Efetuado</string>
@@ -110,11 +115,6 @@
     <string name="profile_unknown">Desconhecido</string>
     <string name="your_location">A sua Localização:</string>
 
-    <!-- Requests States -->
-    <string name="pending">Pendente</string>
-    <string name="in_progress">Em Progresso</string>
-    <string name="completed">Completado</string>
-    <string name="not_approved">Cancelado</string>
     <!-- Create Fire Activity -->
     <string name="create_fire_date">Data Selecionada: </string>
 

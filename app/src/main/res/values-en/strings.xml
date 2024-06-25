@@ -94,6 +94,12 @@
     <string name="fires_approved">fires_approved</string>
     <string name="create_req">Create Request</string>
 
+    <!-- Variables -->
+    <string name="fire_status_scheduled">Scheduled</string>
+    <string name="fire_status_ongoing">Ongoing</string>
+    <string name="fire_status_completed">Completed</string>
+    <string name="fire_status_pending">Pending</string>
+
     <!-- Login Activity -->
     <string name="login_message_success">Login Successful</string>
 
@@ -109,11 +115,6 @@
     <string name="profile_unknown">Unknown</string>
     <string name="your_location">Your Location:</string>
 
-    <!-- Requests States -->
-    <string name="pending">Pending</string>
-    <string name="in_progress">In Progress</string>
-    <string name="completed">Completed</string>
-    <string name="not_approved">Canceled</string>
 
     <!-- Create Fire Activity -->
     <string name="create_fire_date">Selected Date: </string>

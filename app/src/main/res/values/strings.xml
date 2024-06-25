@@ -105,11 +105,11 @@
     <string name="create_req">Create Request</string>
     <string name="Date_Ex" translatable="false">DD/MM/YYYY</string>
 
-    <!-- Requests States -->
-    <string name="pending">Pending</string>
-    <string name="in_progress">In Progress</string>
-    <string name="completed">Completed</string>
-    <string name="not_approved">Canceled</string>
+    <!-- Variables -->
+    <string name="fire_status_scheduled">Scheduled</string>
+    <string name="fire_status_ongoing">Ongoing</string>
+    <string name="fire_status_completed">Completed</string>
+    <string name="fire_status_pending">Pending</string>
 
     <!-- Login Activity -->
     <string name="login_message_success">Login Successful</string>
