@@ -73,17 +73,20 @@ class FiresFragment : Fragment() {
 
         popupMenu.setOnMenuItemClickListener { item ->
             when (item.itemId) {
+                R.id.blank -> {
+                    fireAdapter.updateFires(fires)
+                }
                 R.id.pending -> {
-                    filterPedidosByState(getString(R.string.fire_status_pending))
+                    filterFiresByState(getString(R.string.fire_status_pending))
                 }
                 R.id.scheduled -> {
-                    filterPedidosByState(getString(R.string.fire_status_scheduled))
+                    filterFiresByState(getString(R.string.fire_status_scheduled))
                 }
                 R.id.ongoing -> {
-                    filterPedidosByState(getString(R.string.fire_status_ongoing))
+                    filterFiresByState(getString(R.string.fire_status_ongoing))
                 }
                 R.id.completed -> {
-                    filterPedidosByState(getString(R.string.fire_status_completed))
+                    filterFiresByState(getString(R.string.fire_status_completed))
                 }
             }
             true
@@ -91,7 +94,7 @@ class FiresFragment : Fragment() {
         popupMenu.show()
     }
 
-    private fun filterPedidosByState(state: String) {
+    private fun filterFiresByState(state: String) {
         val filteredFires = fires.filter { it.status == state }
         fireAdapter.updateFires(filteredFires)
     }

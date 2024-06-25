@@ -98,7 +98,7 @@
     <string name="fire_status_scheduled">Agendado</string>
     <string name="fire_status_ongoing">Em Andamento</string>
     <string name="fire_status_completed">Concluído</string>
-    <string name="fire_status_pending">Em Aguardado</string>
+    <string name="fire_status_pending">Pendente</string>
 
     <!-- Login Activity -->
     <string name="login_message_success">Login Efetuado</string>
