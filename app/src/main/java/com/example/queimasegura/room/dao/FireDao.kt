@@ -19,9 +19,6 @@ interface FireDao {
     @Query("SELECT * FROM fire_table ORDER BY date ASC")
     fun readFiresData(): LiveData<List<Fire>>
 
-    @Query("SELECT * FROM fire_table WHERE status = 'Scheduled' OR status = 'Ongoing' ORDER BY date ASC LIMIT 1")
-    suspend fun nextFireEn(): Fire?
-
-    @Query("SELECT * FROM fire_table WHERE status = 'Agendado' OR status = 'Em Andamento' ORDER BY date ASC LIMIT 1")
-    suspend fun nextFirePt(): Fire?
+    @Query("SELECT * FROM fire_table WHERE status IN (:statuses) ORDER BY date ASC LIMIT 1")
+    suspend fun nextFire(statuses: List<String>): Fire?
 }

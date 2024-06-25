@@ -73,11 +73,7 @@ class HomeViewModel (
     }
 
     suspend fun getNextFire(): Fire? {
-        val language = LocaleUtils.getUserPhoneLanguage(application)
-        if(language == "pt") {
-            return fireRepository.nextFirePt()
-        }
-        return fireRepository.nextFireEn()
+       return fireRepository.getNextFire()
     }
 
     private fun showMessage(message: String) {

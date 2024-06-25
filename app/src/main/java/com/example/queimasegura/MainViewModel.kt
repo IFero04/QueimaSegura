@@ -132,16 +132,14 @@ class MainViewModel(
                 val language = LocaleUtils.getUserPhoneLanguage(application)
                 fireRepository.clearFires()
                 response.body()?.result?.forEach { result ->
-                    val statusTranslated = if (language == "pt") {
-                        when (result.status) {
-                            "Scheduled" -> "Agendado"
-                            "Ongoing" -> "Em Andamento"
-                            "Completed" -> "Concluído"
-                            else -> result.status
-                        }
-                    } else {
-                        result.status
+                    val statusTranslated = when (result.status) {
+                        "Scheduled" -> R.string.fire_status_scheduled.toString()
+                        "Ongoing" -> R.string.fire_status_ongoing.toString()
+                        "Completed" -> R.string.fire_status_completed.toString()
+                        "Pending" -> R.string.fire_status_pending.toString()
+                        else -> result.status
                     }
+
                     fireRepository.addFire(Fire(
                         id = result.id,
                         date = result.date,
