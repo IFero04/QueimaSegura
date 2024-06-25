@@ -25,6 +25,7 @@ class FiresFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var fireAdapter: FireAdapter
     private lateinit var fires: List<Fire>
+    private lateinit var filteredFires: List<Fire>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,15 +42,7 @@ class FiresFragment : Fragment() {
 
         initVariables(view)
 
-        recyclerView = view.findViewById(R.id.recyclerView)
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
-
-        val imageButtonFilter = view.findViewById<ImageButton>(R.id.imageButtonDate)
-        imageButtonFilter.setOnClickListener { showFilterOptions(it) }
-
-
-        fireAdapter = FireAdapter(requireContext(), fires)
-        recyclerView.adapter = fireAdapter
+        initEvents(view)
 
         return view
     }
@@ -61,15 +54,23 @@ class FiresFragment : Fragment() {
     }
 
     private fun initVariables(view: View) {
+        recyclerView = view.findViewById(R.id.recyclerView)
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+
         viewModel.firesData.observe(viewLifecycleOwner) { firesData ->
             firesData?.let {
                 fires = it
+                filteredFires = it
+                fireAdapter = FireAdapter(requireContext(), it)
+                recyclerView.adapter = fireAdapter
             }
         }
-
-
     }
 
+    private fun initEvents(view: View) {
+        val imageButtonFilter = view.findViewById<ImageButton>(R.id.imageButtonDate)
+        imageButtonFilter.setOnClickListener { showFilterOptions(it) }
+    }
 
     private fun showFilterOptions(view: View) {
         try {
