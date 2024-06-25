@@ -1,4 +1,4 @@
-package com.example.queimasegura.user.fragments
+package com.example.queimasegura.user.fragments.fire
 
 import android.os.Bundle
 import android.util.Log
@@ -9,16 +9,29 @@ import android.widget.ImageButton
 import android.widget.PopupMenu
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.queimasegura.R
 import com.example.queimasegura.common.Pedido
 import com.example.queimasegura.common.PedidoAdapter
+import com.example.queimasegura.retrofit.repository.Repository
+import com.example.queimasegura.room.entities.Fire
+import com.example.queimasegura.user.fragments.fire.adapter.FireAdapter
 
-class RequestsFragment : Fragment() {
+class FiresFragment : Fragment() {
+    private lateinit var viewModel: FiresViewModel
+
     private lateinit var recyclerView: RecyclerView
-    private lateinit var pedidos: List<Pedido>
-    private lateinit var pedidoAdapter: PedidoAdapter
+    private lateinit var fireAdapter: FireAdapter
+    private lateinit var fires: List<Fire>
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        initViewModels()
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,34 +39,37 @@ class RequestsFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_requests_u, container, false)
 
+        initVariables(view)
+
         recyclerView = view.findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         val imageButtonFilter = view.findViewById<ImageButton>(R.id.imageButtonDate)
         imageButtonFilter.setOnClickListener { showFilterOptions(it) }
 
-        pedidos = listOf(
-            Pedido("Queimada", "2024-06-11", "Pending"),
-            Pedido("Queima", "2024-06-11", "Completed"),
-            Pedido("Queima", "2024-06-11", "In Progress"),
-            Pedido("Queima", "2024-06-11", "Pending"),
-            Pedido("Queima", "2024-06-11", "Completed"),
-            Pedido("Queima", "2024-06-11", "In Progress"),
-            Pedido("Queima", "2024-06-11", "Pending"),
-            Pedido("Queima", "2024-06-11", "Completed"),
-            Pedido("Queima", "2024-06-11", "In Progress"),
-            Pedido("Queima", "2024-06-11", "Pending"),
-            Pedido("Queima", "2024-06-11", "Completed"),
-            Pedido("Queima", "2024-06-11", "In Progress"),
 
-
-        ).sortedByDescending { it.date }
-
-        pedidoAdapter = PedidoAdapter(requireContext(), pedidos)
-        recyclerView.adapter = pedidoAdapter
+        fireAdapter = FireAdapter(requireContext(), fires)
+        recyclerView.adapter = fireAdapter
 
         return view
     }
+
+    private fun initViewModels() {
+        val repository = Repository()
+        val viewModelFactory = FiresViewModelFactory(requireActivity().application, repository)
+        viewModel = ViewModelProvider(this, viewModelFactory)[FiresViewModel::class.java]
+    }
+
+    private fun initVariables(view: View) {
+        viewModel.firesData.observe(viewLifecycleOwner) { firesData ->
+            firesData?.let {
+                fires = it
+            }
+        }
+
+
+    }
+
 
     private fun showFilterOptions(view: View) {
         try {
@@ -86,7 +102,7 @@ class RequestsFragment : Fragment() {
 
     private fun filterPedidosByState(state: String) {
         // Filtra os pedidos com base no estado selecionado
-        val filteredPedidos = pedidos.filter { it.state == state }
+        val filteredPedidos = fires.filter { it.status == state }
         // Atualiza o RecyclerView apenas com os pedidos filtrados
 
         // Atualiza o texto da TextView para exibir o estado selecionado

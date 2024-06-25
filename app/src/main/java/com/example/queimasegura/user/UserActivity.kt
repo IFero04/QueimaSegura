@@ -7,7 +7,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.example.queimasegura.R
 import com.example.queimasegura.user.fragments.home.HomeFragment
 import com.example.queimasegura.user.fragments.profile.ProfileFragment
-import com.example.queimasegura.user.fragments.RequestsFragment
+import com.example.queimasegura.user.fragments.fire.FiresFragment
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
@@ -27,7 +27,7 @@ class UserActivity : AppCompatActivity() {
 
     private fun setUpTabs() {
         val adapter = com.example.queimasegura.user.adapters.ViewPagerAdapter(this)
-        adapter.addFragment(RequestsFragment(), "Requests")
+        adapter.addFragment(FiresFragment(), "Requests")
         adapter.addFragment(HomeFragment(), "Home")
         adapter.addFragment(ProfileFragment(), "Profile")
         viewPager.adapter = adapter
