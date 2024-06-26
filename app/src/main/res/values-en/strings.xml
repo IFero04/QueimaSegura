@@ -122,7 +122,9 @@
 
     <!-- Create Fire Activity -->
     <string name="create_fire_date">Selected Date: </string>
-
+    <string name="active_filter">Active</string>
+    <string name="banned_filter">Banned</string>
+    <string name="del_filter">Deleted</string>
 
 
 </resources>
