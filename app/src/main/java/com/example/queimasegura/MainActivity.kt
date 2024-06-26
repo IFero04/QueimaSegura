@@ -6,8 +6,10 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import com.example.queimasegura.admin.AdminActivity
 import com.example.queimasegura.common.intro.IntroSliderActivity
 import com.example.queimasegura.common.login.LoginActivity
+import com.example.queimasegura.manager.ManagerActivity
 import com.example.queimasegura.retrofit.repository.Repository
 import com.example.queimasegura.user.UserActivity
 
@@ -32,7 +34,6 @@ class MainActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this, viewModelFactory)[MainViewModel::class.java]
     }
 
-
     private fun initEvents() {
         findViewById<View>(R.id.splash).setOnClickListener {
             if (isFirstRun()) {
@@ -47,7 +48,9 @@ class MainActivity : AppCompatActivity() {
         viewModel.appState.observe(this) { state ->
             when (state) {
                 MainViewModel.AppState.INTRO -> navigateTo(IntroSliderActivity::class.java)
-                MainViewModel.AppState.HOME -> navigateTo(UserActivity::class.java)
+                MainViewModel.AppState.HOME_USER -> navigateTo(UserActivity::class.java)
+                MainViewModel.AppState.HOME_MANAGER -> navigateTo(ManagerActivity::class.java)
+                MainViewModel.AppState.HOME_ADMIN -> navigateTo(AdminActivity::class.java)
                 MainViewModel.AppState.LOGIN -> navigateTo(LoginActivity::class.java)
                 MainViewModel.AppState.ERROR -> handleAppError()
                 null -> showErrorMessage("SERVER ERROR")

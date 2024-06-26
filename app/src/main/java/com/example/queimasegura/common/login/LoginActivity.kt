@@ -8,6 +8,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.coroutineScope
 import com.example.queimasegura.R
 import com.example.queimasegura.admin.AdminActivity
 import com.example.queimasegura.common.register.RegisterActivity
@@ -16,6 +17,7 @@ import com.example.queimasegura.retrofit.model.send.LoginBody
 import com.example.queimasegura.retrofit.repository.Repository
 import com.example.queimasegura.user.UserActivity
 import com.example.queimasegura.util.ApiUtils
+import kotlinx.coroutines.launch
 
 
 class LoginActivity : AppCompatActivity() {
@@ -51,7 +53,9 @@ class LoginActivity : AppCompatActivity() {
 
             if(inputCheck(email, password)){
                 val myLoginBody = LoginBody(email, password)
-                viewModel.loginUser(myLoginBody)
+                lifecycle.coroutineScope.launch {
+                    viewModel.loginUser(myLoginBody)
+                }
             }
         }
 
@@ -61,28 +65,14 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun initObservers() {
-        viewModel.loginResponse.observe(this) { response ->
-            if(response.isSuccessful) {
-                showMessage(application.getString(R.string.login_message_success))
-                val type = response.body()?.result?.user?.type
-                if(type != null) {
-                    handleUserType(type)
-                } else{
-                    showMessage(application.getString(R.string.server_error))
+        viewModel.auth.observe(this) { auth ->
+            auth?.let {
+                when(auth.type) {
+                    0 -> navigateTo(UserActivity::class.java)
+                    1 -> navigateTo(ManagerActivity::class.java)
+                    2 -> navigateTo(AdminActivity::class.java)
                 }
-            } else if(response.errorBody() != null) {
-                ApiUtils.handleApiError(application, response.errorBody(), ::showMessage)
-            } else{
-                showMessage(application.getString(R.string.server_error))
             }
-        }
-    }
-
-    private fun handleUserType(type: Int) {
-        when(type) {
-            0 -> navigateTo(UserActivity::class.java)
-            1 -> navigateTo(ManagerActivity::class.java)
-            2 -> navigateTo(AdminActivity::class.java)
         }
     }
 
@@ -90,12 +80,9 @@ class LoginActivity : AppCompatActivity() {
         return !(TextUtils.isEmpty(email) && TextUtils.isEmpty(password))
     }
 
-    private fun showMessage(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
-    }
-
     private fun navigateTo(destination: Class<*>) {
         startActivity(Intent(this, destination))
         finish()
     }
 }
+

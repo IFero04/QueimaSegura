@@ -24,15 +24,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!-- Common Activities -->
         <activity
             android:name=".common.fire.search.SearchActivity"
             android:exported="false" />
         <activity
             android:name=".common.register.CompleteInfoActivity"
             android:exported="false" />
-        <activity
-            android:name=".user.UserActivity"
-            android:exported="true" />
         <activity
             android:name=".common.fire.CreateFireActivity"
             android:exported="true"
@@ -51,11 +49,22 @@
         <activity
             android:name=".common.register.RegisterActivity"
             android:exported="false" />
-        <activity android:name=".manager.ProfileActivity"
-            android:exported="false" />
         <activity android:name=".common.QueimaDetailsActivity"
             android:exported="false" />
         <activity android:name=".common.QueimadaDetailsActivity"
+            android:exported="false" />
+
+        <!-- User Activities -->
+        <activity
+            android:name=".user.UserActivity"
+            android:exported="true" />
+
+        <!-- Manager Activities -->
+        <activity android:name=".manager.ProfileActivity"
+            android:exported="false" />
+
+        <!-- Admin Activities -->
+        <activity android:name=".admin.AdminActivity"
             android:exported="false" />
 
         <meta-data

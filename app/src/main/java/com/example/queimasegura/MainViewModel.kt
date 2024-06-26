@@ -1,7 +1,6 @@
 package com.example.queimasegura
 
 import android.app.Application
-import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -22,6 +21,7 @@ import com.example.queimasegura.util.LocaleUtils
 import com.example.queimasegura.util.NetworkUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 class MainViewModel(
@@ -29,7 +29,7 @@ class MainViewModel(
     private val retrofitRepository: Repository
 ) : ViewModel() {
     enum class AppState {
-        INTRO, HOME, LOGIN, ERROR
+        INTRO, HOME_USER, HOME_MANAGER, HOME_ADMIN, LOGIN, ERROR
     }
     private val _appState = MutableLiveData<AppState>()
     val appState: LiveData<AppState> get() = _appState
@@ -115,7 +115,11 @@ class MainViewModel(
         } else {
             checkSession(auth.id, auth.sessionId) { isSameSession ->
                 if (isSameSession) {
-                    _appState.postValue(AppState.HOME)
+                    when (auth.type) {
+                        0 -> _appState.postValue(AppState.HOME_USER)
+                        1 -> _appState.postValue(AppState.HOME_MANAGER)
+                        2 -> _appState.postValue(AppState.HOME_ADMIN)
+                    }
                 } else {
                     viewModelScope.launch(Dispatchers.IO) {
                         deleteAuthAndRedirectToLogin()
@@ -169,7 +173,11 @@ class MainViewModel(
             _appState.postValue(AppState.ERROR)
             _errorMessage.postValue(application.getString(R.string.main_error_auth))
         } else {
-            _appState.postValue(AppState.HOME)
+            when (auth.type) {
+                0 -> _appState.postValue(AppState.HOME_USER)
+                1 -> _appState.postValue(AppState.HOME_MANAGER)
+                2 -> _appState.postValue(AppState.HOME_ADMIN)
+            }
         }
     }
 
@@ -252,6 +260,10 @@ class MainViewModel(
     }
 
     private fun showMessage(message: String) {
-        Toast.makeText(application, message, Toast.LENGTH_LONG).show()
+        viewModelScope.launch(Dispatchers.IO) {
+            withContext(Dispatchers.Main) {
+                Toast.makeText(application, message, Toast.LENGTH_LONG).show()
+            }
+        }
     }
 }

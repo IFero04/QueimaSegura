@@ -6,11 +6,11 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.viewpager2.widget.ViewPager2
 import com.example.queimasegura.R
 import com.example.queimasegura.admin.adapters.ViewPagerAdapter
+import com.example.queimasegura.admin.fragments.profile.ProfileFragment
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
 class AdminActivity : AppCompatActivity() {
-
     private lateinit var viewPager: ViewPager2
     private lateinit var tabs: TabLayout
 
