@@ -122,6 +122,19 @@
 
     <!-- Create Fire Activity -->
     <string name="create_fire_date">Selected Date: </string>
+
+    <!--  Details Activity -->
+    <string name="details_activity_location">Location: </string>
+    <string name="details_activity_motive">Motive: </string>
+    <string name="details_activity_date">Date: </string>
+    <string name="details_activity_state">State: </string>
+    <string name="details_activity_obs">Observations: </string>
+    <string name="details_activity_suport_team">Support Team:</string>
+    <string name="details_activity_fire_tech">Fire Technician:</string>
+    <string name="details_activity_area">Area:</string>
+
+
+
     <string name="active_filter">Active</string>
     <string name="banned_filter">Banned</string>
     <string name="del_filter">Deleted</string>

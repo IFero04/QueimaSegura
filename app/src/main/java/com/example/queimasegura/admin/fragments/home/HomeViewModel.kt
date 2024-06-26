@@ -54,13 +54,13 @@ class HomeViewModel (
         viewModelScope.launch(Dispatchers.IO) {
             val isInternetAvailable = NetworkUtils.isInternetAvailable(application)
             if(isInternetAvailable) {
-                val response = retrofitRepository.getUserStatus(auth.id, auth.sessionId)
+                val response = retrofitRepository.adminGetStatus(auth.id, auth.sessionId)
                 if(response.isSuccessful) {
                     response.body()?.let { userStatus ->
                         val status = Status(
                             id = 0,
-                            firesPending = userStatus.result.firesPending,
-                            firesComplete = userStatus.result.firesComplete
+                            firesPending = userStatus.result.firesWaiting,
+                            firesComplete = userStatus.result.firesApproved
                         )
                         statusRepository.clearStatus()
                         statusRepository.addStatus(status)
