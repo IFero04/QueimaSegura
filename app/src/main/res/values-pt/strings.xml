@@ -122,4 +122,19 @@
     <!-- Create Fire Activity -->
     <string name="create_fire_date">Data Selecionada: </string>
 
+    <!--  Details Activity -->
+    <string name="details_activity_location">Localização: </string>
+    <string name="details_activity_motive">Motivo: </string>
+    <string name="details_activity_state">Estado: </string>
+    <string name="details_activity_date">Data: </string>
+    <string name="details_activity_obs">Observações: </string>
+    <string name="details_activity_suport_team">Equipa de Apoio</string>
+    <string name="details_activity_fire_tech">Técnico de Fogo:</string>
+    <string name="details_activity_area">Área:</string>
+
+
+
+
+
+
 </resources>
