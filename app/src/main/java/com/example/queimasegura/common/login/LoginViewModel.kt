@@ -82,6 +82,8 @@ class LoginViewModel(
                         "Ongoing" -> application.getString(R.string.fire_status_ongoing)
                         "Completed" -> application.getString(R.string.fire_status_completed)
                         "Pending" -> application.getString(R.string.fire_status_pending)
+                        "Approved" -> application.getString(R.string.fire_status_approved)
+                        "Not Approved" -> application.getString(R.string.fire_status_refuse)
                         else -> result.status
                     }
 

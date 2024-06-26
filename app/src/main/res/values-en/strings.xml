@@ -95,10 +95,14 @@
     <string name="create_req">Create Request</string>
 
     <!-- Variables -->
+    <string name="fire_types_burning">Burning</string>
+    <string name="fire_status_large_burning">Large Area Burning</string>
     <string name="fire_status_scheduled">Scheduled</string>
     <string name="fire_status_ongoing">Ongoing</string>
     <string name="fire_status_completed">Completed</string>
     <string name="fire_status_pending">Pending</string>
+    <string name="fire_status_approved">Approved</string>
+    <string name="fire_status_refuse">Not Approved</string>
 
     <!-- Login Activity -->
     <string name="login_message_success">Login Successful</string>

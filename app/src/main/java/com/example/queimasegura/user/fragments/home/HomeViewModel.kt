@@ -16,6 +16,7 @@ import com.example.queimasegura.util.LocaleUtils
 import com.example.queimasegura.util.NetworkUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 class HomeViewModel (
@@ -77,6 +78,10 @@ class HomeViewModel (
     }
 
     private fun showMessage(message: String) {
-        Toast.makeText(application, message, Toast.LENGTH_LONG).show()
+        viewModelScope.launch(Dispatchers.IO) {
+            withContext(Dispatchers.Main) {
+                Toast.makeText(application, message, Toast.LENGTH_LONG).show()
+            }
+        }
     }
 }

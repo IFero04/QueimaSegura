@@ -95,10 +95,14 @@
     <string name="create_req">Criar Pedido</string>
 
     <!-- Variables -->
+    <string name="fire_types_burning">Queima</string>
+    <string name="fire_status_large_burning">Queimada</string>
     <string name="fire_status_scheduled">Agendado</string>
     <string name="fire_status_ongoing">Em Andamento</string>
     <string name="fire_status_completed">Concluído</string>
     <string name="fire_status_pending">Pendente</string>
+    <string name="fire_status_approved">Aprovado</string>
+    <string name="fire_status_refuse">Não Aprovado</string>
 
     <!-- Login Activity -->
     <string name="login_message_success">Login Efetuado</string>

@@ -97,6 +97,14 @@ class FiresFragment : Fragment() {
                     textViewStateHeaderTextView.text = getString(R.string.fire_status_completed)
                     filterFiresByState(getString(R.string.fire_status_completed))
                 }
+                R.id.approved -> {
+                    textViewStateHeaderTextView.text = getString(R.string.fire_status_approved)
+                    filterFiresByState(getString(R.string.fire_status_approved))
+                }
+                R.id.refuse -> {
+                    textViewStateHeaderTextView.text = getString(R.string.fire_status_refuse)
+                    filterFiresByState(getString(R.string.fire_status_refuse))
+                }
             }
             true
         }

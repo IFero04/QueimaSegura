@@ -15,4 +15,10 @@
     <item
         android:id="@+id/completed"
         android:title="@string/fire_status_completed" />
+    <item
+        android:id="@+id/approved"
+        android:title="@string/fire_status_approved" />
+    <item
+        android:id="@+id/refuse"
+        android:title="@string/fire_status_refuse" />
 </menu>
