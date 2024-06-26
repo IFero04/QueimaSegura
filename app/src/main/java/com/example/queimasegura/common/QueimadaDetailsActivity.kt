@@ -12,16 +12,13 @@ class QueimadaDetailsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_queimada_details)
 
-        val typeTextView: TextView = findViewById(R.id.detailType)
-        val dateTextView: TextView = findViewById(R.id.detailDate)
-        val stateTextView: TextView = findViewById(R.id.detailState)
+        val dateTextView: TextView = findViewById(R.id.date_text)
+        val stateTextView: TextView = findViewById(R.id.state_text)
         val backButton: ImageView = findViewById(R.id.backButton)
 
-        val type = intent.getStringExtra("type")
         val date = intent.getStringExtra("date")
         val state = intent.getStringExtra("state")
 
-        typeTextView.text = type
         dateTextView.text = date
         stateTextView.text = state
 
