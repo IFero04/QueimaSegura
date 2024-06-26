@@ -27,8 +27,8 @@ class AdminActivity : AppCompatActivity() {
 
     private fun setUpTabs() {
         val adapter = ViewPagerAdapter(this)
-        adapter.addFragment(RulesFragment(), "Rules")
         adapter.addFragment(RequestsFragment(), "Requests")
+        adapter.addFragment(RulesFragment(), "Rules")
         adapter.addFragment(HomeFragment(), "Home")
         adapter.addFragment(UsersFragment(), "Users")
         adapter.addFragment(ProfileFragment(), "Profile")
@@ -37,8 +37,8 @@ class AdminActivity : AppCompatActivity() {
         // Use TabLayoutMediator to link the TabLayout and the ViewPager2
         TabLayoutMediator(tabs, viewPager) { tab, position ->
             tab.icon = when (position) {
-                0 -> AppCompatResources.getDrawable(this, R.drawable.rules)
-                1 -> AppCompatResources.getDrawable(this, R.drawable.bonfire)
+                0 -> AppCompatResources.getDrawable(this, R.drawable.bonfire)
+                1 -> AppCompatResources.getDrawable(this, R.drawable.rules)
                 2 -> AppCompatResources.getDrawable(this, R.drawable.home)
                 3 -> AppCompatResources.getDrawable(this, R.drawable.users)
                 4 -> AppCompatResources.getDrawable(this, R.drawable.profile)
