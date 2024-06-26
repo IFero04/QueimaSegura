@@ -2,6 +2,7 @@ package com.example.queimasegura.common.fire.map
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.Toast
@@ -16,6 +17,7 @@ import com.example.queimasegura.common.fire.model.CreateFireDataIntent
 import com.example.queimasegura.common.fire.model.ZipcodeIntent
 import com.example.queimasegura.retrofit.model.data.Location
 import com.example.queimasegura.retrofit.repository.Repository
+import com.example.queimasegura.util.NetworkUtils
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.MapView
@@ -79,10 +81,22 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapClic
         }
 
         findViewById<Button>(R.id.buttonConfirm).setOnClickListener {
-            coords?.let {
-                viewModel.getMapLocation(it.latitude, it.longitude, ::handleSendLocation)
-            } ?: run {
-                showMessage(getString(R.string.coords_not_selected_toast))
+            val isInternetAvailable = NetworkUtils.isInternetAvailable(application)
+            if(isInternetAvailable) {
+                coords?.let {
+                    viewModel.getMapLocation(it.latitude, it.longitude, ::handleSendLocation)
+                } ?: run {
+                    showMessage(getString(R.string.coords_not_selected_toast))
+                }
+            } else {
+                coords?.let {
+                    val intent = Intent(this, CreateFireActivity::class.java)
+                    intent.putExtra("LAT", it.latitude.toString())
+                    intent.putExtra("LNG", it.longitude.toString())
+
+                    startActivity(intent)
+                    finish()
+                }
             }
         }
 
@@ -99,6 +113,12 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapClic
         googleMap.setMinZoomPreference(6.0f)
         googleMap.setMaxZoomPreference(25.0f)
         googleMap.setOnMapClickListener(this)
+
+        val sharedPreferences = getSharedPreferences("PREFERENCE", MODE_PRIVATE)
+        val isCached = sharedPreferences.getBoolean("mapCached", true)
+        if(!isCached){
+            sharedPreferences.edit().putBoolean("mapCached", true).apply()
+        }
     }
 
     override fun onMapClick(latLng: LatLng) {
