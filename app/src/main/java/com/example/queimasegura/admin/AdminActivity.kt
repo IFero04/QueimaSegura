@@ -6,6 +6,7 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.viewpager2.widget.ViewPager2
 import com.example.queimasegura.R
 import com.example.queimasegura.admin.adapters.ViewPagerAdapter
+import com.example.queimasegura.admin.fragments.home.HomeFragment
 import com.example.queimasegura.admin.fragments.profile.ProfileFragment
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
