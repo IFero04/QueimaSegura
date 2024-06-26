@@ -33,7 +33,7 @@
     <string name="end_date">Data de Fim</string>
     <string name="users">Utilizadores</string>
     <string name="users_header_type">Tipo</string>
-    <string name="users_edit_btn">Editar Permissões</string>
+    <string name="users_edit_btn">Editar</string>
     <string name="add_btn">Adicionar</string>
     <string name="delete_btn">Eliminar</string>
     <string name="user_perm">Utilizador</string>
@@ -121,6 +121,9 @@
 
     <!-- Create Fire Activity -->
     <string name="create_fire_date">Data Selecionada: </string>
+    <string name="active_filter">Ativo</string>
+    <string name="banned_filter">Banido</string>
+    <string name="del_filter">Eliminado</string>
 
     <!--  Details Activity -->
     <string name="details_activity_location">Localização: </string>

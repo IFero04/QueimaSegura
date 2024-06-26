@@ -135,6 +135,9 @@
 
 
 
+    <string name="active_filter">Active</string>
+    <string name="banned_filter">Banned</string>
+    <string name="del_filter">Deleted</string>
 
 
 </resources>
