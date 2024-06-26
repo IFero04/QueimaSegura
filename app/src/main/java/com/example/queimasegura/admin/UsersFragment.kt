@@ -29,6 +29,7 @@ class UsersFragment : Fragment() {
     private lateinit var userList: MutableList<User>
     private var isPermissionMode: Boolean = false
     private var isDeleteMode = false
+    private var isBanMode = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,18 +44,6 @@ class UsersFragment : Fragment() {
             User("Username$index", "email$index@example.com", "Manager")
         }
 
-        adapter = UserAdapter(userList) { position ->
-            if (isPermissionMode) {
-                showPermissionDialog(position)
-            }
-            if (isDeleteMode) {
-                adapter.deleteRule(position)
-                isDeleteMode = false
-                Toast.makeText(requireContext(), "Item deleted", Toast.LENGTH_SHORT).show()
-            }
-        }
-        recyclerView.adapter = adapter
-
         val buttonAdd: Button = view.findViewById(R.id.buttonAdd)
         buttonAdd.setOnClickListener {
             showAddRuleFragment()
@@ -62,22 +51,46 @@ class UsersFragment : Fragment() {
 
         val buttonDelete: Button = view.findViewById(R.id.buttonDelete)
         buttonDelete.setOnClickListener {
-            isDeleteMode = true
+            isDeleteMode = !isDeleteMode
+            buttonDelete.setText(R.string.cancel_btn)
             Toast.makeText(requireContext(), "Select an item to delete", Toast.LENGTH_SHORT).show()
         }
 
-        val buttonPermissions: Button = view.findViewById(R.id.buttonPermissions)
-        buttonPermissions.text = getString(R.string.users_edit_btn)
-        buttonPermissions.setOnClickListener {
+        val buttonEditPerms: Button = view.findViewById(R.id.buttonEditUsers)
+        buttonEditPerms.setOnClickListener {
             isPermissionMode = !isPermissionMode
-            buttonPermissions.text = if (isPermissionMode) {
-                getString(R.string.leave_edit_mode)
-            } else {
-                getString(R.string.users_edit_btn)
-            }
         }
 
         if (isPermissionMode) Toast.makeText(requireContext(), "Select an item to edit", Toast.LENGTH_SHORT).show()
+
+        val buttonBan: Button = view.findViewById(R.id.buttonBanUnban)
+        buttonBan.setOnClickListener {
+            isBanMode = !isBanMode
+            buttonBan.setText(R.string.cancel_btn)
+        }
+
+        val filter: ImageButton = view.findViewById(R.id.imageButtonFilterUsers)
+        filter.setOnClickListener {
+            handleFilterMenu(filter, R.menu.filter_users_admin)
+        }
+
+
+        adapter = UserAdapter(userList) { position ->
+            if (isPermissionMode) {
+                showPermissionDialog(position)
+            }
+            if (isDeleteMode) {
+                adapter.deleteRule(position)
+                Toast.makeText(requireContext(), "Item deleted", Toast.LENGTH_SHORT).show()
+                buttonDelete.setText(R.string.delete_btn)
+            }
+            if (isBanMode) {
+                Toast.makeText(requireContext(), "BANNED", Toast.LENGTH_SHORT).show()
+                buttonBan.setText(R.string.ban_btn)
+            }
+        }
+        recyclerView.adapter = adapter
+
 
         return view
     }
@@ -156,6 +169,20 @@ class UsersFragment : Fragment() {
 
         popupMenu.show()
     }
+
+    private fun handleFilterMenu(view: View, menuId: Int) {
+        val popupMenu = PopupMenu(requireContext(), view)
+        popupMenu.menuInflater.inflate(menuId, popupMenu.menu)
+
+        popupMenu.setOnMenuItemClickListener { item: MenuItem ->
+            Toast.makeText(requireContext(), item.title, Toast.LENGTH_SHORT).show()
+            true
+        }
+
+        popupMenu.show()
+    }
+
+
 
     private fun handleConfirmation(username: String, email: String, type: String): Boolean {
         if (username.isEmpty() || email.isEmpty() || type.isEmpty()) {
