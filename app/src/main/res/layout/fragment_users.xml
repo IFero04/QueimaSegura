@@ -103,8 +103,8 @@
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/buttonBanUnban"
+        android:layout_marginBottom="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonAdd"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -116,37 +116,40 @@
         android:layout_width="95dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="50dp"
+        android:layout_marginBottom="15dp"
         android:fontFamily="@font/karma_bold"
         android:text="@string/add_btn"
         android:textColor="@color/white"
         android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/buttonEditUsers" />
+        app:layout_constraintBottom_toTopOf="@+id/buttonBanUnban"
+        app:layout_constraintEnd_toStartOf="@+id/buttonEditUsers"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/buttonEditUsers"
         android:layout_width="95dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:layout_marginEnd="50dp"
         android:fontFamily="@font/karma_bold"
         android:text="@string/users_edit_btn"
         android:textColor="@color/white"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/buttonDelete"
+        app:layout_constraintBottom_toBottomOf="@+id/buttonAdd"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/buttonAdd" />
 
     <Button
         android:id="@+id/buttonBanUnban"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginBottom="20dp"
         android:fontFamily="@font/karma_bold"
         android:text="@string/ban_btn"
         android:textColor="@color/white"
         android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/buttonEditUsers"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/buttonDelete"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
@@ -158,10 +161,9 @@
         android:text="@string/delete_btn"
         android:textColor="@color/white"
         android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/buttonBanUnban"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/buttonEditUsers" />
-
-
+        app:layout_constraintStart_toEndOf="@+id/buttonAdd" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
