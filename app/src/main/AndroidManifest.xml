@@ -49,9 +49,9 @@
         <activity
             android:name=".common.register.RegisterActivity"
             android:exported="false" />
-        <activity android:name=".common.QueimaDetailsActivity"
+        <activity android:name=".common.detail.queima.QueimaDetailsActivity"
             android:exported="false" />
-        <activity android:name=".common.QueimadaDetailsActivity"
+        <activity android:name=".common.detail.queimada.QueimadaDetailsActivity"
             android:exported="false" />
 
         <!-- User Activities -->

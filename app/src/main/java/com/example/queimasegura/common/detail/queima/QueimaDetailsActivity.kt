@@ -1,4 +1,4 @@
-package com.example.queimasegura.common
+package com.example.queimasegura.common.detail.queima
 
 import android.os.Bundle
 import android.widget.ImageView

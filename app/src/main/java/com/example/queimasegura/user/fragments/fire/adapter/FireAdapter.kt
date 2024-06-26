@@ -9,8 +9,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.queimasegura.R
-import com.example.queimasegura.common.QueimaDetailsActivity
-import com.example.queimasegura.common.QueimadaDetailsActivity
+import com.example.queimasegura.common.detail.queima.QueimaDetailsActivity
+import com.example.queimasegura.common.detail.queimada.QueimadaDetailsActivity
 import com.example.queimasegura.room.entities.Fire
 
 

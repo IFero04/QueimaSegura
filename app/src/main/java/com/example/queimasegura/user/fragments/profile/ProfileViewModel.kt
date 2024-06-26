@@ -46,7 +46,6 @@ class ProfileViewModel(
             } else{
                 handleLogoutRoom()
             }
-
         }
     }
 

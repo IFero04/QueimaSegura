@@ -1,4 +1,4 @@
-package com.example.queimasegura.common
+package com.example.queimasegura.common.detail.queimada
 
 import android.os.Bundle
 import android.widget.ImageView
@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.queimasegura.R
 
 class QueimadaDetailsActivity : AppCompatActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_queimada_details)
@@ -26,4 +25,6 @@ class QueimadaDetailsActivity : AppCompatActivity() {
             finish()
         }
     }
+
+
 }
