@@ -1,5 +1,6 @@
 package com.example.queimasegura.admin.fragments.users.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
@@ -14,13 +15,18 @@ import com.example.queimasegura.admin.fragments.users.model.User
 class UserAdapter(
     private val context: Context,
     private val userList: MutableList<User>,
-    private val itemClickListener: (Int) -> Unit) : RecyclerView.Adapter<UserAdapter.UserViewHolder>()
-{
+    private val itemClickListener: (Int) -> Unit
+) : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
+
     class UserViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val username: TextView = view.findViewById(R.id.username)
         val email: TextView = view.findViewById(R.id.email)
         var type: TextView = view.findViewById(R.id.type)
     }
+
+    private var filterUserList: MutableList<User> = userList.toMutableList()
+    private var currentFilterStatus: String = ""
+    private var searchQuery: String = ""
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.user_row_item, parent, false)
@@ -28,7 +34,7 @@ class UserAdapter(
     }
 
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
-        val user = userList[position]
+        val user = filterUserList[position]
         holder.username.text = user.fullName
         holder.email.text = user.email
         holder.type.text = when (user.type) {
@@ -38,7 +44,7 @@ class UserAdapter(
         }
 
         Log.d("USER", user.toString())
-        if(user.deleted){
+        if (user.deleted) {
             holder.username.setTextColor(context.getColor(android.R.color.holo_red_dark))
         } else if (!user.active) {
             holder.username.setTextColor(context.getColor(android.R.color.holo_orange_dark))
@@ -58,23 +64,57 @@ class UserAdapter(
         }
     }
 
-    override fun getItemCount() = userList.size
+    override fun getItemCount() = filterUserList.size
 
     fun updateUserPermission(position: Int, newPermission: Int): Int {
-        userList[position].type = newPermission
-        notifyItemChanged(position)
-        return userList[position].type
+        val user = filterUserList[position]
+        userList.find { it.id == user.id }?.type = newPermission
+        user.type = newPermission
+        applyCurrentFilterAndSearch()
+        return user.type
     }
 
     fun banUser(position: Int): Boolean {
-        userList[position].active = !userList[position].active
-        notifyItemChanged(position)
-        return userList[position].active
+        val user = filterUserList[position]
+        val originalUser = userList.find { it.id == user.id }
+        user.active = !user.active
+        originalUser?.active = user.active
+        applyCurrentFilterAndSearch()
+        return user.active
     }
 
     fun deleteUser(position: Int): Boolean {
-        userList[position].deleted = !userList[position].deleted
-        notifyItemChanged(position)
-        return userList[position].deleted
+        val user = filterUserList[position]
+        val originalUser = userList.find { it.id == user.id }
+        user.deleted = !user.deleted
+        originalUser?.deleted = user.deleted
+        applyCurrentFilterAndSearch()
+        return user.deleted
+    }
+
+    fun filterByStatus(filterStatus: String) {
+        currentFilterStatus = filterStatus
+        applyCurrentFilterAndSearch()
+    }
+
+    fun filterBySearchQuery(query: String) {
+        searchQuery = query
+        applyCurrentFilterAndSearch()
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun applyCurrentFilterAndSearch() {
+        filterUserList = userList.filter { user ->
+            val matchesFilter = when (currentFilterStatus) {
+                context.getString(R.string.active_filter) -> user.active && !user.deleted
+                context.getString(R.string.banned_filter) -> !user.active && !user.deleted
+                context.getString(R.string.del_filter) -> user.deleted
+                else -> true
+            }
+            val matchesSearch = user.fullName.contains(searchQuery, true) || user.email.contains(searchQuery, true)
+            matchesFilter && matchesSearch
+        }.toMutableList()
+        notifyDataSetChanged()
     }
 }
+

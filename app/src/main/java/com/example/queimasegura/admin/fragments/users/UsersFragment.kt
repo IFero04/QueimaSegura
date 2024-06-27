@@ -2,7 +2,6 @@ package com.example.queimasegura.admin.fragments.users
 
 import android.app.AlertDialog
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.MenuItem
@@ -13,6 +12,7 @@ import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.RadioButton
 import android.widget.RadioGroup
+import android.widget.SearchView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.PopupMenu
@@ -74,6 +74,18 @@ class UsersFragment : Fragment() {
         view.findViewById<Button>(R.id.buttonAdd).setOnClickListener {
             showAddRuleFragment()
         }
+
+        val searchView = view.findViewById<SearchView>(R.id.searchViewUsers)
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                adapter.filterBySearchQuery(newText ?: "")
+                return true
+            }
+        })
 
         val filter: ImageButton = view.findViewById(R.id.imageButtonFilterUsers)
         filter.setOnClickListener {
@@ -266,7 +278,12 @@ class UsersFragment : Fragment() {
         popupMenu.menuInflater.inflate(menuId, popupMenu.menu)
 
         popupMenu.setOnMenuItemClickListener { item: MenuItem ->
-            Toast.makeText(requireContext(), item.title, Toast.LENGTH_SHORT).show()
+            when (item.itemId) {
+                R.id.active -> adapter.filterByStatus(getString(R.string.active_filter))
+                R.id.banned -> adapter.filterByStatus(getString(R.string.banned_filter))
+                R.id.deleted -> adapter.filterByStatus(getString(R.string.del_filter))
+                else -> adapter.filterByStatus("")
+            }
             true
         }
 
