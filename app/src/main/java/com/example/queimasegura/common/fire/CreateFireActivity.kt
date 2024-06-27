@@ -157,7 +157,7 @@ class CreateFireActivity : AppCompatActivity() {
     private fun initObservers() {
         viewModel.createFireResponse.observe(this) { response ->
             if(response.isSuccessful){
-                showMessage("FIRE CREATED")
+                showMessage(getString(R.string.create_fire_message))
                 finish()
             }else if(response.errorBody() != null) {
                 ApiUtils.handleApiError(this, response.errorBody(), ::showMessage)
@@ -210,9 +210,9 @@ class CreateFireActivity : AppCompatActivity() {
 
     private fun inputCheck() {
         if(!::datePicked.isInitialized)
-            throw IllegalArgumentException("Date cannot be empty")
+            throw IllegalArgumentException(getString(R.string.create_fire_error_date))
         if(!::zipcodeData.isInitialized)
-            throw IllegalArgumentException("Zipcode cannot be empty")
+            throw IllegalArgumentException(getString(R.string.create_fire_error_location))
     }
 
     private fun handleLocationShow(location: ZipcodeIntent) {

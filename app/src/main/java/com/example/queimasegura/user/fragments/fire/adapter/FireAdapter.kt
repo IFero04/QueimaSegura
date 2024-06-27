@@ -34,9 +34,9 @@ class FireAdapter(
         holder.itemView.setOnClickListener {
             val intent = when (fire.type) {
                 "Queima" -> Intent(context, QueimaDetailsActivity::class.java)
-                "Burning" -> Intent(context, QueimaDetailsActivity::class.java)
+                "Bonfire" -> Intent(context, QueimaDetailsActivity::class.java)
                 "Queimada" -> Intent(context, QueimadaDetailsActivity::class.java)
-                "Large Area Burning" -> Intent(context, QueimadaDetailsActivity::class.java)
+                "Burn" -> Intent(context, QueimadaDetailsActivity::class.java)
                 else -> Intent(context, QueimaDetailsActivity::class.java)
             }
             intent.apply {

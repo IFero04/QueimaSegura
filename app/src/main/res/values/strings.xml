@@ -132,10 +132,14 @@
 
     <!-- Create Fire Activity -->
     <string name="create_fire_date">Selected Date: </string>
+    <string name="create_fire_message">Request Created Successfully</string>
+    <string name="create_fire_error_location">Location cannot be empty</string>
+    <string name="create_fire_error_date">Date cannot be empty</string>
     <string name="ban_btn" translatable="false">Ban/Unban</string>
     <string name="active_filter">Active</string>
     <string name="banned_filter">Banned</string>
     <string name="del_filter">Deleted</string>
+
 
     <!--  Details Activity -->
     <string name="details_activity_location">Location: </string>

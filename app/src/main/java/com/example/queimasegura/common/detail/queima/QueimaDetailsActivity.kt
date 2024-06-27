@@ -1,24 +1,18 @@
 package com.example.queimasegura.common.detail.queima
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
 import com.example.queimasegura.R
 import com.example.queimasegura.retrofit.model.data.ZipCodeData
 import com.example.queimasegura.retrofit.repository.Repository
 import com.example.queimasegura.room.entities.Auth
 import com.example.queimasegura.util.ApiUtils
 import com.example.queimasegura.util.LocaleUtils
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 
 class QueimaDetailsActivity : AppCompatActivity() {

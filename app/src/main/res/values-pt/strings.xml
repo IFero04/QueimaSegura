@@ -121,6 +121,9 @@
 
     <!-- Create Fire Activity -->
     <string name="create_fire_date">Data Selecionada: </string>
+    <string name="create_fire_message">Pedido Criado com Sucesso</string>
+    <string name="create_fire_error_location">Localização não pode ser vazia</string>
+    <string name="create_fire_error_date">Data não pode ser vazia</string>
     <string name="active_filter">Ativo</string>
     <string name="banned_filter">Banido</string>
     <string name="del_filter">Eliminado</string>
