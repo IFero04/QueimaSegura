@@ -131,6 +131,9 @@
     <string name="active_filter">Ativo</string>
     <string name="banned_filter">Banido</string>
     <string name="del_filter">Eliminado</string>
+    <string name="user_asteric">Utilizador*</string>
+    <string name="user_colon">Utilizador:</string>
+    <string name="get_user">Obter Utilizador</string>
 
     <!--  Details Activity -->
     <string name="details_activity_location">Localização: </string>

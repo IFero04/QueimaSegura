@@ -136,7 +136,7 @@
     <string name="your_location">Your Location:</string>
 
     <!-- Create Fire Activity -->
-    <string name="create_fire_date">Selected Date: </string>
+    <string name="create_fire_date">Selected Date: </string>u
     <string name="create_fire_message">Request Created Successfully</string>
     <string name="create_fire_error_location">Location cannot be empty</string>
     <string name="create_fire_error_date">Date cannot be empty</string>
@@ -144,6 +144,9 @@
     <string name="active_filter">Active</string>
     <string name="banned_filter">Banned</string>
     <string name="del_filter">Deleted</string>
+    <string name="user_asteric">User*</string>
+    <string name="user_colon">User:</string>
+    <string name="get_user">Get User</string>
 
     <!--  Details Activity -->
     <string name="details_activity_location">Location: </string>
