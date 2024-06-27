@@ -16,6 +16,8 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.ViewModelProvider
 import com.example.queimasegura.R
+import com.example.queimasegura.admin.fragments.home.fire.model.UserIntent
+import com.example.queimasegura.admin.fragments.home.fire.search.SearchUserActivity
 import com.example.queimasegura.common.fire.adapter.ReasonsAdapter
 import com.example.queimasegura.common.fire.map.MapActivity
 import com.example.queimasegura.common.fire.model.CreateFireDataIntent
@@ -39,6 +41,7 @@ class CreateFireActivity : AppCompatActivity() {
 
     private lateinit var datePicked: String
     private lateinit var zipcodeData: ZipcodeIntent
+    private lateinit var userIntentData: UserIntent
     private lateinit var myDataIntent: CreateFireDataIntent
     private lateinit var lat: String
     private lateinit var lng: String
@@ -72,6 +75,14 @@ class CreateFireActivity : AppCompatActivity() {
         zipcodeIntent?.let {
             zipcodeData = it
             handleLocationShow(it)
+        }
+
+        val userIntent = intent.getParcelableExtra<UserIntent>("selectedUser")
+        userIntent?.let {
+            userIntentData = it
+            handleUserShow(it)
+            val textViewUser = findViewById<TextView>(R.id.textViewSelectedUser)
+            textViewUser.text = it.fullName
         }
 
         val intentData = intent.getParcelableExtra<CreateFireDataIntent>("parentData")
@@ -126,6 +137,10 @@ class CreateFireActivity : AppCompatActivity() {
 
         findViewById<Button>(R.id.buttonMap).setOnClickListener {
             popUp(MapActivity::class.java)
+        }
+
+        findViewById<Button>(R.id.buttonUser).setOnClickListener {
+            popUp(SearchUserActivity::class.java)
         }
 
         findViewById<RadioGroup>(R.id.radioGroupType).setOnCheckedChangeListener{ group, checkedId ->
@@ -224,6 +239,21 @@ class CreateFireActivity : AppCompatActivity() {
 
         val locationOutput = findViewById<TextView>(R.id.textViewOutputLocation)
         locationOutput.text = locationStringBuilder
+    }
+
+    private fun handleUserShow(user: UserIntent) {
+        val userStringBuilder = StringBuilder()
+
+        userStringBuilder.append(user.nif)
+        userStringBuilder.append(" - ")
+        userStringBuilder.append(user.fullName)
+        userStringBuilder.append(":")
+        userStringBuilder.append(user.email)
+
+        userStringBuilder.toString()
+
+        val userOutput = findViewById<TextView>(R.id.textViewSelectedUser)
+        userOutput.text = userStringBuilder
     }
 
     private fun populateRadioGroup(types: List<Type>) {
