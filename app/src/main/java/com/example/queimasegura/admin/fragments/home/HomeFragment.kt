@@ -9,12 +9,11 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import com.example.queimasegura.R
-import com.example.queimasegura.common.fire.CreateFireActivity
+import com.example.queimasegura.admin.fragments.home.fire.CreateFireActivity
 import com.example.queimasegura.retrofit.repository.AdminRepository
 import com.example.queimasegura.retrofit.repository.Repository
-import kotlinx.coroutines.launch
+
 
 class HomeFragment : Fragment() {
     private  lateinit var viewModel: HomeViewModel

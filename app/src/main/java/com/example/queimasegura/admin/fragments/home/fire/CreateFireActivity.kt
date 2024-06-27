@@ -1,4 +1,4 @@
-package com.example.queimasegura.common.fire
+package com.example.queimasegura.admin.fragments.home.fire
 
 import android.app.DatePickerDialog
 import android.content.Intent
@@ -46,7 +46,7 @@ class CreateFireActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_request)
+        setContentView(R.layout.activity_request_admin)
 
         initViewModels()
 
