@@ -81,6 +81,18 @@ class QueimaDetailsActivity : AppCompatActivity() {
                 viewModel.fetchFireDetails(fireId, it)
             }
         }
+        viewModel.cancelResponseDetails.observe(this) { response ->
+            response?.let {
+                if(it.isSuccessful) {
+                    showMessage("FIRE REMOVED")
+                    finish()
+                }else if(response.errorBody() != null) {
+                    ApiUtils.handleApiError(this, response.errorBody(), ::showMessage)
+                } else{
+                    showMessage(application.getString(R.string.server_error))
+                }
+            }
+        }
     }
 
     private fun initEvents() {
