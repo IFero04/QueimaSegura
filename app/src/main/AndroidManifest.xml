@@ -70,7 +70,11 @@
             android:exported="false" />
         <activity android:name=".admin.fragments.home.fire.CreateFireActivity"
             android:exported="false" />
-        <activity android:name=".admin.fragments.home.fire.search.SearchUserActivity"
+        <activity android:name=".admin.fragments.home.fire.search.user.SearchUserActivity"
+            android:exported="false" />
+        <activity android:name=".admin.fragments.home.fire.search.zip.SearchActivity"
+            android:exported="false" />
+        <activity android:name=".admin.fragments.home.fire.map.MapActivity"
             android:exported="false" />
 
         <meta-data

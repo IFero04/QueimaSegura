@@ -155,4 +155,7 @@
     <string name="admin_button_ban_message">Select an user to ban/unban</string>
     <string name="admin_title_edit_perms">Edit Permissions</string>
 
+
+    <string name="create_fire_error_user">User cannot be empty</string>
+
 </resources>

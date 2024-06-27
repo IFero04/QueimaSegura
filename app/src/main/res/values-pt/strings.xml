@@ -153,4 +153,6 @@
     <string name="admin_button_ban_message">Selecione um utilizador para banir/desbanir</string>
     <string name="admin_title_edit_perms">Editar Permissões</string>
 
+    <string name="create_fire_error_user">Utilizador não pode ser vazio</string>
+
 </resources>

@@ -5,10 +5,13 @@ import com.example.queimasegura.retrofit.model.admin.get.AdminGetUsers
 import com.example.queimasegura.retrofit.model.admin.get.AdminSearchUser
 import com.example.queimasegura.retrofit.model.admin.get.AdminStatus
 import com.example.queimasegura.retrofit.model.get.SimpleResponse
+import com.example.queimasegura.retrofit.model.send.CreateFireBody
 import retrofit2.Response
+import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.PATCH
+import retrofit2.http.POST
 import retrofit2.http.Path
 import retrofit2.http.Query
 
@@ -72,4 +75,11 @@ interface AdminApiService {
         @Query("session_id") sessionId: String,
     ): Response<AdminSearchUser>
 
+    @POST("/admin/fire")
+    suspend fun createFire(
+        @Query("admin_id") adminId: String,
+        @Query("session_id") sessionId: String,
+        @Query("user_id") userId: String,
+        @Body createFireBody: CreateFireBody
+    ): Response<SimpleResponse>
 }

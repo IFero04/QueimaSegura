@@ -17,13 +17,14 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.ViewModelProvider
 import com.example.queimasegura.R
 import com.example.queimasegura.admin.fragments.home.fire.model.UserIntent
-import com.example.queimasegura.admin.fragments.home.fire.search.SearchUserActivity
-import com.example.queimasegura.common.fire.adapter.ReasonsAdapter
-import com.example.queimasegura.common.fire.map.MapActivity
-import com.example.queimasegura.common.fire.model.CreateFireDataIntent
-import com.example.queimasegura.common.fire.model.ZipcodeIntent
-import com.example.queimasegura.common.fire.search.SearchActivity
+import com.example.queimasegura.admin.fragments.home.fire.search.user.SearchUserActivity
+import com.example.queimasegura.admin.fragments.home.fire.adapter.ReasonsAdapter
+import com.example.queimasegura.admin.fragments.home.fire.map.MapActivity
+import com.example.queimasegura.admin.fragments.home.fire.model.CreateFireDataIntent
+import com.example.queimasegura.admin.fragments.home.fire.model.ZipcodeIntent
+import com.example.queimasegura.admin.fragments.home.fire.search.zip.SearchActivity
 import com.example.queimasegura.retrofit.model.send.CreateFireBody
+import com.example.queimasegura.retrofit.repository.AdminRepository
 import com.example.queimasegura.retrofit.repository.Repository
 import com.example.queimasegura.room.entities.Reason
 import com.example.queimasegura.room.entities.Type
@@ -65,7 +66,7 @@ class CreateFireActivity : AppCompatActivity() {
     }
 
     private fun initViewModels() {
-        val repository = Repository()
+        val repository = AdminRepository()
         val viewModelFactory = CreateFireViewModelFactory(application, repository)
         viewModel = ViewModelProvider(this, viewModelFactory)[CreateFireViewModel::class.java]
     }
@@ -81,8 +82,6 @@ class CreateFireActivity : AppCompatActivity() {
         userIntent?.let {
             userIntentData = it
             handleUserShow(it)
-            val textViewUser = findViewById<TextView>(R.id.textViewSelectedUser)
-            textViewUser.text = it.fullName
         }
 
         val intentData = intent.getParcelableExtra<CreateFireDataIntent>("parentData")
@@ -203,7 +202,7 @@ class CreateFireActivity : AppCompatActivity() {
                 location = null,
                 observations = null
             )
-            viewModel.createFire(createFireBody)
+            viewModel.createFire(userIntentData.userId, createFireBody)
         } catch (error: Exception) {
             showMessage(error.message!!)
         }
@@ -214,6 +213,8 @@ class CreateFireActivity : AppCompatActivity() {
             throw IllegalArgumentException(getString(R.string.create_fire_error_date))
         if(!::zipcodeData.isInitialized)
             throw IllegalArgumentException(getString(R.string.create_fire_error_location))
+        if(!::userIntentData.isInitialized)
+            throw IllegalArgumentException(getString(R.string.create_fire_error_user))
     }
 
     private fun handleLocationShow(location: ZipcodeIntent) {
@@ -347,6 +348,12 @@ class CreateFireActivity : AppCompatActivity() {
 
         val intent = Intent(this, destination)
         intent.putExtra("parentData", myDataIntent)
+        if(::userIntentData.isInitialized) {
+            intent.putExtra("selectedUser", userIntentData)
+        }
+        if(::zipcodeData.isInitialized) {
+            intent.putExtra("selectedZipcode", zipcodeData)
+        }
         startActivity(intent)
         finish()
     }

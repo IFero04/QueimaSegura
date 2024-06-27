@@ -1,4 +1,4 @@
-package com.example.queimasegura.admin.fragments.home.fire.search
+package com.example.queimasegura.admin.fragments.home.fire.search.user
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -16,8 +16,9 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.queimasegura.R
 import com.example.queimasegura.admin.fragments.home.fire.model.UserIntent
 import com.example.queimasegura.admin.fragments.home.fire.CreateFireActivity
-import com.example.queimasegura.common.fire.adapter.SearchListAdapter
-import com.example.queimasegura.common.fire.model.CreateFireDataIntent
+import com.example.queimasegura.admin.fragments.home.fire.adapter.SearchListAdapter
+import com.example.queimasegura.admin.fragments.home.fire.model.CreateFireDataIntent
+import com.example.queimasegura.admin.fragments.home.fire.model.ZipcodeIntent
 import com.example.queimasegura.retrofit.model.admin.data.AdminSearchUser
 import com.example.queimasegura.retrofit.repository.AdminRepository
 import com.example.queimasegura.util.ApiUtils
@@ -34,6 +35,7 @@ class SearchUserActivity : AppCompatActivity() {
     private val searchDelay: Long = 500
 
     private lateinit var parentData: CreateFireDataIntent
+    private lateinit var zipcodeData: ZipcodeIntent
 
     override fun onCreate(
         savedInstanceState: Bundle?
@@ -60,6 +62,11 @@ class SearchUserActivity : AppCompatActivity() {
         val parentDataIntent = intent.getParcelableExtra<CreateFireDataIntent>("parentData")
         parentDataIntent?.let {
             parentData = it
+        }
+
+        val zipcodeIntent = intent.getParcelableExtra<ZipcodeIntent>("selectedZipcode")
+        zipcodeIntent?.let {
+            zipcodeData = it
         }
     }
 
@@ -162,6 +169,9 @@ class SearchUserActivity : AppCompatActivity() {
             intent.putExtra("selectedUser", userIntent)
         }
         intent.putExtra("parentData", parentData)
+        if(::zipcodeData.isInitialized) {
+            intent.putExtra("selectedZipcode", zipcodeData)
+        }
         startActivity(intent)
         finish()
     }

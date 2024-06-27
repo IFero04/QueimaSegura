@@ -8,7 +8,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.queimasegura.R
 import com.example.queimasegura.retrofit.model.get.CreateFire
+import com.example.queimasegura.retrofit.model.get.SimpleResponse
 import com.example.queimasegura.retrofit.model.send.CreateFireBody
+import com.example.queimasegura.retrofit.repository.AdminRepository
 import com.example.queimasegura.retrofit.repository.Repository
 import com.example.queimasegura.room.db.AppDataBase
 import com.example.queimasegura.room.entities.Auth
@@ -27,10 +29,10 @@ import retrofit2.Response
 
 class CreateFireViewModel(
     private val application: Application,
-    private val repository: Repository
+    private val repository: AdminRepository
 ) : ViewModel() {
-    private val _createFireResponse = MutableLiveData<Response<CreateFire>>()
-    val createFireResponse: LiveData<Response<CreateFire>> get () = _createFireResponse
+    private val _createFireResponse = MutableLiveData<Response<SimpleResponse>>()
+    val createFireResponse: LiveData<Response<SimpleResponse>> get () = _createFireResponse
 
     val typesData: LiveData<List<Type>>
     val reasonsData: LiveData<List<Reason>>
@@ -66,38 +68,14 @@ class CreateFireViewModel(
     }
 
     fun createFire(
+        userId: String,
         createFireBody: CreateFireBody
     ) {
         if(NetworkUtils.isInternetAvailable(application)) {
             if(::authUser.isInitialized) {
                 viewModelScope.launch {
-                    val response = repository.createFire(authUser.id, authUser.sessionId, createFireBody)
+                    val response = repository.createFire(authUser.id, authUser.sessionId, userId, createFireBody)
                     _createFireResponse.value = response
-                    if(response.isSuccessful) {
-                        typesData.value?.forEach { type ->
-                            if (type.id == createFireBody.typeId && type.namePt == "Queimada") {
-                                statusRepository.addPending()
-                            }
-                        }
-                        response.body()?.result?.let { result ->
-                            val language = LocaleUtils.getUserPhoneLanguage(application)
-                            val typeTranslated = if(language == "pt") result.typePt else result.typeEn
-                            val statusTranslated = when (result.status) {
-                                "Scheduled" -> application.getString(R.string.fire_status_scheduled)
-                                "Ongoing" -> application.getString(R.string.fire_status_ongoing)
-                                "Completed" -> application.getString(R.string.fire_status_completed)
-                                "Pending" -> application.getString(R.string.fire_status_pending)
-                                else -> result.status
-                            }
-                            val transformedDate = createFireBody.date.split("/")
-                            fireRepository.addFire(Fire(
-                                id = result.fireId,
-                                type = typeTranslated,
-                                status = statusTranslated,
-                                date = "${transformedDate[2]}-${transformedDate[0]}-${transformedDate[1]}"
-                            ))
-                        }
-                    }
                 }
             }
         } else {

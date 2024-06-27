@@ -168,4 +168,11 @@
 
 
 
+    <string name="create_fire_error_user">User cannot be empty</string>
+
+
+
+
+
+
 </resources>

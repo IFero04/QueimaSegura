@@ -6,6 +6,7 @@ import com.example.queimasegura.retrofit.model.admin.get.AdminGetUsers
 import com.example.queimasegura.retrofit.model.admin.get.AdminSearchUser
 import com.example.queimasegura.retrofit.model.admin.get.AdminStatus
 import com.example.queimasegura.retrofit.model.get.SimpleResponse
+import com.example.queimasegura.retrofit.model.send.CreateFireBody
 import retrofit2.Response
 
 
@@ -75,5 +76,14 @@ class AdminRepository {
         sessionId: String
     ): Response<AdminSearchUser> {
         return RetrofitInstance.adminApi.searchUser(search, adminId, sessionId)
+    }
+
+    suspend fun createFire(
+        adminId: String,
+        sessionId: String,
+        userId: String,
+        createFireBody: CreateFireBody
+    ): Response<SimpleResponse> {
+        return RetrofitInstance.adminApi.createFire(adminId, sessionId, userId, createFireBody)
     }
 }
