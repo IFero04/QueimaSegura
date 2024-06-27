@@ -13,6 +13,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.queimasegura.R
 import com.example.queimasegura.retrofit.model.data.ZipCodeData
 import com.example.queimasegura.retrofit.repository.Repository
+import com.example.queimasegura.room.entities.Auth
 import com.example.queimasegura.util.ApiUtils
 import com.example.queimasegura.util.LocaleUtils
 import kotlinx.coroutines.Dispatchers
@@ -22,6 +23,8 @@ import kotlinx.coroutines.withContext
 
 class QueimaDetailsActivity : AppCompatActivity() {
     private lateinit var viewModel: QueimaDetailsViewModel
+
+    private lateinit var authUSer: Auth
     private lateinit var fireId: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,15 +72,16 @@ class QueimaDetailsActivity : AppCompatActivity() {
                 }
             } else if(response.errorBody() != null) {
                 ApiUtils.handleApiError(application, response.errorBody(), ::showMessage)
-            } else(
+            } else {
                 showMessage(getString(R.string.server_error))
-            )
+            }
         }
     }
 
     private fun initObservers() {
         viewModel.authData.observe(this) { auth ->
             auth?.let {
+                authUSer = it
                 viewModel.fetchFireDetails(fireId, it)
             }
         }
@@ -88,7 +92,7 @@ class QueimaDetailsActivity : AppCompatActivity() {
                     finish()
                 }else if(response.errorBody() != null) {
                     ApiUtils.handleApiError(this, response.errorBody(), ::showMessage)
-                } else{
+                } else {
                     showMessage(application.getString(R.string.server_error))
                 }
             }
@@ -99,28 +103,31 @@ class QueimaDetailsActivity : AppCompatActivity() {
         findViewById<ImageView>(R.id.backButton).setOnClickListener {
             finish()
         }
+
+        findViewById<Button>(R.id.buttonCancelRequest).setOnClickListener {
+            viewModel.cancelFire(fireId, authUSer)
+        }
     }
 
     private fun getLocationString(location: ZipCodeData): String {
         val locationStringBuilder = StringBuilder()
+        locationStringBuilder.append(location.zipCode)
+        locationStringBuilder.append(", ")
+        locationStringBuilder.append(location.locationName)
 
-            locationStringBuilder.append(location.zipCode)
-            locationStringBuilder.append(", ")
-            locationStringBuilder.append(location.locationName)
-
-            location.artName?.let {
-                if (it.isNotEmpty()) {
-                    locationStringBuilder.append(" - ")
-                    locationStringBuilder.append(it)
-                }
+        location.artName?.let {
+            if (it.isNotEmpty()) {
+                locationStringBuilder.append(" - ")
+                locationStringBuilder.append(it)
             }
+        }
 
-            location.tronco?.let {
-                if (it.isNotEmpty()) {
-                    locationStringBuilder.append(" - ")
-                    locationStringBuilder.append(it)
-                }
+        location.tronco?.let {
+            if (it.isNotEmpty()) {
+                locationStringBuilder.append(" - ")
+                locationStringBuilder.append(it)
             }
+        }
 
         return locationStringBuilder.toString()
     }

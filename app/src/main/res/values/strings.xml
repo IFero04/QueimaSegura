@@ -106,8 +106,8 @@
     <string name="Date_Ex" translatable="false">DD/MM/YYYY</string>
 
     <!-- Variables -->
-    <string name="fire_types_burning">Burning</string>
-    <string name="fire_status_large_burning">Large Area Burning</string>
+    <string name="fire_types_burning">Bonfire</string>
+    <string name="fire_status_large_burning">Burn</string>
     <string name="fire_status_scheduled">Scheduled</string>
     <string name="fire_status_ongoing">Ongoing</string>
     <string name="fire_status_completed">Completed</string>
