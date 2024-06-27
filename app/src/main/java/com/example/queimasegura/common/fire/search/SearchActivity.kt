@@ -23,7 +23,6 @@ import com.example.queimasegura.retrofit.model.data.Location
 import com.example.queimasegura.retrofit.repository.Repository
 import com.example.queimasegura.room.entities.ZipCode
 import com.example.queimasegura.util.ApiUtils
-import com.example.queimasegura.util.NetworkUtils
 import kotlinx.coroutines.launch
 
 

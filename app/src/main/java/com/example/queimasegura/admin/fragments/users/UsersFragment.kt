@@ -16,6 +16,7 @@ import android.widget.SearchView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.PopupMenu
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -76,6 +77,9 @@ class UsersFragment : Fragment() {
         }
 
         val searchView = view.findViewById<SearchView>(R.id.searchViewUsers)
+
+        setSearchViewTextColor(searchView, R.color.black)
+
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return false
@@ -304,5 +308,10 @@ class UsersFragment : Fragment() {
         }
 
         return true
+    }
+
+    private fun setSearchViewTextColor(searchView: SearchView, color: Int) {
+        val searchEditText = searchView.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
+        searchEditText?.setTextColor(ContextCompat.getColor(requireContext(), color))
     }
 }
