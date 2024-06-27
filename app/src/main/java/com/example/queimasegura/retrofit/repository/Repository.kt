@@ -6,6 +6,7 @@ import com.example.queimasegura.retrofit.model.get.Controller
 import com.example.queimasegura.retrofit.model.get.CreateFire
 import com.example.queimasegura.retrofit.model.get.CreateUser
 import com.example.queimasegura.retrofit.model.get.Fire
+import com.example.queimasegura.retrofit.model.get.FireDetails
 import com.example.queimasegura.retrofit.model.get.Location
 import com.example.queimasegura.retrofit.model.get.Login
 import com.example.queimasegura.retrofit.model.get.Reasons
@@ -106,6 +107,22 @@ class Repository {
         sessionId: String,
     ): Response<Fire> {
         return RetrofitInstance.api.getUserFires(userId, sessionId)
+    }
+
+    suspend fun getFireDetails(
+        userId: String,
+        fireId: String,
+        sessionId: String
+    ): Response<FireDetails> {
+        return RetrofitInstance.api.getFireDetails(userId, fireId, sessionId)
+    }
+
+    suspend fun cancelFire(
+        userId: String,
+        fireId: String,
+        sessionId: String
+    ): Response<SimpleResponse> {
+        return RetrofitInstance.api.cancelFire(userId, fireId, sessionId)
     }
 
     // LOCATION

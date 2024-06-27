@@ -36,13 +36,12 @@ class FireAdapter(
                 "Queima" -> Intent(context, QueimaDetailsActivity::class.java)
                 "Burning" -> Intent(context, QueimaDetailsActivity::class.java)
                 "Queimada" -> Intent(context, QueimadaDetailsActivity::class.java)
-                "Controlled Burning" -> Intent(context, QueimadaDetailsActivity::class.java)
+                "Large Area Burning" -> Intent(context, QueimadaDetailsActivity::class.java)
                 else -> Intent(context, QueimaDetailsActivity::class.java)
             }
             intent.apply {
-                putExtra("type", fire.type)
-                putExtra("date", fire.date)
-                putExtra("state", fire.status)
+                putExtra("ID", fire.id)
+                putExtra("STATUS", fire.status)
             }
             context.startActivity(intent)
         }

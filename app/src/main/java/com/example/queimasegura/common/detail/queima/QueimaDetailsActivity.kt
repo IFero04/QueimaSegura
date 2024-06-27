@@ -1,30 +1,119 @@
 package com.example.queimasegura.common.detail.queima
 
 import android.os.Bundle
+import android.util.Log
+import android.widget.Button
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import com.example.queimasegura.R
+import com.example.queimasegura.retrofit.model.data.ZipCodeData
+import com.example.queimasegura.retrofit.repository.Repository
+import com.example.queimasegura.util.ApiUtils
+import com.example.queimasegura.util.LocaleUtils
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+
 
 class QueimaDetailsActivity : AppCompatActivity() {
+    private lateinit var viewModel: QueimaDetailsViewModel
+    private lateinit var fireId: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_queima_details)
 
-        val dateTextView: TextView = findViewById(R.id.date_text)
-        val stateTextView: TextView = findViewById(R.id.state_text)
-        val backButton: ImageView = findViewById(R.id.backButton)
+        initViewModels()
 
-        val type = intent.getStringExtra("type")
-        val date = intent.getStringExtra("date")
-        val state = intent.getStringExtra("state")
+        initIntents()
 
-        dateTextView.text = date
-        stateTextView.text = state
+        initVariables()
 
-        backButton.setOnClickListener {
+        initObservers()
+
+        initEvents()
+    }
+
+    private fun initViewModels() {
+        val repository = Repository()
+        val viewModelFactory = QueimaDetailsViewModelFactory(application, repository)
+        viewModel = ViewModelProvider(this, viewModelFactory)[QueimaDetailsViewModel::class.java]
+    }
+
+    private fun initIntents() {
+        val status = intent.getStringExtra("STATUS") ?: ""
+        findViewById<TextView>(R.id.status_text).text = status
+
+        fireId = intent.getStringExtra("ID") ?: ""
+    }
+
+    private fun initVariables() {
+        val reasonTextView = findViewById<TextView>(R.id.reason_text)
+        val dateTextView = findViewById<TextView>(R.id.date_text)
+        val locationTextView = findViewById<TextView>(R.id.location_text)
+        val obsTextView = findViewById<TextView>(R.id.obs_text)
+
+        viewModel.responseDetails.observe(this) { response ->
+            if(response.isSuccessful) {
+                val language = LocaleUtils.getUserPhoneLanguage(this)
+                response.body()?.result?.let {
+                    reasonTextView.text = if(language == "pt") it.reason.namePt else it.reason.nameEn
+                    dateTextView.text = it.fire.date
+                    locationTextView.text = getLocationString(it.zipCode)
+                    obsTextView.text = it.fire.observations
+                }
+            } else if(response.errorBody() != null) {
+                ApiUtils.handleApiError(application, response.errorBody(), ::showMessage)
+            } else(
+                showMessage(getString(R.string.server_error))
+            )
+        }
+    }
+
+    private fun initObservers() {
+        viewModel.authData.observe(this) { auth ->
+            auth?.let {
+                viewModel.fetchFireDetails(fireId, it)
+            }
+        }
+    }
+
+    private fun initEvents() {
+        findViewById<ImageView>(R.id.backButton).setOnClickListener {
             finish()
         }
+    }
+
+    private fun getLocationString(location: ZipCodeData): String {
+        val locationStringBuilder = StringBuilder()
+
+            locationStringBuilder.append(location.zipCode)
+            locationStringBuilder.append(", ")
+            locationStringBuilder.append(location.locationName)
+
+            location.artName?.let {
+                if (it.isNotEmpty()) {
+                    locationStringBuilder.append(" - ")
+                    locationStringBuilder.append(it)
+                }
+            }
+
+            location.tronco?.let {
+                if (it.isNotEmpty()) {
+                    locationStringBuilder.append(" - ")
+                    locationStringBuilder.append(it)
+                }
+            }
+
+        return locationStringBuilder.toString()
+    }
+
+    private fun showMessage(message: String) {
+        Toast.makeText(application, message, Toast.LENGTH_LONG).show()
     }
 }

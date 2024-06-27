@@ -42,6 +42,7 @@
         android:padding="5dp">
 
         <LinearLayout
+            android:id="@+id/master_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -66,8 +67,7 @@
                     android:text="@string/details_activity_motive"/>
 
                 <TextView
-                    android:id="@+id/motive_text"
-                    android:text="Sobrantes Florestais"
+                    android:id="@+id/reason_text"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -96,7 +96,7 @@
                     android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/state_text"
+                    android:id="@+id/status_text"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end|center_vertical"
@@ -154,7 +154,6 @@
 
                 <TextView
                     android:id="@+id/location_text"
-                    android:text="Estrada da Igreja nº365, Padreiro Salvador, Arcos de Valdevez"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -184,7 +183,7 @@
 
                 <TextView
                     android:id="@+id/suport_team_text"
-                    android:text="Yes"
+                    android:text="@string/no"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -194,6 +193,7 @@
                     android:layout_marginEnd="-10dp"/>
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/obs_layout"
                 android:layout_width="350dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="30dp"
@@ -213,7 +213,6 @@
 
                 <TextView
                     android:id="@+id/obs_text"
-                    android:text="Yes"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

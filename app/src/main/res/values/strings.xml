@@ -139,7 +139,7 @@
 
     <!--  Details Activity -->
     <string name="details_activity_location">Location: </string>
-    <string name="details_activity_motive">Motive: </string>
+    <string name="details_activity_motive">Reason: </string>
     <string name="details_activity_date">Date: </string>
     <string name="details_activity_state">State: </string>
     <string name="details_activity_obs">Observations: </string>

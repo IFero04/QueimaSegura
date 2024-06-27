@@ -61,8 +61,7 @@
                     android:text="@string/details_activity_motive"/>
 
                 <TextView
-                    android:id="@+id/motive_text"
-                    android:text="Sobrantes Florestais"
+                    android:id="@+id/reason_text"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -91,7 +90,7 @@
                     android:text="@string/details_activity_state"/>
 
                 <TextView
-                    android:id="@+id/state_text"
+                    android:id="@+id/status_text"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -155,7 +154,6 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:padding="5dp"
-                    android:text="Arcos de Valdevez"
                     android:textSize="20sp"
                     android:textColor="@color/black"
                     android:gravity="start|center_vertical"
@@ -184,7 +182,7 @@
 
                 <TextView
                     android:id="@+id/suport_team_text"
-                    android:text="Yes"
+                    android:text="@string/no"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -213,7 +211,6 @@
 
                 <TextView
                     android:id="@+id/obs_text"
-                    android:text="Yes"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
