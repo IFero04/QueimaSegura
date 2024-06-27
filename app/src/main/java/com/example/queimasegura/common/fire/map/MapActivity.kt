@@ -115,10 +115,8 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMapClic
         googleMap.setOnMapClickListener(this)
 
         val sharedPreferences = getSharedPreferences("PREFERENCE", MODE_PRIVATE)
-        val isCached = sharedPreferences.getBoolean("mapCached", true)
-        if(!isCached){
-            sharedPreferences.edit().putBoolean("mapCached", true).apply()
-        }
+        sharedPreferences.getBoolean("mapCached", true)
+        sharedPreferences.edit().putBoolean("mapCached", true).apply()
     }
 
     override fun onMapClick(latLng: LatLng) {

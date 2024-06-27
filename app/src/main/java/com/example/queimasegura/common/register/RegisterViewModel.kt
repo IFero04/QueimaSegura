@@ -12,6 +12,7 @@ import com.example.queimasegura.retrofit.repository.Repository
 import com.example.queimasegura.room.db.AppDataBase
 import com.example.queimasegura.room.entities.Auth
 import com.example.queimasegura.room.repository.AuthRepository
+import com.example.queimasegura.room.repository.FireRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Response
@@ -28,8 +29,8 @@ class RegisterViewModel(
     private val authRepository: AuthRepository
 
     init {
-        val authDao = AppDataBase.getDatabase(application).authDao()
-        authRepository = AuthRepository(authDao)
+        val appDataBase = AppDataBase.getDatabase(application)
+        authRepository = AuthRepository(appDataBase.authDao())
     }
 
     fun checkEmail(

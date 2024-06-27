@@ -12,6 +12,7 @@ import com.example.queimasegura.common.login.LoginActivity
 import com.example.queimasegura.manager.ManagerActivity
 import com.example.queimasegura.retrofit.repository.Repository
 import com.example.queimasegura.user.UserActivity
+import com.example.queimasegura.util.NetworkUtils
 
 
 class MainActivity : AppCompatActivity() {
@@ -64,7 +65,11 @@ class MainActivity : AppCompatActivity() {
         viewModel.authData.observeForever { auth ->
             if(viewModel.isAppStarted) {
                 if(auth == null) {
-                    navigateTo(LoginActivity::class.java)
+                    if(NetworkUtils.isInternetAvailable(application)){
+                        navigateTo(LoginActivity::class.java, true)
+                    } else {
+                        navigateTo(MainActivity::class.java, true)
+                    }
                     if(!cameFromLogout()) {
                         showErrorMessage(application.getString(R.string.main_error_login))
                     }
@@ -73,9 +78,14 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun navigateTo(destination: Class<*>) {
-        startActivity(Intent(this, destination))
-        finish()
+    private fun navigateTo(activityClass: Class<*>, clearBackStack: Boolean = false) {
+        val intent = Intent(application, activityClass)
+        if (clearBackStack) {
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        } else {
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        }
+        application.startActivity(intent)
     }
 
     private fun isFirstRun(): Boolean {
@@ -92,9 +102,8 @@ class MainActivity : AppCompatActivity() {
         val cameFromLogout = sharedPreferences.getBoolean("cameFromLogout", false)
         if (cameFromLogout) {
             sharedPreferences.edit().putBoolean("cameFromLogout", false).apply()
-            return true
         }
-        return false
+        return cameFromLogout
     }
 
     private fun showErrorMessage(message: String) {

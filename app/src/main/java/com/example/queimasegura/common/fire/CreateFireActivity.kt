@@ -168,22 +168,14 @@ class CreateFireActivity : AppCompatActivity() {
     }
 
     private fun handleInternetAccessibility() {
-        val isInternetAvailable = NetworkUtils.isInternetAvailable(application)
-
-        if(!isInternetAvailable) {
+        if(!NetworkUtils.isInternetAvailable(application)) {
             val disabledBackground = ContextCompat.getDrawable(this, R.drawable.button_disabled_outline)
-            val postcodeButton = findViewById<Button>(R.id.buttonPostCode)
-
             if(!alreadyLoadTheMap()) {
                 val mapButton = findViewById<Button>(R.id.buttonMap)
                 mapButton.background = disabledBackground
                 mapButton.setTextColor(getColor(android.R.color.darker_gray))
                 mapButton.isEnabled = false
             }
-
-            postcodeButton.background = disabledBackground
-            postcodeButton.setTextColor(getColor(android.R.color.darker_gray))
-            postcodeButton.isEnabled = false
         }
     }
 

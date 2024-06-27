@@ -12,6 +12,7 @@ import com.example.queimasegura.room.entities.Auth
 import com.example.queimasegura.room.entities.ZipCode
 import com.example.queimasegura.room.repository.AuthRepository
 import com.example.queimasegura.room.repository.ZipCodeRepository
+import com.example.queimasegura.util.NetworkUtils
 import kotlinx.coroutines.launch
 import retrofit2.Response
 
@@ -47,10 +48,12 @@ class SearchViewModel(
     }
 
     fun getLocation(search: String) {
-        viewModelScope.launch {
-            if(::authUser.isInitialized) {
-                val response = retrofitRepository.getLocation(authUser.id, authUser.sessionId, search)
-                _locationResponse.value = response
+        if(NetworkUtils.isInternetAvailable(application)) {
+            viewModelScope.launch {
+                if (::authUser.isInitialized) {
+                    val response = retrofitRepository.getLocation(authUser.id, authUser.sessionId, search)
+                    _locationResponse.value = response
+                }
             }
         }
     }

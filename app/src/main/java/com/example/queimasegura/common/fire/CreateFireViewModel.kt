@@ -1,6 +1,7 @@
 package com.example.queimasegura.common.fire
 
 import android.app.Application
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -67,8 +68,7 @@ class CreateFireViewModel(
     fun createFire(
         createFireBody: CreateFireBody
     ) {
-        val isInternetAvailable = NetworkUtils.isInternetAvailable(application)
-        if(isInternetAvailable) {
+        if(NetworkUtils.isInternetAvailable(application)) {
             if(::authUser.isInitialized) {
                 viewModelScope.launch {
                     val response = repository.createFire(authUser.id, authUser.sessionId, createFireBody)
@@ -100,6 +100,8 @@ class CreateFireViewModel(
                     }
                 }
             }
+        } else {
+            Toast.makeText(application, application.getString(R.string.no_internet_available), Toast.LENGTH_SHORT).show()
         }
     }
 }
