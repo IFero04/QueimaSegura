@@ -104,7 +104,7 @@
     <string name="fire_status_pending">Pendente</string>
     <string name="fire_status_approved">Aprovado</string>
     <string name="fire_status_refuse">Não Aprovado</string>
-    <string name="admin">Admni</string>
+    <string name="admin">Administrador</string>
     <string name="manager">Gestor</string>
     <string name="user">Utilizador</string>
 

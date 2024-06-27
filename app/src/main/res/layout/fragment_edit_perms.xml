@@ -16,21 +16,21 @@
             android:id="@+id/radioButtonAdmin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/admin_perm"
+            android:text="@string/admin"
             android:textColor="@color/black" />
 
         <RadioButton
             android:id="@+id/radioButtonManager"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/manager_perm"
+            android:text="@string/manager"
             android:textColor="@color/black" />
 
         <RadioButton
             android:id="@+id/radioButtonUser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/user_perm"
+            android:text="@string/user"
             android:textColor="@color/black" />
 
     </RadioGroup>
