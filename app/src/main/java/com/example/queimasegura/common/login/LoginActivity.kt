@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.widget.Button
 import android.widget.EditText
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.coroutineScope
@@ -16,7 +15,6 @@ import com.example.queimasegura.manager.ManagerActivity
 import com.example.queimasegura.retrofit.model.send.LoginBody
 import com.example.queimasegura.retrofit.repository.Repository
 import com.example.queimasegura.user.UserActivity
-import com.example.queimasegura.util.ApiUtils
 import kotlinx.coroutines.launch
 
 

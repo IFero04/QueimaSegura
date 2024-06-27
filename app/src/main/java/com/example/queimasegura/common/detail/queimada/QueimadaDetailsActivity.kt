@@ -1,6 +1,7 @@
 package com.example.queimasegura.common.detail.queimada
 
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -44,6 +45,10 @@ class QueimadaDetailsActivity : AppCompatActivity() {
     private fun initIntents() {
         val status = intent.getStringExtra("STATUS") ?: ""
         findViewById<TextView>(R.id.state_text).text = status
+        if(status != getString(R.string.fire_status_pending) || status != getString(R.string.fire_status_scheduled)) {
+            val button = findViewById<Button>(R.id.buttonCancelRequest)
+            button.visibility = View.GONE
+        }
 
         fireId = intent.getStringExtra("ID") ?: ""
     }
