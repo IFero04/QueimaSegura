@@ -262,62 +262,6 @@
                 app:layout_constraintStart_toEndOf="@+id/textViewYourLocation"
                 app:layout_constraintTop_toBottomOf="@+id/buttonMap" />
 
-            <TextView
-                android:id="@+id/textViewUser"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="28dp"
-                android:fontFamily="@font/karma_bold"
-                android:text="@string/user_asteric"
-                android:textColor="@color/colorPrimary"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewYourLocation" />
-            <Button
-                android:id="@+id/buttonUser"
-                android:layout_width="171dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="15dp"
-                android:background="@drawable/requests_btn"
-                android:text="@string/get_user"
-                android:textColor="@color/white"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewUser" />
-
-            <TextView
-                android:id="@+id/textViewSelectUer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="15dp"
-                android:fontFamily="@font/karma_bold"
-                android:text="@string/user_colon"
-                android:textColor="@color/colorPrimary"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/buttonUser"
-                app:layout_constraintVertical_bias="0.0" />
-
-            <TextView
-                android:id="@+id/textViewSelectedUser"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="16dp"
-                android:fontFamily="@font/karma_bold"
-                android:lineSpacingMultiplier="0.8"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/textViewSelectUer"
-                app:layout_constraintTop_toBottomOf="@+id/buttonUser" />
-
-
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
