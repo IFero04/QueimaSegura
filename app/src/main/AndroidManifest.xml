@@ -60,6 +60,8 @@
             android:exported="true" />
 
         <!-- Manager Activities -->
+        <activity android:name=".manager.ManagerActivity"
+            android:exported="false" />
         <activity android:name=".manager.ProfileActivity"
             android:exported="false" />
 
@@ -73,6 +75,7 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyC746C5NQx0CL7ojLDomKyxthRmiSw7jW0" />
+
     </application>
 
 </manifest>

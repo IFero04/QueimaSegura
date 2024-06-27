@@ -146,5 +146,10 @@
     <string name="banned_filter">Banned</string>
     <string name="del_filter">Deleted</string>
 
+    <!-- Admin Users Activity -->
+    <string name="admin_button_edit_message">Select an user to edit</string>
+    <string name="admin_button_delete_message">Select an user to delete/restore</string>
+    <string name="admin_button_ban_message">Select an user to ban/unban</string>
+    <string name="admin_title_edit_perms">Edit Permissions</string>
 
 </resources>

@@ -144,7 +144,10 @@
     <string name="details_activity_message">Pedido Removido</string>
 
 
-
-
+    <!-- Admin Users Activity -->
+    <string name="admin_button_edit_message">Selecione um utilizador para editar</string>
+    <string name="admin_button_delete_message">Selecione um utilizador para eleminar/restaurar</string>
+    <string name="admin_button_ban_message">Selecione um utilizador para banir/desbanir</string>
+    <string name="admin_title_edit_perms">Editar Permissões</string>
 
 </resources>

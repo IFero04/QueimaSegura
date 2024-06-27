@@ -58,4 +58,13 @@ class AdminRepository {
     ): Response<SimpleResponse>  {
         return RetrofitInstance.adminApi.restoreUser(userId, adminId, sessionId)
     }
+
+    suspend fun editUserPerms(
+        userId: String,
+        perm: Int,
+        adminId: String,
+        sessionId: String
+    ): Response<SimpleResponse>  {
+        return RetrofitInstance.adminApi.editUserPerms(userId, perm, adminId, sessionId)
+    }
 }

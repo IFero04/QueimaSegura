@@ -56,4 +56,11 @@ interface AdminApiService {
         @Query("session_id") sessionId: String,
     ): Response<SimpleResponse>
 
+    @PATCH("/admin/users/{user_id}/{perm}")
+    suspend fun editUserPerms(
+        @Path("user_id") userId: String,
+        @Path("perm") perm: Int,
+        @Query("admin_id") adminId: String,
+        @Query("session_id") sessionId: String,
+    ): Response<SimpleResponse>
 }

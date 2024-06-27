@@ -64,4 +64,10 @@ class UsersViewModel(
             val response = adminRetrofitRepository.restoreUser(userId, auth.id, auth.sessionId)
         }
     }
+
+    fun editUserPerms(auth: Auth, userId: String, perm: Int) {
+        viewModelScope.launch {
+            val response = adminRetrofitRepository.editUserPerms(userId, perm, auth.id, auth.sessionId)
+        }
+    }
 }

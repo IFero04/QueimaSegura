@@ -91,7 +91,7 @@ class UsersFragment : Fragment() {
                 isBanMode = false
                 buttonEditPerms.setText(R.string.users_edit_btn)
                 isPermissionMode = false
-                Toast.makeText(requireContext(), "Select an item to delete", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), R.string.admin_button_delete_message, Toast.LENGTH_SHORT).show()
             } else {
                 buttonDelete.setText(R.string.delete_btn)
             }
@@ -105,7 +105,7 @@ class UsersFragment : Fragment() {
                 isBanMode = false
                 buttonDelete.setText(R.string.delete_btn)
                 isDeleteMode = false
-                Toast.makeText(requireContext(), "Select an item to edit", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), R.string.admin_button_edit_message, Toast.LENGTH_SHORT).show()
             } else {
                 buttonEditPerms.setText(R.string.users_edit_btn)
             }
@@ -119,7 +119,7 @@ class UsersFragment : Fragment() {
                 isDeleteMode = false
                 buttonEditPerms.setText(R.string.users_edit_btn)
                 isPermissionMode = false
-                Toast.makeText(requireContext(), "Select an item to ban", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), R.string.admin_button_ban_message, Toast.LENGTH_SHORT).show()
             } else {
                 buttonBan.setText(R.string.ban_btn)
             }
@@ -138,7 +138,6 @@ class UsersFragment : Fragment() {
             response?.let {
                 if(it.isSuccessful) {
                     it.body()?.result?.let { result ->
-                        Log.d("RESULT", result.toString())
                         val users = result.map { user ->
                             User(user.userId, user.fullName, user.email, user.type, user.active, user.deleted)
                         }
@@ -189,7 +188,7 @@ class UsersFragment : Fragment() {
         val dialogView = LayoutInflater.from(context).inflate(R.layout.fragment_edit_perms, null)
         val dialogBuilder = AlertDialog.Builder(context)
             .setView(dialogView)
-            .setTitle("Edit Permissions")
+            .setTitle(R.string.admin_title_edit_perms)
 
         val dialog = dialogBuilder.create()
         dialog.show()
@@ -218,6 +217,7 @@ class UsersFragment : Fragment() {
                 else -> 0
             }
 
+            viewModel.editUserPerms(authUser, userList[position].id, userType)
             adapter.updateUserPermission(position, userType)
             dialog.dismiss()
         }
