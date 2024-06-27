@@ -3,6 +3,7 @@ package com.example.queimasegura.retrofit.repository
 import com.example.queimasegura.retrofit.api.RetrofitInstance
 import com.example.queimasegura.retrofit.model.Root
 import com.example.queimasegura.retrofit.model.admin.get.AdminGetUsers
+import com.example.queimasegura.retrofit.model.admin.get.AdminSearchUser
 import com.example.queimasegura.retrofit.model.admin.get.AdminStatus
 import com.example.queimasegura.retrofit.model.get.SimpleResponse
 import retrofit2.Response
@@ -66,5 +67,13 @@ class AdminRepository {
         sessionId: String
     ): Response<SimpleResponse>  {
         return RetrofitInstance.adminApi.editUserPerms(userId, perm, adminId, sessionId)
+    }
+
+    suspend fun searchUser(
+        search: String,
+        adminId: String,
+        sessionId: String
+    ): Response<AdminSearchUser> {
+        return RetrofitInstance.adminApi.searchUser(search, adminId, sessionId)
     }
 }

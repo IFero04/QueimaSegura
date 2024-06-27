@@ -2,6 +2,7 @@ package com.example.queimasegura.retrofit.api
 
 import com.example.queimasegura.retrofit.model.Root
 import com.example.queimasegura.retrofit.model.admin.get.AdminGetUsers
+import com.example.queimasegura.retrofit.model.admin.get.AdminSearchUser
 import com.example.queimasegura.retrofit.model.admin.get.AdminStatus
 import com.example.queimasegura.retrofit.model.get.SimpleResponse
 import retrofit2.Response
@@ -63,4 +64,12 @@ interface AdminApiService {
         @Query("admin_id") adminId: String,
         @Query("session_id") sessionId: String,
     ): Response<SimpleResponse>
+
+    @GET("/admin/users/{search}")
+    suspend fun searchUser(
+        @Path("search") search: String,
+        @Query("admin_id") adminId: String,
+        @Query("session_id") sessionId: String,
+    ): Response<AdminSearchUser>
+
 }
