@@ -11,6 +11,7 @@ import com.example.queimasegura.retrofit.repository.Repository
 import com.example.queimasegura.room.db.AppDataBase
 import com.example.queimasegura.room.entities.Auth
 import com.example.queimasegura.room.repository.AuthRepository
+import com.example.queimasegura.room.repository.FireRepository
 import kotlinx.coroutines.launch
 import retrofit2.Response
 
@@ -26,11 +27,13 @@ class QueimaDetailsViewModel (
     val cancelResponseDetails: LiveData<Response<SimpleResponse>> get() = _cancelResponseDetails
 
     private val authRepository: AuthRepository
+    private val fireRepository: FireRepository
 
     init {
         val database = AppDataBase.getDatabase(application)
         authRepository = AuthRepository(database.authDao())
         authData = authRepository.readData
+        fireRepository = FireRepository(database.fireDao())
     }
 
     fun fetchFireDetails(fireId: String, authUser: Auth) {
@@ -44,6 +47,9 @@ class QueimaDetailsViewModel (
         viewModelScope.launch {
             val response = retrofitRepository.cancelFire(authUser.id, fireId, authUser.sessionId)
             _cancelResponseDetails.value = response
+            if(response.isSuccessful) {
+                fireRepository.removeFire(fireId)
+            }
         }
     }
 }

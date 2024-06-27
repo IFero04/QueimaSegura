@@ -18,6 +18,10 @@ class FireRepository(private val fireDao: FireDao) {
         fireDao.clearFires()
     }
 
+    suspend fun removeFire(fireId: String) {
+        fireDao.removeFire(fireId)
+    }
+
     suspend fun getNextFire(application: Application): Fire? {
         val statuses = listOf((application.getString(R.string.fire_status_scheduled)), application.getString(R.string.fire_status_ongoing))
         return fireDao.nextFire(statuses)

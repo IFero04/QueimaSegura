@@ -16,6 +16,9 @@ interface FireDao {
     @Query("DELETE FROM fire_table")
     suspend fun clearFires()
 
+    @Query("DELETE FROM fire_table WHERE id = :fireId")
+    suspend fun removeFire(fireId: String)
+
     @Query("SELECT * FROM fire_table ORDER BY date ASC")
     fun readFiresData(): LiveData<List<Fire>>
 

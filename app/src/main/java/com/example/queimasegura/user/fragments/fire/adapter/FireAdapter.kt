@@ -7,11 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.queimasegura.R
 import com.example.queimasegura.common.detail.queima.QueimaDetailsActivity
 import com.example.queimasegura.common.detail.queimada.QueimadaDetailsActivity
 import com.example.queimasegura.room.entities.Fire
+import com.example.queimasegura.util.NetworkUtils
 
 
 class FireAdapter(
@@ -32,18 +34,23 @@ class FireAdapter(
         holder.stateTextView.text = fire.status
 
         holder.itemView.setOnClickListener {
-            val intent = when (fire.type) {
-                "Queima" -> Intent(context, QueimaDetailsActivity::class.java)
-                "Bonfire" -> Intent(context, QueimaDetailsActivity::class.java)
-                "Queimada" -> Intent(context, QueimadaDetailsActivity::class.java)
-                "Burn" -> Intent(context, QueimadaDetailsActivity::class.java)
-                else -> Intent(context, QueimaDetailsActivity::class.java)
+            val isIntentAvailable = NetworkUtils.isInternetAvailable(context)
+            if(isIntentAvailable) {
+                val intent = when (fire.type) {
+                    "Queima" -> Intent(context, QueimaDetailsActivity::class.java)
+                    "Bonfire" -> Intent(context, QueimaDetailsActivity::class.java)
+                    "Queimada" -> Intent(context, QueimadaDetailsActivity::class.java)
+                    "Burn" -> Intent(context, QueimadaDetailsActivity::class.java)
+                    else -> Intent(context, QueimaDetailsActivity::class.java)
+                }
+                intent.apply {
+                    putExtra("ID", fire.id)
+                    putExtra("STATUS", fire.status)
+                }
+                context.startActivity(intent)
+            } else {
+                Toast.makeText(context, context.getString(R.string.no_internet_available), Toast.LENGTH_LONG).show()
             }
-            intent.apply {
-                putExtra("ID", fire.id)
-                putExtra("STATUS", fire.status)
-            }
-            context.startActivity(intent)
         }
     }
 

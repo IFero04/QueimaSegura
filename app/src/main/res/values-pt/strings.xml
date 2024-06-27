@@ -93,6 +93,7 @@
     <string name="fire_tech_colon">Técnico de Fogo:</string>
     <string name="fires_approved">Queimadas Aprovadas</string>
     <string name="create_req">Criar Pedido</string>
+    <string name="no_internet_available">Sem Internet</string>
 
     <!-- Variables -->
     <string name="fire_types_burning">Queima</string>
@@ -137,7 +138,7 @@
     <string name="details_activity_suport_team">Equipa de Apoio</string>
     <string name="details_activity_fire_tech">Técnico de Fogo:</string>
     <string name="details_activity_area">Área:</string>
-
+    <string name="details_activity_message">Pedido Removido</string>
 
 
 

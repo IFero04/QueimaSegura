@@ -82,7 +82,7 @@ class QueimaDetailsActivity : AppCompatActivity() {
         viewModel.cancelResponseDetails.observe(this) { response ->
             response?.let {
                 if(it.isSuccessful) {
-                    showMessage("FIRE REMOVED")
+                    showMessage(getString(R.string.details_activity_message))
                     finish()
                 }else if(response.errorBody() != null) {
                     ApiUtils.handleApiError(this, response.errorBody(), ::showMessage)

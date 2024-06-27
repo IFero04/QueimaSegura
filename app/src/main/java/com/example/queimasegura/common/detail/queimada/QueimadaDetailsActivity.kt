@@ -43,7 +43,7 @@ class QueimadaDetailsActivity : AppCompatActivity() {
 
     private fun initIntents() {
         val status = intent.getStringExtra("STATUS") ?: ""
-        findViewById<TextView>(R.id.status_text).text = status
+        findViewById<TextView>(R.id.state_text).text = status
 
         fireId = intent.getStringExtra("ID") ?: ""
     }
@@ -81,7 +81,7 @@ class QueimadaDetailsActivity : AppCompatActivity() {
         viewModel.cancelResponseDetails.observe(this) { response ->
             response?.let {
                 if(it.isSuccessful) {
-                    showMessage("FIRE REMOVED")
+                    showMessage(getString(R.string.details_activity_message))
                     finish()
                 }else if(response.errorBody() != null) {
                     ApiUtils.handleApiError(this, response.errorBody(), ::showMessage)

@@ -104,6 +104,8 @@
     <string name="fires_approved">Fires Approved</string>
     <string name="create_req">Create Request</string>
     <string name="Date_Ex" translatable="false">DD/MM/YYYY</string>
+    <string name="no_internet_available">No Internet Available</string>
+
 
     <!-- Variables -->
     <string name="fire_types_burning">Bonfire</string>
@@ -140,7 +142,6 @@
     <string name="banned_filter">Banned</string>
     <string name="del_filter">Deleted</string>
 
-
     <!--  Details Activity -->
     <string name="details_activity_location">Location: </string>
     <string name="details_activity_motive">Reason: </string>
@@ -150,6 +151,7 @@
     <string name="details_activity_suport_team">Support Team:</string>
     <string name="details_activity_fire_tech">Fire Technician:</string>
     <string name="details_activity_area">Area:</string>
+    <string name="details_activity_message">Request Removed</string>
 
 
 
