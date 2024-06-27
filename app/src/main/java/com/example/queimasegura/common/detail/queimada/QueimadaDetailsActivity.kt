@@ -45,7 +45,7 @@ class QueimadaDetailsActivity : AppCompatActivity() {
     private fun initIntents() {
         val status = intent.getStringExtra("STATUS") ?: ""
         findViewById<TextView>(R.id.state_text).text = status
-        if(status != getString(R.string.fire_status_pending) || status != getString(R.string.fire_status_scheduled)) {
+        if(status != getString(R.string.fire_status_pending) && status != getString(R.string.fire_status_scheduled) && status != getString(R.string.fire_status_approved)) {
             val button = findViewById<Button>(R.id.buttonCancelRequest)
             button.visibility = View.GONE
         }
