@@ -61,19 +61,6 @@ class HomeFragment : Fragment() {
                 firePreventedTextView.text = it.firesComplete.toString()
             }
         }
-
-        viewLifecycleOwner.lifecycleScope.launch {
-            val fire = viewModel.getNextFire()
-            fire?.let {
-                val typeTextView = view.findViewById<TextView>(R.id.type)
-                val dateTextView = view.findViewById<TextView>(R.id.date)
-                val stateTextView = view.findViewById<TextView>(R.id.state)
-
-                typeTextView.text = it.type
-                dateTextView.text = it.date
-                stateTextView.text = it.status
-            }
-        }
     }
 
     private fun initEvents(view: View) {

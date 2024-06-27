@@ -29,7 +29,6 @@ class HomeViewModel (
 
     private val authRepository: AuthRepository
     private val statusRepository: StatusRepository
-    private val fireRepository: FireRepository
 
     init {
         val database = AppDataBase.getDatabase(application)
@@ -38,8 +37,6 @@ class HomeViewModel (
 
         statusRepository = StatusRepository(database.statusDao())
         statusData = statusRepository.readData
-
-        fireRepository = FireRepository(database.fireDao())
 
         observeAuthData()
     }
@@ -72,10 +69,6 @@ class HomeViewModel (
                 }
             }
         }
-    }
-
-    suspend fun getNextFire(): Fire? {
-       return fireRepository.getNextFire(application)
     }
 
     private fun showMessage(message: String) {
