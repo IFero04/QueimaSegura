@@ -314,7 +314,9 @@ class UsersFragment : Fragment() {
     }
 
     private fun setSearchViewTextColor(searchView: SearchView, color: Int) {
-        val searchEditText = searchView.findViewById<EditText>(androidx.appcompat.R.id.search_src_text)
-        searchEditText?.setTextColor(ContextCompat.getColor(requireContext(), color))
+        val searchTextField = SearchView::class.java.getDeclaredField("mSearchSrcTextView")
+        searchTextField.isAccessible = true
+        val searchText = searchTextField.get(searchView) as EditText
+        searchText.setTextColor(searchText.context.getColor(color))
     }
 }
