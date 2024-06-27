@@ -1,4 +1,4 @@
-package com.example.queimasegura.admin.fragments.home
+package com.example.queimasegura.admin.fragments.users
 
 import android.app.Application
 import androidx.lifecycle.ViewModel
@@ -6,13 +6,12 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.queimasegura.retrofit.repository.AdminRepository
 import com.example.queimasegura.retrofit.repository.Repository
 
-
-class HomeViewModelFactory (
+class UsersViewModelFactory (
     private val application: Application,
     private val repository: Repository,
-    private val adminRetrofitRepository: AdminRepository
+    private val adminRepository: AdminRepository
 ): ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return HomeViewModel(application, repository, adminRetrofitRepository) as T
+        return UsersViewModel(application, repository, adminRepository) as T
     }
 }

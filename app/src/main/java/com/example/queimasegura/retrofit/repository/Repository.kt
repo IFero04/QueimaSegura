@@ -13,7 +13,6 @@ import com.example.queimasegura.retrofit.model.get.Reasons
 import com.example.queimasegura.retrofit.model.get.SimpleResponse
 import com.example.queimasegura.retrofit.model.get.Types
 import com.example.queimasegura.retrofit.model.get.UserStatus
-import com.example.queimasegura.retrofit.model.get.admin.AdminStatus
 import com.example.queimasegura.retrofit.model.send.CreateFireBody
 import com.example.queimasegura.retrofit.model.send.CreateUserBody
 import com.example.queimasegura.retrofit.model.send.LoginBody
@@ -25,17 +24,6 @@ class Repository {
     suspend fun getRoot(): Response<Root> {
         return RetrofitInstance.api.getRoot()
     }
-
-    // ADMIN
-    suspend fun adminGetStatus(
-        adminId: String,
-        sessionId: String,
-    ): Response<AdminStatus>  {
-        return RetrofitInstance.api.adminGetStatus(adminId, sessionId)
-    }
-
-
-
 
     // STATIC
     suspend fun getTypes(): Response<Types> {

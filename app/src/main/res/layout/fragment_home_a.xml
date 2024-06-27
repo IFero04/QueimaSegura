@@ -29,7 +29,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="45dp"
                 android:gravity="center">
 
                 <TextView
@@ -55,7 +55,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="100dp"
+                android:layout_marginTop="75dp"
                 android:gravity="center">
 
                 <LinearLayout

@@ -116,6 +116,9 @@
     <string name="fire_status_pending">Pending</string>
     <string name="fire_status_approved">Approved</string>
     <string name="fire_status_refuse">Not Approved</string>
+    <string name="admin">Admin</string>
+    <string name="manager">Manger</string>
+    <string name="user">User</string>
 
     <!-- Login Activity -->
     <string name="login_message_success">Login Successful</string>

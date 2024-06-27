@@ -3,6 +3,7 @@ package com.example.queimasegura.admin.fragments.home
 import android.app.Application
 import android.widget.Toast
 import androidx.lifecycle.*
+import com.example.queimasegura.retrofit.repository.AdminRepository
 import com.example.queimasegura.retrofit.repository.Repository
 import com.example.queimasegura.room.db.AppDataBase
 import com.example.queimasegura.room.entities.Auth
@@ -20,7 +21,8 @@ import kotlinx.coroutines.withContext
 
 class HomeViewModel (
     private val application: Application,
-    private val retrofitRepository: Repository
+    private val retrofitRepository: Repository,
+    private val adminRetrofitRepository: AdminRepository
 ) : AndroidViewModel(application) {
     val statusData: LiveData<Status>
     val authData: LiveData<Auth>
@@ -54,7 +56,7 @@ class HomeViewModel (
         viewModelScope.launch(Dispatchers.IO) {
             val isInternetAvailable = NetworkUtils.isInternetAvailable(application)
             if(isInternetAvailable) {
-                val response = retrofitRepository.adminGetStatus(auth.id, auth.sessionId)
+                val response = adminRetrofitRepository.adminGetStatus(auth.id, auth.sessionId)
                 if(response.isSuccessful) {
                     response.body()?.let { userStatus ->
                         val status = Status(

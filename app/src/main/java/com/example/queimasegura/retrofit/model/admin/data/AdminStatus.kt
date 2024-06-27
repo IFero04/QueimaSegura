@@ -1,4 +1,4 @@
-package com.example.queimasegura.retrofit.model.data.admin
+package com.example.queimasegura.retrofit.model.admin.data
 
 
 data class AdminStatus(

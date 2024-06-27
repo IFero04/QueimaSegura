@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.example.queimasegura.R
 import com.example.queimasegura.common.fire.CreateFireActivity
+import com.example.queimasegura.retrofit.repository.AdminRepository
 import com.example.queimasegura.retrofit.repository.Repository
 import kotlinx.coroutines.launch
 
@@ -39,7 +40,8 @@ class HomeFragment : Fragment() {
 
     private fun initViewModels() {
         val repository = Repository()
-        val viewModelFactory = HomeViewModelFactory(requireActivity().application, repository)
+        val adminRepository = AdminRepository()
+        val viewModelFactory = HomeViewModelFactory(requireActivity().application, repository, adminRepository)
         viewModel = ViewModelProvider(this, viewModelFactory)[HomeViewModel::class.java]
     }
 

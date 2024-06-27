@@ -4,7 +4,7 @@
     android:id="@+id/adminRulesPage"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".admin.UsersFragment">
+    tools:context=".admin.fragments.users.UsersFragment">
 
     <TextView
         android:id="@+id/textViewUsers"

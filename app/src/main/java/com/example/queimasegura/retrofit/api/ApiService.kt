@@ -12,7 +12,6 @@ import com.example.queimasegura.retrofit.model.get.Reasons
 import com.example.queimasegura.retrofit.model.get.SimpleResponse
 import com.example.queimasegura.retrofit.model.get.Types
 import com.example.queimasegura.retrofit.model.get.UserStatus
-import com.example.queimasegura.retrofit.model.get.admin.AdminStatus
 import com.example.queimasegura.retrofit.model.send.CreateUserBody
 import com.example.queimasegura.retrofit.model.send.CreateFireBody
 import com.example.queimasegura.retrofit.model.send.LoginBody
@@ -33,13 +32,6 @@ interface ApiService {
 
     @GET("/static/controller")
     suspend fun getController(): Response<Controller>
-
-    // ADMIN
-    @GET("/admin/status")
-    suspend fun adminGetStatus(
-        @Query("admin_id") adminId: String,
-        @Query("session_id") sessionId: String,
-    ): Response<AdminStatus>
 
     // AUTH
     @GET("/auth/check_email")
