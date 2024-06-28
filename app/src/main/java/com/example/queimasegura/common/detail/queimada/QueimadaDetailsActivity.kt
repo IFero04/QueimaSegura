@@ -58,6 +58,7 @@ class QueimadaDetailsActivity : AppCompatActivity() {
         val dateTextView = findViewById<TextView>(R.id.date_text)
         val locationTextView = findViewById<TextView>(R.id.location_text)
         val obsTextView = findViewById<TextView>(R.id.obs_text)
+        val fireTextView = findViewById<TextView>(R.id.fire_tech_text)
 
         viewModel.responseDetails.observe(this) { response ->
             if(response.isSuccessful) {
@@ -67,6 +68,7 @@ class QueimadaDetailsActivity : AppCompatActivity() {
                     dateTextView.text = it.fire.date
                     locationTextView.text = getLocationString(it.zipCode)
                     obsTextView.text = it.fire.observations
+                    fireTextView.text = it.permissions?.icnfIdentification ?: ""
                 }
             } else if(response.errorBody() != null) {
                 ApiUtils.handleApiError(application, response.errorBody(), ::showMessage)
